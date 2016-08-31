@@ -1,0 +1,75 @@
+	<% include header.ejs %>
+	<title>商城</title>
+	<%if(isDebug){%>
+		<link rel="stylesheet" href="/merchant/css/shop.css" />
+	<%}else{%>
+		<link rel="stylesheet" href="/merchant/css/shop.css" />
+	<%}%>
+</head>
+<body>
+	<div style="width:100%; height:221px; background-color:#eee">
+		<img src="/merchant/img/ad.jpg" style="width:640px; height:201px" />
+	</div>
+	<div class="title">
+		<img src="/merchant/img/cart.png" style="position:relative;top:4px; width:30px; height:30px;"/>
+		礼券购买
+	</div>
+	<table class="coupon">
+		<%for(var i=0;i<aaData.length;i++){%>
+			<%if(i%2==0&&i!=aaData.length){%><tr><%}%>
+				<td>
+					<img src="<%=qnurl+aaData[i].Logourl%>" />
+					<div class="price">
+						<span class="rmb">￥</span>
+						<span class="number"><%=aaData[i].BuyPrice%></span>
+						<br/>
+						<span class="origin-number">原价:￥<%=aaData[i].Amount%></span>
+						<div class="buy">
+							购买
+						</div>
+					</div>
+				</td>
+			<%if(i%2==0&&i!=0){%></tr><%}%>
+		<%}%>
+	</table>
+	<div style="height:20px; width:100%; background-color:#eee"></div>
+	<div class="title">
+		<div style="display:inline-block; width:4px; height:26px; margin:0 8px; background-color:#009aff; position:relative; top:4px;"></div>会员卡购买
+	</div>
+	<table class="vipcard">
+		<tr>
+			<td>
+				<img src="/merchant/img/vipcard1.png"/>
+				<div class="price">
+					<span class="rmb">￥</span>
+					<span class="number">80</span>
+					<br/>
+					<span class="origin-number">原价:￥100</span>
+					<div class="buy">
+						购买
+					</div>
+				</div>
+			</td>
+			<td>
+				<img src="/merchant/img/vipcard2.png"/>
+				<div class="price">
+					<span class="rmb">￥</span>
+					<span class="number">160</span>
+					<br/>
+					<span class="origin-number">原价:￥200</span>
+					<div class="buy">
+						购买
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<script src="/js/prefixfree.min.js"></script>
+	<script src="/js/jquery.min.js"></script>
+	<%if(isDebug){%>
+		<script src="/merchant/js/common.js"></script>
+	<%}else{%>
+		<script src="/merchant/js/common.min.js"></script>
+	<%}%>
+</body>
+</html>

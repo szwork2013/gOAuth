@@ -1,0 +1,187 @@
+input::-webkit-input-placeholder {
+	color: #f1f1ee;
+}
+
+input:-moz-placeholder {
+    color: #f1f1ee;
+}
+
+.app_body {
+	position: absolute;
+	width: 640px;
+	background: url("../../img/app/login.jpg");
+	height: 100%;
+}
+
+.app_logo {
+	position: absolute;
+	width: 300px;
+	height: 120px;
+	background: url("../../img/app/login_ico.png");
+	top: 110px;
+	left: 50%;
+	margin-left: -150px;
+}
+
+.app_input {
+	position: absolute;
+	width: 546px;
+	height: 72px;
+	left: 50%;
+	margin-left: -273px;
+}
+
+.app_phone {
+	top: 310px;
+}
+
+.app_password {
+	top: 423px;
+}
+
+.app_vcode {
+	top: 536px;
+}
+
+.app_input div[class^="ico_"] {
+	position: absolute;
+    width: 40px;
+    height: 40px;
+    background: url("../../img/app/login_ico.png");
+    top: 50%;
+    margin-top: -19px;
+    left: 17px;
+	z-index: 100;
+}
+
+.app_phone .ico_phone {
+    background-position: -124px -122px !important;
+}
+
+.app_password .ico_password {
+    background-position: -83px -122px !important;
+}
+
+.app_password .ico_eyes {
+	background-position: 0px -122px !important;
+	left: 100% !important;
+	margin-left: -57px !important;
+	cursor: pointer !important;
+}
+
+.app_active .ico_eyes {
+	background-position: -43px -122px !important;
+}
+
+.app_input input {
+	position: absolute;
+	font-size: 30px;
+	padding: 17px 22px 17px 65px;
+	width: 455px;
+	border: 1px solid rgba(192, 208, 226, 0.4);
+	border-left: 1px solid #54a5cb;
+	border-right: 1px solid #a2edd7;
+	color: #f1f1ee;
+	background: -webkit-linear-gradient(left, #548bbe 5%, #a2bdd7 95%);
+	background: -moz-linear-gradient(left, #548bbe 5%, #a2bdd7 95%);
+	background: -ms-linear-gradient(left, #548bbe 5%, #a2bdd7 95%);
+	background: -o-linear-gradient(left, #548bbe 5%, #a2bdd7 95%);
+	background: linear-gradient(left, #548bbe 5%, #a2bdd7 95%);
+	background-color: #548bbe;
+	letter-spacing: 2px;
+}
+
+.app_input .txt_password {
+	padding: 17px 65px 17px 65px;
+	width: 412px;
+}
+
+.app_input .txt_vcode {
+	padding: 17px 22px 17px 22px;
+	width: 311px;
+}
+
+.app_input .btn_vcode {
+	position: absolute;
+    font-size: 22px;
+    padding: 22px 12px;
+    border: 1px solid rgba(159,187,211,0.8);
+    right: 0;
+    background: -webkit-linear-gradient(top, #e6edf2, #dbcdd2);
+	background: -moz-linear-gradient(top, #e6edf2, #dbcdd2);
+	background: -ms-linear-gradient(top, #e6edf2, #dbcdd2);
+	background: -o-linear-gradient(top, #e6edf2, #dbcdd2);
+	background: linear-gradient(top, #e6edf2, #dbcdd2);
+	background-color: #dbcdd2;
+    border-radius: 8px;
+    color: #9ca09c;
+    width: 154px;
+    text-align: center;
+}
+
+.app_body .btn_recover {
+	position: absolute;
+	font-size: 34px;
+	border: 0;
+	padding: 20px 200px;
+	top: 650px;
+	left: 50%;
+	margin-left: -272px;
+	border-radius: 8px;
+	background-color: rgba(0, 154, 255, 1);
+	color: #fff;
+	cursor: pointer;
+	letter-spacing: 2px;
+	width: 548px;
+}
+
+.app_body .btn_recover:active {
+	font-size: 36px;
+	padding: 19px 237px;
+	background-color: rgba(0, 158, 255, 1);
+}
+
+.app_body .app_vcode .btn_active {
+	color: #000;
+}
+
+.app_body .app_vcode .btn_active:active {
+	background: -webkit-linear-gradient(top, #dbcdd2, #e6edf2);
+	background: -moz-linear-gradient(top, #dbcdd2, #e6edf2);
+	background: -ms-linear-gradient(top, #dbcdd2, #e6edf2);
+	background: -o-linear-gradient(top, #dbcdd2, #e6edf2);
+	background: linear-gradient(top, #dbcdd2, #e6edf2);
+	background-color: #e6edf2;
+}
+
+.app_body .lbl_title {
+	position: absolute;
+	font-size: 24px;
+	color: #f4f4f4;
+	bottom: 110px;
+	letter-spacing: 1px;
+	left: 50%;
+	margin-left: -62.5px;
+}
+
+.app_body .clj_lable {
+	position: absolute;
+	font-size: 34px;
+	color: #f4f4f4;
+	letter-spacing: 2px;
+	bottom: 50px;
+	left: 50%;
+	margin-left: -72px;
+}
+
+.app_input .lbl_err {
+	display: none;
+}
+
+.err .lbl_err {
+	position: absolute;
+	font-size: 22px;
+	bottom: -34px;
+	color: #cc324b;
+	display: block;
+}

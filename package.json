@@ -1,0 +1,35 @@
+{
+  "name": "node",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node -harmony app.js"
+  },
+  "dependencies": {
+    "colors": "*",
+    "express": "*",
+    "ejs": "*",
+    "mssql": "*",
+    "request": "*",
+    "mysql": "*",
+    "mysql-queues": "*",
+    "body-parser": "1.14.1",
+    "compression": "*",
+    "connect-redis": "*",
+    "express-session": "*",
+    "multer": "0.1.8",
+    "qn": "*",
+    "jssha": "*",
+    "fetch": "*",
+    "redis": "*"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "*",
+    "gulp-filter": "^3.0.1",
+    "gulp-imagemin": "*",
+    "gulp-minify-css": "*",
+    "gulp-uglify": "*",
+    "imagemin-pngquant": "^4.2.0"
+  }
+}

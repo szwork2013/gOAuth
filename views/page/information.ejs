@@ -1,0 +1,675 @@
+<link rel="stylesheet" href="/common/swiper/swiper.3.1.7.min.css" />
+<style>
+    .datepicker {
+        left: 34px!important;
+    }
+    #carList {
+        margin-bottom: 0;
+    }
+    #carList .orders-header {
+        height:28px;
+        padding: 0px 5px;
+    }
+    #carList .orders-header .div-header {
+        border-right: 1px solid #ddd;
+        padding: 5px 0;
+        font-weight: bold;
+    }
+    #carList .orders-list {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    #carList .order-item {
+        padding-bottom: 0;
+    }
+    #carList .order-item-null {
+        text-align: center;
+        font-size: large;
+        padding-bottom: 7px;
+    }
+    #carList .order-item .div-item1 {
+        padding-bottom: 3px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+    #carList .order-item .div-item2 {
+        text-align: right;
+        padding-left: 8px;
+    }
+    #carList .order-item .div-item2 .img-polaroid {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        -webkit-box-shadow: 3px 3px 7px #444;
+        -moz-box-shadow: 3px 3px 7px #444;
+        box-shadow: 3px 3px 7px #444;
+        vertical-align: inherit;
+    }
+    #carList .order-item .div-item3 {
+        padding: 0 8px;
+        text-align: left;
+    }
+    #carList .order-item .div-item3 .div-item_init {
+        padding: 0;
+    }
+    #carList .order-item .div-item3 .div-item_init .currency-i-1 {
+        padding: 0 0 0 2px;
+    }
+    #carList .order-item .div-item3 .div-item_init .currency-i-2 {
+        padding: 0 2px 0 2px;
+    }
+    #carList .order-item .div-item3 .div-item_init .currency-i-3 {
+        padding: 2px 0 0 3px;
+        font-size: large;
+        color:#ed4e2a;
+    }
+    #carList .order-item .div-item3 .div-item_init .price-1 {
+        font-size: 10px;
+    }
+    #carList .order-item .div-item3 .div-item_init .price-2 {
+        font-size: large;
+        color:#ed4e2a;
+    }
+    #carList .order-item .div-item3 .div-item_init .div-tool {
+        margin-top: 3px;
+        padding: 0;
+        padding-right: 10px;
+        text-align: right;
+    }
+    #carList .order-item .div-item3 .div-item_init .div-tool .a-tool {
+        width: 36px;
+        height: 36px;
+        padding: 11px 0;
+        border-color: #5db2ff;
+        -webkit-box-shadow: 1px 1px 1px #888;
+        -moz-box-shadow: 1px 1px 1px #888;
+        box-shadow: 1px 1px 1px #888;
+    }
+    #carList .order-item .div-item3 .div-item_init .div-tool .a-tool i {
+        font-size: 20px;
+        color: #5db2ff;
+    }
+    #carList .orders-footer {
+        padding: 6px;
+        border-top: 1px solid #e5e5e5;
+        height: 31px;
+    }
+    #modal-view-info, #modal-import-info, #modal-settle-info, #modal-delete-info, #modal-type-1-info, #modal-type-2-info, #modal-type-3-info {
+        display: none;
+        overflow-y: auto;
+    }
+
+    @keyframes img_left {
+        from {
+            transform: translate(0, 0) scale(1);
+            -webkit-transform: translate(0, 0) scale(1);
+            -moz-transform: translate(0, 0) scale(1);
+        }
+        to {
+            transform: translate(-140%, 0) scale(0.1);
+            -webkit-transform: translate(-140%, 0) scale(0.1);
+            -moz-transform: translate(-140%, 0) scale(0.1);
+        }
+    }
+
+    .div_img_left {
+        animation: img_left 3s;
+        -webkit-box-shadow: 3px 3px 7px #444;
+        -moz-box-shadow: 3px 3px 7px #444;
+        box-shadow: 3px 3px 7px #444;
+    }
+
+    @keyframes img_right {
+        from {
+            transform: translate(140%, 0) scale(0.1);
+            -webkit-transform: translate(140%, 0) scale(0.1);
+            -moz-transform: translate(140%, 0) scale(0.1);
+        }
+        to {
+            transform: translate(0, 0) scale(1);
+            -webkit-transform: translate(0, 0) scale(1);
+            -moz-transform: translate(0, 0) scale(1);
+        }
+    }
+
+    .div_img_right {
+        animation: img_right 3s;
+        -webkit-box-shadow: 3px 3px 7px #444;
+        -moz-box-shadow: 3px 3px 7px #444;
+        box-shadow: 3px 3px 7px #444;
+    }
+
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+    .orders-container .orders-list .order-item:last-child {
+        border-bottom: none;
+    }
+</style>
+<div id="widget_information" class="widget animated fadeInDown text-center" style="margin-bottom: 10px;">
+    <div class="row" style="margin: 0;">
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="text-align: right;">
+            <img class="" src='<%= user.Headportrait ? (qnurl + user.Headportrait + '?imageView2/2/w/80/h/80') : (user.Wechat ? user.Wechat.Photo : "") %>' style="border: 2px solid #5db2ff;width: 80px;height: 80px;border-top-left-radius: 15%;border-top-right-radius: 15%;border-bottom-right-radius: 15%;border-bottom-left-radius: 15%;filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity: 0.8;border-bottom: 2px solid #CAC587;"/>
+        </div>
+        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7" style="text-align: left;padding-left: 0;padding-top: 20px;">
+            <div class="row" style="margin-bottom: 5px;">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-right" style="padding-right: 0;">
+                    昵称：
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 text-left" style="padding-left: 0;">
+                    <span style="margin-left: -5px;"><%=user.Custname%></span>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 5px;">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-right" style="padding-right: 0;">
+                    手机号：
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 text-left" style="padding-left: 0;">
+                    <a href="tel:<%=user.Mobile%>" style="cursor: none;">
+                        <span style="margin-left: -5px;"><%=user.Mobile%></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 列表页 -->
+<div id="carList" class="orders-container">
+    <ul class="orders-list">
+        <% if (list.length) { 
+            for(var i = 0, len = list.length; i < len; i++) { %>
+                <li class="order-item">
+                    <div class="row" style="margin: 0;">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 div-item1" onclick="carView('<%= list[i].Innerid %>', $('.modal-view-1-info'));">
+                            <div><%= (list[i].model_name || '略') %></div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 div-item2" onclick="carView('<%= list[i].Innerid %>', $('.modal-view-1-info'));">
+                            <a class="animated fadeInDown">
+                                <img src="<%= qnurl + list[i].pic_url + '?imageView2/2/w/70/h/60' + watermark %>" height="60" width="70" class="img-polaroid">
+                            </a>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 div-item3" onclick="carView('<%= list[i].Innerid %>', $('.modal-view-1-info'));">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 div-item_init">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 div-item_init">
+                                    <div class="item-time">
+                                        <span class="currency"><i class="fa fa-dashboard circular currency-i-2"></i></span>
+                                        <span class="price price-1" style=""><%= (list[i].mileage || 0) + "万公里" %></span>
+                                    </div>
+                                    <div class="item-time">
+                                        <span class="currency"><i class="fa fa-cny circular currency-i-3"></i></span>
+                                        <span class="price price-2"><%= list[i].price %>万</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 text-right div-tool">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            <% } 
+        } else { %>
+            <li class="order-item order-item-null" style="padding-top: 12%;">
+                <img src="../img/nolist.png" style="width: 60%;">
+            </li>     
+        <% } %>
+    </ul>
+</div>
+<!-- 查看页 -->
+<div id="modal-view-info" class="modal modal-message modal-info" aria-hidden="true" style="position: absolute;">
+    <div style="position: initial;width: auto;margin: 0;">
+        <div class="modal-content">
+            <div class="modal-header" style="padding: 0;background-color: rgba(87,181,221,0.4);">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+            <div class="modal-footer" style="margin: 10px;margin-bottom: 0;">
+                <button type="button" class="btn btn-info btn-lg" data-dismiss="modal">关闭</button>
+            </div>
+            <div class="modal-body" style="padding: 10px;">
+                <form role="form">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td colspan="2">
+                                    基本信息
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    品牌/车系
+                                </td>
+                                <td>
+                                    <span id="lblbrand_series"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    车型
+                                </td>
+                                <td style="word-break:break-all;width: 180px;">
+                                    <span id="lblmodel"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    车源地
+                                </td>
+                                <td>
+                                    <span id="lbladdress"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    颜色
+                                </td>
+                                <td>
+                                    <span id="lblcolor"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    手自动挡
+                                </td>
+                                <td>
+                                    <span id="lblgeartype"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    排量/排放标准
+                                </td>
+                                <td>
+                                    <span id="lblliter_dischargeName"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    当前车况
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    上牌时间
+                                </td>
+                                <td>
+                                    <span id="lblregister_date"></span>
+                                </td>
+                            </tr> 
+                            <tr>
+                                <td>
+                                    行驶里程数
+                                </td>
+                                <td>
+                                    <span id="lblmileage"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    定期4S店保养
+                                </td>
+                                <td>
+                                    <span id="lblistain"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    重大事故/水浸/火烧
+                                </td>
+                                <td>
+                                    <span id="lblisproblem"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    车况备注/优势
+                                </td>
+                                <td style="word-break:break-all;width: 180px;">
+                                    <span id="lblremark"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    年检与保险
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    年检到期时间
+                                </td>
+                                <td>
+                                    <span id="lblckyear_date"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    强险到期时间
+                                </td>
+                                <td>
+                                    <span id="lbltlci_date"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    商险到期时间
+                                </td>
+                                <td>
+                                    <span id="lblaudit_date"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    市场行情
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    新车指导价
+                                </td>
+                                <td>
+                                    <span id="lbleval_price"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    当月成交量
+                                </td>
+                                <td>
+                                    <span id=""></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    其它信息
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    原车主信息
+                                </td>
+                                <td>
+                                    <span id="lblmasterdesc"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    转让原因
+                                </td>
+                                <td>
+                                    <span id="lblsellreason"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<input class="modal-view-1-info" type="hidden" data-toggle="modal" data-target="#modal-view-info"/>
+<script src="/common/swiper/swiper.3.1.7.jquery.min.js"></script>
+<script>
+    var swiper;
+    /*
+    * 弹出选择框
+    **/
+    function showModal(obj, cb) {
+        $("#" + obj.id + " .modal-header span").text(obj.title);
+        $("#" + obj.id + " .modal-body").html("");
+        (function($body) {
+            var bl = true;
+            for (var cl in obj.msg)
+                $body.append(
+                    $("<div></div>").addClass("form-title").css(cl, "none").html(cl)
+                ).append(
+                    (function($div) {
+                        for (var i=0; i < obj.msg[cl].length; i++) {
+                            $div.append(
+                                $("<div></div>").addClass("col-lg-" + obj.col + " col-md-" + obj.col + " col-sm-" + obj.col + " col-xs-" + obj.col + " text-center btn btn-link").html(
+                                    obj.msg[cl][i][obj.text]
+                                ).prop("value", obj.msg[cl][i][obj.value]).click(function() {
+                                    if (bl) {
+                                        bl = false;
+                                        cb({
+                                            text: $(this).text(),
+                                            value: $(this).prop("value")
+                                        }, function() {
+                                            bl = true;
+                                        });
+                                    }
+                                })
+                            );
+                        }
+                        return $div;
+                    })($("<div></div>").addClass("row"))
+                );
+            return $body;
+        })(
+            $("#" + obj.id + " .modal-body")
+        ).append(
+            $("<div style='border-bottom: none;'></div>").addClass("form-title").append(
+                $("<i data-dismiss='modal' style='font-size: 30px !important;" + (obj.isHideClose ? "display:none;" : "") + "'></i>").addClass("fa  fa-angle-double-up extend-fa closed btn btn-link")
+            )
+        );
+        $("." + obj.id).click();
+    }
+
+    /*
+    * 查看
+    **/
+    function carView(id, $modalClass) {
+        // 打开
+        $modalClass.click();
+        // 调整大小
+        $(".page-body").css("padding", 0);
+        // 加载开始
+        $(".loading-container").removeClass("loading-inactive");
+        // 加载数据
+        $.ajax({
+            url: "/api/carViewById",
+            type: "post",
+            data: {
+                id: id
+            },
+            success: function(msg) {
+                if (msg) {
+                    // 初始化编辑
+                    initData(
+                        $("#modal-view-info"), 
+                        msg,
+                        // 结构化
+                        [
+                            { 
+                                id: "#lblbrand_series", 
+                                names: ["brand_name", "series_name"], 
+                                number: 2,
+                                prefix: "",
+                                suffix: ""
+                            },
+                            {
+                                id: "#lblmodel", 
+                                names: ["model_name"], 
+                                number: 1,
+                                prefix: "",
+                                suffix: ""      
+                            },
+                            {
+                                id: "#lbladdress", 
+                                names: ["provname", "cityname"], 
+                                number: 2,
+                                prefix: "",
+                                suffix: ""   
+                            },
+                            {
+                                id: "#lblcolor",
+                                names: ["color"],
+                                number: 1,
+                                prefix: "",
+                                suffix: ""  
+                            },
+                            {
+                                id: "#lblgeartype",
+                                names: ["geartype"],
+                                number: 1,
+                                prefix: "",
+                                suffix: "" 
+                            },
+                            {
+                                id: "#lblliter_dischargeName",
+                                names: ["liter", "dischargeName"],
+                                number: 2,
+                                prefix: "",
+                                suffix: ""   
+                            },
+                            {
+                                id: "#lblregister_date",
+                                names: ["register_date"],
+                                number: 1,
+                                prefix: "",
+                                suffix: ""   
+                            },
+                            {
+                                id: "#lblmileage",
+                                names: ["mileage"],
+                                number: 1,
+                                prefix: "",
+                                suffix: "万公里"   
+                            },
+                            {
+                                id: "#lblistain",
+                                names: ["istain"],
+                                number: 1,
+                                prefix: "",
+                                suffix: ""   
+                            },
+                            {
+                                id: "#lblisproblem",
+                                names: ["isproblem"],
+                                number: 1,
+                                prefix: "",
+                                suffix: ""   
+                            },
+                            {
+                                id: "#lblremark",
+                                names: ["remark"],
+                                number: 1,
+                                prefix: "",
+                                suffix: ""   
+                            },
+                            {
+                                id: "#lblckyear_date",
+                                names: ["ckyear_date"],
+                                number: 1,
+                                prefix: "",
+                                suffix: ""   
+                            },
+                            {
+                                id: "#lbltlci_date",
+                                names: ["tlci_date"],
+                                number: 1,
+                                prefix: "",
+                                suffix: ""   
+                            },
+                            {
+                                id: "#lblaudit_date",
+                                names: ["audit_date"],
+                                number: 1,
+                                prefix: "",
+                                suffix: ""   
+                            },
+                            {
+                                id: "#lbleval_price",
+                                names: ["eval_price"],
+                                number: 1,
+                                prefix: "",
+                                suffix: "万元"   
+                            },
+                            {
+                                id: "#lblmasterdesc",
+                                names: ["masterdesc"],
+                                number: 1,
+                                prefix: "",
+                                suffix: "万元"   
+                            },
+                            {
+                                id: "#lblsellreason",
+                                names: ["sellreason"],
+                                number: 1,
+                                prefix: "",
+                                suffix: "万元"   
+                            },
+                            {
+                                id: "#lbleval_price",
+                                names: ["estimateprice"],
+                                number: 1,
+                                prefix: "",
+                                suffix: "万元"
+                            }
+                        ],
+                        function(data) {
+                            swiper.removeAllSlides();
+                            var slide = [];
+                            // 循环放图片
+                            if (data.imges.length) {
+                                for (var i=0; i < data.imges.length; i++) {
+                                    slide.push($('<div class="swiper-slide"></div>').append(
+                                        $("<img></img>").height(220).attr("src", data.qnUrl + data.imges[i].Path)
+                                    ));
+                                }
+                            }
+                            swiper.appendSlide(slide);
+                            $(".loading-container").addClass("loading-inactive");
+                        }
+                    );
+                } else {
+                    location.href = "/open/login?showalert=warning&pagetype=maintain";
+                }
+            }
+        });
+    }
+
+    function init() {
+        swiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            observer: true,
+            observeParents: true
+        });
+        $("#widget-bottom").hide();
+
+        (function(height) {
+            $("#page-body").height(height).css("padding", "5px 5px");
+            $("#carList .orders-list").height(height - 90).scroll(function () {
+                if ($(this).height() + $(this)[0].scrollTop >= $(this)[0].scrollHeight) {
+                    // 加载动画
+                }
+            });
+        })(document.documentElement.clientHeight - 58);
+
+        <% if (qcsc == "true") { %>
+            $(".glyphicon-arrow-left").click(function() {
+                location.href = sessionStorage.href;
+            });
+        <% } %>
+    }
+</script>

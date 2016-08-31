@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="Keywords" content="" />
+	<meta name="description" content="" />
+	<meta name="HandheldFriendly" content="True" />
+	<meta name="MobileOptimized" content="640" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta http-equiv="cleartype" content="on" />
+	<meta content="telephone=no" name="format-detection" />
+	<meta http-equiv="x-rim-auto-match" content="none">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<script>
+        var winWidth = 0, winHeight = 0;
+        if((navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i))) {
+            // 判断系统版本号是否大于 4
+           if (Boolean(navigator.userAgent.match(/OS [5-9]_\d[_\d]* like Mac OS X/i))) {
+                sessionStorage.winWidth = screen.width;
+                sessionStorage.winHeight = screen.height;
+            }
+        }
+        if (sessionStorage.winWidth) {
+            winWidth = sessionStorage.winWidth;
+        } else {
+            if (window.innerWidth)
+                winWidth = window.innerWidth;
+            else if ((document.body) && (document.body.clientWidth))
+                winWidth = document.body.clientWidth;
+            sessionStorage.winWidth = winWidth;
+        }
+        var scale = winWidth / 640;
+        if (sessionStorage.winHeight) {
+            winHeight = sessionStorage.winHeight;
+        } else {
+            if (window.innerHeight)
+                winHeight = window.innerHeight;
+            else if ((document.body) && (document.body.clientHeight))
+                winHeight = document.body.clientHeight;
+            sessionStorage.winHeight = winHeight;
+        }
+        document.write('<meta id="viewport" content="width=device-width, initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no" name="viewport" />');
+	</script>
+	<link rel="icon" href="/img/cxw.ico" />

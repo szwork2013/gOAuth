@@ -1,0 +1,51 @@
+	<% include header.ejs %>
+	<title>核销详情</title>
+	<link href="../css/font-awesome.min.css" rel="stylesheet" />
+	<%if(isDebug){%>
+		<link rel="stylesheet" href="/merchant/css/common.css" />
+		<link rel="stylesheet" href="/merchant/css/detail.css" />
+	<%}else{%>
+		<link rel="stylesheet" href="/merchant/css/common.css" />
+		<link rel="stylesheet" href="/merchant/css/detail.css" />
+	<%}%>
+</head>
+<body>
+	<ul class="top-menu">
+		<li><a href="/merchant/verificationSn">核销卡券</a></li>
+		<li class="selected"><a href="/merchant/verificationRecord">核销记录</a><div class="underline"></div></li>
+		<li><a href="/merchant/settLog">结算历史</a></li>
+	</ul>
+	<div class="hr"></div>
+	<div class="main">
+		<div class="title"><div class="detail"></div>核销详情</div>
+		<table>
+			<tr>
+				<td>卡券序列号:&nbsp;</td>
+				<td><%=data.Code%></td>
+			</tr>
+			<tr>
+				<td>卡券类型:&nbsp;</td>
+				<td><%=data.Title%></td>
+			</tr>
+			<tr>
+				<td>核销金额:&nbsp;</td>
+				<td><%=data.Costprice%>元</td>
+			</tr>
+			<tr>
+				<td>核销时间:&nbsp;</td>
+				<td><%=data.Usedtime.substring(0,10)%></td>
+			</tr>
+		</table>
+	</div>
+	<input class="data" type="hidden" value="<%=JSON.stringify(data)%>"/>
+	<script src="/js/prefixfree.min.js"></script>
+	<script src="/js/jquery.min.js"></script>
+	<%if(isDebug){%>
+		<script src="/merchant/js/common.js"></script>
+		<script src="/merchant/js/detail.js"></script>
+	<%}else{%>
+		<script src="/merchant/js/common.min.js"></script>
+		<script src="/merchant/js/detail.min.js"></script>
+	<%}%>
+</body>
+</html>

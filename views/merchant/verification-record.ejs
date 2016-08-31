@@ -1,0 +1,119 @@
+	<% include header.ejs %>
+	<title>核销卡券</title>
+	<link href="../css/font-awesome.min.css" rel="stylesheet" />
+	<%if(isDebug){%>
+		<link rel="stylesheet" href="/merchant/css/common.css" />
+		<link href="/common/mobiscroll/css/mobiscroll_002.css" rel="stylesheet" type="text/css">
+		<link href="/common/mobiscroll/css/mobiscroll.css" rel="stylesheet" type="text/css">
+		<link href="/common/mobiscroll/css/mobiscroll_003.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="/merchant/css/verification-record.css" />
+	<%}else{%>
+		<link rel="stylesheet" href="/merchant/css/common.css" />
+
+		<link href="/common/mobiscroll/css/mobiscroll.css" rel="stylesheet" type="text/css">
+
+		<link rel="stylesheet" href="/merchant/css/verification-record.css" />
+	<%}%>
+</head>
+<body>
+	<ul class="top-menu">
+		<li><a href="/merchant/verificationSn">核销卡券</a></li>
+		<li class="selected"><a href="/merchant/verificationRecord">核销记录</a><div class="underline"></div></li>
+		<li><a href="/merchant/settLog">结算历史</a></li>
+	</ul>
+	<div class="hr"></div>
+	<div class="filtrate">
+		<i class="fa fa-search"></i>
+		<input name="code" type="text" placeholder="请输入搜索卡券号"/>
+		<input name="search" type="button" value="筛选"/>
+	</div>
+	<hr style="width:100%; border-top:1px solid #e1e1e1"/>
+	<div style="margin:24px 20px; font-size:2rem; padding-left:0.5rem">
+		<span class="current">当前: </span>
+		<span class="current-condition">所有核销记录</span>
+	</div>
+	<table class="record record-title" cellspacing="0" cellpadding="0">
+		<tr>
+			<td colspan="4">
+				<div class="split"></div>
+				<span style="font-size:2.7rem;font-weight:bold;">核销记录</span>
+				<span style="float:right">
+					<span style="#666">核销总数</span><span class="totalNumber"></span>
+					<span style="#666">&nbsp;总金额</span><span class="totalPrice"></span>
+				</span>
+			</td>
+		</tr>
+		<tr>
+			<td>核销时间</td>
+			<td>卡券号</td>
+			<td>核销金额(元)</td>
+			<td>卡券类型</td>
+		</tr>
+	</table>
+	<table id="record-content" class="record" cellspacing="0" cellpadding="0">
+		
+	</table>
+	<div class="condition-container">
+		<div class="condition">
+			<div class="title">
+				<div class="cancel">取消</div>
+				<div class="empty">清空筛选</div>
+				<div class="ok">确定</div>
+			</div>
+			<div class="content">
+				<div class="left">
+					<div class="selected" data-type="right-type">卡券类型</div>
+					<div data-type="right-time">核销时间</div>
+				</div>
+				<div class="right right-type">
+					<%for(var i=0;i<coupon_type.length;i++){%>
+						<div data-value="<%=coupon_type[i].CodeValue%>"><%=coupon_type[i].CodeName%></div>
+						<hr/>
+					<%}%>
+				</div>
+				<div class="right right-time">
+					<div data-time="0">所有</div>
+					<hr/>
+					<div data-time="1">最近1个核销周期</div>
+					<hr/>
+					<div data-time="2">最近2个核销周期</div>
+					<hr/>
+					<div data-time="3">最近3个核销周期</div>
+					<hr/>
+					<div data-time="4">最近4个核销周期</div>
+					<hr/>
+					<div data-time="-1" class="user-defined">
+						<div style="line-height: 60px;">自定义</div>
+						<div class="user-defined-div">
+							<div style="display:inline-block; position:relative">
+								<input class="date start-date" type="text" readonly="readonly" />
+								<i class="start-i fa fa-calendar"></i>
+							</div>
+							至
+							<div style="display:inline-block; position:relative">
+								<input class="date end-date" type="text" readonly="readonly" />
+								<i class="end-i fa fa-calendar"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="/js/prefixfree.min.js"></script>
+	<script src="/js/jquery.min.js"></script>
+	<%if(isDebug){%>
+		<script src="/common/mobiscroll/js/mobiscroll_002.js"></script>
+		<script src="/common/mobiscroll/js/mobiscroll_004.js"></script>
+		<script src="/common/mobiscroll/js/mobiscroll.js"></script>
+		<script src="/common/mobiscroll/js/mobiscroll_003.js"></script>
+		<script src="/common/mobiscroll/js/mobiscroll_005.js"></script>
+		<script src="/merchant/js/common.js"></script>
+		<script src="/merchant/js/verification-record.js"></script>
+	<%}else{%>
+		<script src="/merchant/js/common.min.js"></script>
+		<script src="/common/mobiscroll/js/mobiscroll.min.js"></script>
+		<script src="/merchant/js/verification-record.min.js"></script>
+	<%}%>
+</body>
+</html>

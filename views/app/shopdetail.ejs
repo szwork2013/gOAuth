@@ -1,0 +1,90 @@
+<!-- 页面样式 -->
+<link rel="stylesheet" href="/css/app/shopdetail.css" />
+<!-- 页面头部 -->
+<div class="app_header">
+	<div class="body_li_frame">
+		<img class="li_frame_img" src="<%= qnUrl + detail.Headportrait %>">
+		<div class="li_frame_text">
+			<span class="frame_text_title">
+				<%= detail.Shopname || "未知" %>
+			</span>
+			<span class="frame_text_note">
+				<%= detail.Area || "未知" %>
+			</span>
+			<div class="frame_text_lable">
+				<% if (detail.CardTypeNames) {
+					var arrJuan = detail.CardTypeNames.split(",");
+					for (var j=0; j < arrJuan.length; j++) { %>
+						<div class="text_lable"><%= arrJuan[j] || "未知" %></div>
+					<% }
+				} %>
+			</div>
+			<span class="frame_text_money_yj_yssl">
+				已售 <%= detail.SoldedNum || "0" %>
+			</span>
+		</div>
+	</div>
+</div>
+<!-- 页面主体 -->
+<div class="app_body">
+	<div class="body_top">
+		<div class="body_top_ico"></div>
+		<div class="body_text"><%= (detail.Area || "") + " " + (detail.Address || "") %></div>
+	</div>
+	<div class="body_bottom">
+		<div class="body_bottom_ico"></div>
+		<a href="<%= detail.Telephone ? ('tel:' + detail.Telephone) : '#' %>">
+			<div class="body_text"><%= detail.Telephone || "" %></div>
+		</a>
+	</div>
+</div>
+<!-- 页面底部 -->
+<div class="app_bottom">
+	<div class="bottom_top">
+		<div class="bottom_text">本店优惠券</div>
+	</div>
+	<div class="bottom_bottom">
+		<div id="bottom_bottom" class="bottom_bottom_data">
+			<% if (list && list.length) {
+				for (var i=0; i < list.length; i++) { %>
+					<a href="<%= list[i].ProductUrl || "#" %>">
+						<div class="body_li">
+							<div class="body_li_frame">
+								<img class="li_frame_img" src="<%= qnUrl + list[i].Logourl %>" />
+								<div class="li_frame_text">
+									<span class="frame_text_title">
+										<%= list[i].Title %>
+									</span>
+									<span class="frame_text_note">
+										<%= list[i].ShopArea %>/<%= list[i].Shopname %>
+									</span>
+									<span class="frame_text_money">
+										<span class="frame_text_money_fh">¥</span>
+										<span><%= list[i].BuyPrice %></span>
+										<span class="frame_text_money_yj">
+											<span class="frame_text_money_yj_fh">¥</span>
+											<%= list[i].Amount %>
+										</span>
+									</span>
+									<span class="frame_text_money_yj_yssl">
+										已售 <%= list[i].SoldedNum || "0" %>
+									</span>
+								</div>
+							</div>
+						</div>
+					</a>
+				<% }
+			} else { %>
+				<div class="null_class">
+					<img src="../img/app/mallnull.jpg">
+					<div class="null_class_title">
+						<span>本店还没有优惠劵</span>
+					</div>
+				</div>
+			<% } %>
+		</div>
+	</div>
+</div>
+<!-- 页面脚本 -->
+<script src="../js/app/scroll.js"></script>
+<script src="../js/app/shopdetail.js"></script>

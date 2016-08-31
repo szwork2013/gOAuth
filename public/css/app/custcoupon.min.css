@@ -1,0 +1,311 @@
+.app_header {
+	width: 640px;
+	height: 90px;
+	position: absolute;
+	border-bottom: 1px solid #ccc;
+}
+
+.app_header .header_position {
+	width: 324px;
+	height: 52px;
+	position: absolute;
+	border: 2px solid #009aff;
+	left: 50%;
+	margin-left: -164px;
+	top: 50%;
+	margin-top: -28px;
+	border-radius: 24px;
+	overflow: hidden;
+}
+
+.app_header .header_position div[class^="header_btn_"] {
+	width: 162px;
+	height: 52px;
+	line-height: 52px;
+	position: absolute;
+	font-size: 24px;
+	font-weight: bold;
+	text-align: center;
+	letter-spacing: 2px;
+	cursor: pointer;
+}
+
+.app_header .header_position .header_btn_left {
+	left: 0;
+	background: #ffffff;
+	color: #009aff;
+	border-top-left-radius: 24px;
+	border-bottom-left-radius: 24px;
+    background: -webkit-linear-gradient(top, #eeeeee, #ffffff);
+    background: -moz-linear-gradient(top, #eeeeee, #ffffff);
+    background: -ms-linear-gradient(top, #eeeeee, #ffffff);
+    background: -o-linear-gradient(top, #eeeeee, #ffffff);
+    background: linear-gradient(top, #eeeeee, #ffffff);
+}
+
+.app_header .header_position div[class^="header_btn_"]:active {
+	text-shadow: rgba(0, 0, 0, 0.5) -1px -1px 0;
+	font-size: 24px;
+}
+
+.app_header .header_position .header_btn_right {
+	right: 0;
+	background: #ffffff;
+	color: #009aff;
+	border-top-right-radius: 24px;
+	border-bottom-right-radius: 24px;
+    background: -webkit-linear-gradient(top, #eeeeee, #ffffff);
+    background: -moz-linear-gradient(top, #eeeeee, #ffffff);
+    background: -ms-linear-gradient(top, #eeeeee, #ffffff);
+    background: -o-linear-gradient(top, #eeeeee, #ffffff);
+    background: linear-gradient(top, #eeeeee, #ffffff);
+}
+
+.app_header .header_position .active {
+	background: #009aff;
+	color: #ffffff;
+	background: -webkit-linear-gradient(top, #51b1f8, #009aff);
+    background: -moz-linear-gradient(top, #51b1f8, #009aff);
+    background: -ms-linear-gradient(top, #51b1f8, #009aff);
+    background: -o-linear-gradient(top, #51b1f8, #009aff);
+    background: linear-gradient(top, #51b1f8, #009aff);
+}
+
+.app_body {
+	width: 640px;
+	height: 79px;
+	padding: 23px 0;
+	top: 91px;
+	position: absolute;
+	border-bottom: 1px solid #ccc;
+}
+
+.app_body div[class^="body_"] {
+	width: 212px;
+	height: 81px;
+	line-height: 81px;
+	text-align: center;
+	font-size: 30px;
+	color: #000;
+	position: absolute;
+	letter-spacing: 1px;
+	cursor: pointer;
+}
+
+.app_body div[class^="body_"] i {
+	font-size: 34px;
+    color: #c0c0c0;
+    left: 178px;
+    position: absolute;
+    top: 23px;
+}
+
+.app_body .body_left {
+	left: 0;
+}
+
+.app_body .body_middle {
+	left: 215px;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+}
+
+.app_body .body_right {
+	right: 0;
+}
+
+.app_bottom {
+	width: 640px;
+	top: 217px;
+	position: absolute;
+	overflow-y: auto;
+}
+
+.app_bottom .bottom_li {
+	width: 590px;
+	height: 200px;
+	padding: 0px 25px;
+	background-color: #fff;
+	border-bottom: 1px solid #e1e1e1;
+	position: relative;
+}
+
+.app_bottom .bottom_li .bottom_li_body {
+	width: 590px;
+	height: 165px;
+	position: absolute;
+	bottom: 18px;
+	cursor: pointer;
+}
+
+.bottom_li .bottom_li_body .li_body_img {
+	width: 188px;
+	height: 165px;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+
+.bottom_li .bottom_li_body .li_body_img .img_background {
+	position: absolute;
+}
+
+.bottom_li .bottom_li_body .li_body_img .img_text {
+	position: absolute;
+    font-size: 46px;
+    width: 187px;
+    text-align: center;
+    color: #fff;
+    top: 50%;
+    margin-top: -23px;
+    z-index: 50;
+    font-weight: bold;
+}
+
+.bottom_li .bottom_li_body .li_body_content {
+	width: 402px;
+	height: 165px;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	color: #fff;
+}
+
+.bottom_li_body .li_body_content .body_content_top {
+	width: 382px;
+	position: absolute;
+	right: 0;
+	font-size: 30px;
+	padding: 17.5px 10px;
+	white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 380px;
+}
+
+.bottom_li_body .li_body_content .body_content_middle {
+	width: 362px;
+	position: absolute;
+	top: 65px;
+	font-size: 22px;
+	padding: 11.5px 10px;
+	left: 10px;
+	border-radius: 5px;
+}
+
+.bottom_li_body .li_body_content .body_content_bottom {
+	width: 382px;
+	position: absolute;
+	top: 110px;
+	right: 0;
+	font-size: 22px;
+	padding: 14.5px 10px;
+}
+
+.app_screening {
+	width: 640px;
+	top: 217px;
+	position: absolute;
+	background-color: #e7e7e7;
+	z-index: 50;
+	display: none;
+}
+
+.app_screening .screening_ul {
+	position: relative;
+	display: none;
+}
+
+.app_screening .screening_ul .screening_ul_li {
+	font-size: 28px;
+	padding: 28.5px 55px;
+	cursor: pointer;
+	background-color: #fff;
+	border-bottom: 1px solid #e1e1e1;
+}
+
+.app_screening .screening_dq {
+	position: relative;
+	display: none;
+}
+
+.app_screening .screening_dq .screening_dq_header {
+	font-size: 30px;
+	height: 86px;
+	background-color: #fff;
+	border-bottom: 1px solid #e1e1e1;
+}
+
+.app_screening .screening_dq .screening_dq_header div[class^="dq_header_"] {
+	position: absolute;
+	top: 28px;
+	width: 213.333333px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.app_screening .screening_dq i {
+	position: absolute;
+	right: 10px;
+	top: 1px;
+}
+
+.app_screening .screening_dq div[class^="screening_dq_body_"] {
+	font-size: 28px;
+	background-color: #fff;
+	position: absolute;
+}
+
+.app_screening .screening_dq .screening_dq_body_left {
+	width: 150px;
+	left: 0;
+	display: block;
+}
+
+.app_screening .screening_dq .screening_dq_body_middle {
+	left: 150px;
+	width: 150px;
+	display: none;
+}
+
+.app_screening .screening_dq .screening_dq_body_right {
+	left: 300px;
+	width: 340px;
+	display: none;
+}
+
+.app_screening .screening_dq div[class^="screening_dq_body_"] .screening_dq_li {
+	cursor: pointer;
+	border-bottom: 1px solid #e1e1e1;
+	text-align: center;
+	padding: 25.5px 0;
+	position: relative;
+	height: 33px;
+}
+
+.app_screening .screening_dq div[class^="screening_dq_body_"] .screening_dq_li .dq_li_text {
+	position: relative;
+}
+
+.app_nolj {
+	position: absolute;
+    left: 50%;
+    margin-left: -152px;
+    top: 22%;
+}
+
+.qsckk {
+	position: absolute;
+	width: 210px;
+	height: 70px;
+	border: 1px solid #009aff;
+	border-radius: 10px;
+	left: 50%;
+	margin-left: -105px;
+	top: 48%;
+	font-size: 28px;
+	color: #009aff;
+	text-align: center;
+	line-height: 70px;
+	cursor: pointer;
+}

@@ -1,0 +1,91 @@
+	<% include header.ejs %>
+	<title>结算详情</title>
+	<link href="../css/font-awesome.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="/common/swiper/swiper.3.1.7.min.css" />
+	<%if(isDebug){%>
+		<link rel="stylesheet" href="/merchant/css/common.css" />
+		<link rel="stylesheet" href="/merchant/css/detail.css" />
+	<%}else{%>
+		<link rel="stylesheet" href="/merchant/css/common.css" />
+		<link rel="stylesheet" href="/merchant/css/detail.css" />
+	<%}%>
+	<style>
+		.main table td:nth-of-type(2n+1){
+			width:210px;
+		}
+	</style>
+</head>
+<body>
+	<ul class="top-menu">
+		<li><a href="/merchant/verificationSn">核销卡券</a></li>
+		<li><a href="/merchant/verificationRecord">核销记录</a></div></li>
+		<li class="selected"><a href="/merchant/settLog">结算历史</a><div class="underline"></li>
+	</ul>
+	<div class="hr"></div>
+	<div class="main">
+		<div class="title"><div class="detail"></div>结算详情</div>
+		<table>
+			<tr>
+				<td>结算单号:&nbsp;</td>
+				<td><%=data.Orderid%></td>
+			</tr>
+			<tr>
+				<td>结算金额:&nbsp;</td>
+				<td><%=data.SettTotal%>元</td>
+			</tr>
+			<tr>
+				<td>结算日期:&nbsp;</td>
+				<td><%=(data.SettTime||'').substring(0,10)%></td>
+			</tr>
+			<tr>
+				<td>核销日期:&nbsp;</td>
+				<td><%=(data.SettCycleStart||'').substring(0,10)%>至<%=(data.SettCycleEnd||'').substring(0,10)%></td>
+			</tr>
+			<tr>
+				<td>银行电子回单号:&nbsp;</td>
+				<td><%=data.SettSerialNum||''%></td>
+			</tr>
+			<tr>
+				<td>转入帐号:&nbsp;</td>
+				<td><%=data.SettAccount||''%></td>
+			</tr>
+		</table>
+		<div class="btns">
+			<%if(data.Pictures && data.Pictures.length && data.Pictures[0]){%>
+				<div class="back">
+					查看附件
+				</div>
+			<%}%>
+			<div class="close">
+				关闭
+			</div>
+		</div>
+	</div>
+	<div class="pictures">
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<% if (data.Pictures && data.Pictures.length) { %>
+					<% for (var i in data.Pictures) { 
+						if(data.Pictures[i]){%>
+							<div class="swiper-slide" style="background-image:url('<%= qnurl + data.Pictures[i] %>')">
+							</div>
+						<%}
+					}
+				} %>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" value="<%=data.Pictures%>"/>
+	<script src="/js/prefixfree.min.js"></script>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/common/swiper/swiper.3.1.7.jquery.min.js"></script>
+	<%if(isDebug){%>
+		<script src="/merchant/js/common.js"></script>
+		<script src="/merchant/js/detail.js"></script>
+	<%}else{%>
+		<script src="/merchant/js/common.min.js"></script>
+		<script src="/merchant/js/detail.min.js"></script>
+	<%}%>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!-- 页面样式 -->
+<link rel="stylesheet" href="/css/app/coupondetail.css" />
+<!-- 页面内容 -->
+<img class="app_background fadeIn animated" src="../img/app/detail.jpg" />
+<div class="app_body_title fadeIn animated"><%= detail.Title || '未知' %></div>
+<div class="app_body_valid fadeIn animated">
+	<%= detail.Vstart ? (new Date(detail.Vstart)).format("yyyy-MM-dd") : "未知" %> 至 <%= detail.Vend ? (new Date(detail.Vend)).format("yyyy-MM-dd")  : "未知" %>
+</div>
+<!-- <img class="app_body_qrcode fadeIn animated" src="<%= qnUrl + detail.QrCode %>"/> -->
+<div class="app_body_qrcode fadeIn animated" style="background-image:url(<%= qnUrl + detail.QrCode %>);"></div>
+<div class="app_body_code fadeIn animated"><%= detail.Code || '未知' %></div>
+<div class="app_body_desc fadeIn animated"><%= detail.Usedesc || '' %></div>
+<div class="app_body_address fadeIn animated"><%= (detail.Shopname || '') + " " + (detail.Area || '') + " " + (detail.Address || '')%></div>
+<!-- 页面脚本 -->
+<script src="../js/app/coupondetail.js"></script>

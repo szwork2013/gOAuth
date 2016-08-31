@@ -1,0 +1,112 @@
+<link href="../css/page/home.css" rel="stylesheet" />
+<link rel="prefetch" href="../img/app/kedu.png" />
+<link rel="prefetch" href="../img/app/luopan.png" />
+<div id="page_home" class="widget animated fadeInDown" style="margin: 0;overflow-y: auto;">
+	<div class="widget-header bordered-bottom bordered-palegreen extend-widget-header">
+		<div class="row">
+			<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+				<div class="bottle tada animated">
+					<div class="bottle_top">
+						<div class="bottle_mouth"></div>
+						<div class="bottle_title">
+							<span class="bottle_title_left"><%=dzData.length%></span>
+							<span class="bottle_title_right">赞</span>
+						</div>
+						<div class="highlight"></div>
+					</div>
+					<div class="bottle_neck">
+						<div class="highlight"></div>
+					</div>
+					<div class="bottle_main">
+						<div class="bottle_inner">
+							<% for(var i = 0, t = 140; i < dzData.length; i++) {
+								if (dzData[i].Photo) {
+									var val = i % 3, randmun = $.randomNum(-150, 150);
+									if (val == 0) {
+										t -= 18;
+									} %>
+									<img src="<%= dzData[i].Photo %>" width="18" height="18" class="bottle_inner_img" style="margin-left: <%
+										switch (val) {
+											case 0:
+												%>34<%
+												break;
+											case 1:
+												%>8<%
+												break;
+											case 2:
+												%>60<%
+												break;
+										}
+									%>px;margin-top: <%= t %>px;transform:rotate(<%= randmun %>deg);-moz-transform:rotate(<%= randmun %>deg);-webkit-transform:rotate(<%= randmun %>deg);-ms-transform:rotate(<%= randmun %>deg);-o-transform:rotate(<%= randmun %>deg);z-index: <%=$.randomNum(0, 10) %>;"/>
+								<% }
+							} %>
+						</div>
+						<div class="highlight"></div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+				<div class="lock-container">
+					<div class="lock-box text-align-center" onclick="sessionStorage.noMemberReturn = false;location.href='/open/member'">
+						<div class="lock-username"><%= userData.Custname ? (userData.Custname.length >= 8 ? (userData.Custname.substring(0, 16) + "...") : userData.Custname) : "" %></div>
+						<img class="lock-head" src="<%= userData.Headportrait ? (qnUrl + userData.Headportrait + '?imageView2/2/w/52/h/52') : (userData.Wechat ? userData.Wechat.Photo : '/img/tx.png') %>"/>
+					</div>
+					<div class="signinbox">
+						<span class="signinbox_title">
+							<% if (!(userData.AuthStatus == '0' || userData.AuthStatus == '3')) {
+								if (userData.AuthStatus == '2') { %>
+									会员
+								<% } else { %>
+									<a href="/open/wait">待审核</a>
+								<% }
+							} else { %> 
+								<a href="/open/certification">点我，认证</a>
+							<% } %>
+						</span>
+						<div class="signinbox_content">
+							<span class="signinbox_content_jf">
+								积分：
+								<%= userData.TotalInfo ? (userData.TotalInfo.Currpoint || "0") : "未知" %>
+							</span>
+						</div>
+						<div class="signinbox_content_gr" onclick="sessionStorage.noMemberReturn = false;location.href='/open/member'">
+							<span class="badge badge-success graded" style="text-shadow: 0 1px 0 #cccccc, 0 1px 0 #c9c9c9, 0 1px 0 #bbbbbb, 0 1px 0 #b9b9b9, 0 2px 0 #aaaaaa, 0 2px 1px rgba(0, 0, 0, 0.1), 0 0 2px rgba(0, 0, 0, 0.1), 0 0px 1px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.25), 0 6px 6px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.15);background: -webkit-linear-gradient(top, #9cd584,#74aa5d);background: -moz-linear-gradient(top, #9cd584,#74aa5d);background: -ms-linear-gradient(top, #9cd584,#74aa5d);background: -o-linear-gradient(top, #9cd584,#74aa5d);background: linear-gradient(top, #9cd584,#74aa5d);">
+                               查看个人信息
+                            </span>
+						</div>
+						<span class="badge badge-warning badge-square" style="margin-top: 8px;">
+                            <a href="/api/exit" style="color: #fff;padding-left:0;">退出</a>
+                        </span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="charts-body" style="position: relative;">
+		<a href="/open/coupon" style="position: absolute;width: 100%;height:79px;">
+			<div class="pulse animated" style="position: absolute;right: 13%;height: 79px;line-height: 79px;font-size: 18px;color:#666;"><%= userData ? (userData.TotalInfo ? (userData.TotalInfo.Currpouponnum || "0") : "未知") : "未知" %></div>
+			<img class="pulse animated" src="../img/app/kajuan.png" style="width: 100%;">
+		</a>
+		<a href="/open/carsearch" style="position: absolute;width: 100%;top: 80px;height:79px;">
+			<div id="daoh" class="pulse animated" style="position: absolute;width: 100%;border-top: 1px solid #ccc;">
+				<img class="ldimg" src="../img/app/shouye_01.jpg" style="width:100%;">
+				<img class="ldzzimg" src="../img/app/luopan.png" style="position: absolute;height: 120px;">
+				<img class="ldkdimg" src="../img/app/kedu.png" style="position: absolute;height: 120px;">
+			</div>
+		</a>
+		<img class="rubberBand animated" src="../img/app/shouye_02.jpg" style="position: absolute;width: 100%;top:160px;"/>
+		<img class="fadeInDown animated" src="../img/app/shouye_03.jpg" style="position: absolute;width: 100%;top:253px;">
+	</div>
+<!-- 	<div class="charts-body">
+		<div id="brand-popularity">
+		</div>
+		<div id="income">
+		</div>
+		<div id="gmv">
+		</div>
+	</div> -->
+</div>
+<input id="isopenid" type="hidden" value="<%=isopenid%>"/>
+<input id="wxurl" type="hidden" value="https://open.weixin.qq.com/connect/oauth2/authorize?appid=<%=appId%>&redirect_uri=http://<%=redirect_uri%>/api/openid&response_type=code&scope=snsapi_base&state=#wechat_redirect"/>
+<script src="/common/highcharts.js"></script>
+<script src="/js/page/home.js"></script>

@@ -1,0 +1,242 @@
+<!-- 样式引用 -->
+<link rel="stylesheet" href="/common/swiper/swiper.min.css" />
+<link rel="stylesheet" href="/css/app/cardetail.css" />
+<!-- 页面内容 -->
+<div class="app_body">
+	<!-- 页面头部 -->
+	<div class="app_header fadeIn animated">
+		<% if (car.carno) { %>
+			<span class="app_header_carno pulse animated">
+				<%= "车辆编号：" + car.carno %>
+			</span>
+		<% } %>
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<% if (car.imges && car.imges.length) { %>
+					<% for (var i in car.imges) { 
+						if (car.imges[i].Path){ %>
+							<div class="swiper-slide">
+								<a href="<%= car.qnUrl + car.imges[i].Path + "?imageView2/2/w/640" + watermark %>">
+									<img src="<%= car.qnUrl + car.imges[i].Path + "?imageView2/2/w/640/h/400" + watermark%>" onerror="this.src='/img/no-img.png'">
+								</a>
+							</div>
+						<% }
+					}
+				} %>
+			</div>
+			<div class="swiper-pagination"></div>
+		</div>
+	</div>
+	<div class="body_header fadeIn animated">
+		<div class="header_block_1">
+			<img src="../img/app/biaoqian.png" class="block_1_bj pulse animated" width="640" height="60"/>
+			<div class="block_1_cx">
+				<%=car.model_name%>
+			</div>
+			<div class="block_1_jj"><%=new Date(car.register_date).format("yyyy年M月")%>上牌/<%=car.mileage%>万公里/<%=car.cityname%></div>
+			<div class="block_1_sj">
+				售价：
+				<span class="fh">¥</span>
+				<span class="je"><%=car.price%>万</span>
+				<span class="ts">（含过户费）</span>
+			</div>
+			<div class="block_1_hq">
+				<div class="zdj">新车指导价 <span></span>万</div>
+				<div class="cjl">当月成交 <span></span></div>
+			</div>
+		</div>
+		<% if (isfriend != -1) { %>
+			<div class="header_block_2">
+				<% if (ishide != 'true') { %>
+					<% if (isfriend != '0') { %>
+						<div class="block_2_dh">
+							<div class="dh">
+								联系电话：<%= cust.Mobile || "" %>
+							</div>
+						</div>
+						<a href="tel:<%= cust.Mobile %>" style="cursor: none;">
+							<div class="block_2_dhbtn pulse animated">
+								<img class="swing animated" src="../img/app/dianhua.png"/>
+								<div class="btnDh">
+									<span>拨打电话</span>
+								</div>
+							</div>
+						</a>
+					<% } else { %>
+						<div class="block_2_dh">
+							<div class="dh">
+								联系电话：<%= cust.Mobile ? cust.Mobile.substr(0, 3) : "" %>********<span>仅好友可见</span>
+							</div>
+						</div>
+						<div class="block_2_dhbtn_disable pulse animated">
+							<img class="swing animated" src="../img/app/dianhua.png"/>
+							<div class="btnDh">
+								<span>拨打电话</span>
+							</div>
+						</div>
+					<% } %>
+				<% } else { %>
+					<div class="block_2_dh">
+						<div class="lxr">
+							联系车主：<%= cust.Custname || "" %>
+						</div>
+						<div class="dh">
+							联系电话：<%= cust.Mobile || "" %>
+						</div>
+					</div>
+					<a href="tel:<%= cust.Mobile %>" style="cursor: none;">
+						<div class="block_2_dhbtn pulse animated">
+							<img class="swing animated" src="../img/app/dianhua.png"/>
+							<div class="btnDh">
+								<span>拨打电话</span>
+							</div>
+						</div>
+					</a>
+				<% } %>
+			</div>
+		<% } %>
+		<div class="header_block_3 <% if (isfriend == -1) { %>header_block_3_me<% } %>">
+		</div>
+	</div>
+	<div class="body_content fadeIn animated <% if (isfriend == -1) { %>body_content_me<% } %>">
+		<div class="content_block_1 pulse animated">
+			<img src="../img/app/biaoqia1.png" class="block_1_bj" width="640"/>
+			<div class="block_1_title">
+				基本信息
+			</div>
+		</div>
+		<div class="content_block_2">
+			<div class="block_2_tr">
+				<div class="block_2_td block_2_td_1">
+					上牌时间
+				</div>
+				<div class="block_2_td block_2_td_color">
+					<%=new Date(car.register_date).format("yyyy-M")%>
+				</div>
+				<div class="block_2_td">
+					里程数
+				</div>
+				<div class="block_2_td block_2_td_color">
+					<%=car.mileage%>万公里
+				</div>
+			</div>
+			<div class="block_2_tr">
+				<div class="block_2_td block_2_td_1">
+					车源地
+				</div>
+				<div class="block_2_td block_2_td_color">
+					<%=car.cityname%>
+				</div>
+				<div class="block_2_td">
+					手自动挡
+				</div>
+				<div class="block_2_td block_2_td_color">
+					<%=car.geartype%>
+				</div>
+			</div>
+			<div class="block_2_tr">
+				<div class="block_2_td block_2_td_1">
+					排量
+				</div>
+				<div class="block_2_td block_2_td_color">
+					<%=car.liter%>
+				</div>
+				<div class="block_2_td">
+					颜色
+				</div>
+				<div class="block_2_td block_2_td_color">
+					<%=car.color%>
+				</div>
+			</div>
+		</div>
+		<div class="content_block_3">
+		</div>
+		<div class="content_block_4">
+		</div>
+	</div>
+	<div class="body_bottom fadeIn animated <% if (isfriend == -1) { %>body_bottom_me<% } %>">
+		<div class="bottom_block_1 pulse animated">
+			<img src="../img/app/biaoqia1.png" class="block_1_bj" width="640"/>
+			<div class="block_1_title">
+				当前车况
+			</div>
+		</div>
+		<div class="bottom_block_2">
+			<div class="block_2_tr">
+				<span>重大事故/水浸/火烧</span><%=car.isproblem%>
+				<div></div>
+				<span>定期4S店保养</span><%=car.istain%>
+			</div>
+		</div>
+		<div class="bottom_block_3">
+		</div>
+		<div class="bottom_block_4 pulse animated">
+			<img src="../img/app/biaoqia1.png" class="block_1_bj" width="640"/>
+			<div class="block_1_title">
+				年检与保险
+			</div>	
+		</div>
+		<div class="bottom_block_5">
+			<div class="block_td_1">
+				年检到期时间
+			</div>
+			<div class="block_td_2">
+				<%=car.ckyear_date%>
+			</div>
+			<div class="block_td_3">
+				强制险到期时间
+			</div>
+			<div class="block_td_4">
+				<%=car.tlci_date%>
+			</div>
+		</div>
+		<div class="bottom_block_6">
+			<div class="block_td_1">
+				商业险到期时间
+			</div>
+			<div class="block_td_2">
+				<%=car.tlci_date%>
+			</div>
+			<div class="block_td_3">
+			</div>
+			<div class="block_td_4">
+			</div>
+		</div>
+		<div class="bottom_block_7">
+		</div>
+		<div class="bottom_block_8 pulse animated">
+			<img src="../img/app/biaoqia1.png" class="block_1_bj" width="640"/>
+			<div class="block_1_title">
+				车况备注
+			</div>		
+		</div>
+		<div class="bottom_block_9">
+			<%=car.remark%>
+		</div>
+	</div>
+</div>
+<!-- 页面底部 -->
+<% if (ishide != 'true') { %>
+	<% if(isfriend != "0") { 
+		if (isfriend != "-1") { %>
+			<a href="/open/information?innerid=<%=cust.Innerid%>&isqc=true">
+				<div class="app_bottom">
+					<span class="bottom_text pulse animated">查看好友</span>
+				</div>
+			</a>
+		<% }
+	} else { %>
+		<div class="app_bottom">
+			<span class="bottom_text pulse animated" onclick="addRelationsApply('<%=cust.Innerid%>')">加为好友</span>
+		</div>
+	<% } %>
+<% } %>
+<!-- 隐藏数据 -->
+<input id="isfriend" type="hidden" value="<%= isfriend %>"/>
+<input id="ishide" type="hidden" value="<%= ishide %>"/>
+<input id="Innerid" type="hidden" value="<%= car.Innerid %>"/>
+<input id="model_id" type="hidden" value="<%= car.model_id %>"/>
+<!-- 脚本引用 -->
+<script src="/common/swiper/swiper.jquery.min.js"></script>
+<!-- 页面脚本 -->
+<script src="../js/app/cardetail.js"></script>

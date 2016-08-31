@@ -1,0 +1,15 @@
+.login {
+	text-align: center;
+}
+
+.login-input {
+	font-size: 28px;
+	padding: 21px;
+	width: 454px;
+	border: 1px solid #8EBBD8;
+	background: -webkit-linear-gradient(left, #548CBF,#A2BDD8);
+	background: -moz-linear-gradient(left, #548CBF,#A2BDD8);
+	background: -ms-linear-gradient(left, #548CBF,#A2BDD8);
+	background: -o-linear-gradient(left, #548CBF,#A2BDD8);
+	background: linear-gradient(left, #548CBF,#A2BDD8);
+}

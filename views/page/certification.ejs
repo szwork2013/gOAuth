@@ -1,0 +1,117 @@
+<link rel="stylesheet" type="text/css" href="/css/page/certification.css">
+<div class="tabbable tabs-right">
+    <form id="certificationForm"  action="/api/certification" method="post">
+        <div class="certification-registerbox-caption registerbox-caption">请填写真实信息以便我们审核。<br/>Tips：所有内容都不是必填项，但是您填写的越完善，审核越容易成功哦~</div>
+        <div id="home4" class="tab-pane in active">
+            <div class="certification-form-group form-group">
+                <span class="input-icon icon-left">
+                    <input name="idcard" type="text" class="form-control" placeholder="身份证号">
+                    <i class="fa fa-user circular"></i>
+                </span>
+            </div>
+            <div class="form-group certification-form-group">
+                <span class="input-icon icon-left">
+                    <input name="realname" type="text" class="form-control" placeholder="真实姓名">
+                    <i class="fa fa-user circular"></i>
+                </span>
+            </div>
+            <div class="form-group certification-form-group">
+                <span class="input-icon icon-left">
+                    <input name="enterprisename" type="text" class="form-control" placeholder="企业名称">
+                    <i class="fa fa-user circular"></i>
+                </span>
+            </div>
+            <div class="form-group certification-form-group">
+                <span class="input-icon icon-left">
+                    <input name="licencecode" type="text" class="form-control" placeholder="工商营业执照注册号">
+                    <i class="fa fa-user circular"></i>
+                </span>
+            </div>
+            <div class="form-group certification-form-group">
+                <span class="input-icon icon-left">
+                    <input name="licencearea" type="text" class="form-control" placeholder="营业执照所在地">
+                    <i class="fa fa-user circular"></i>
+                </span>
+            </div>
+            <div class="form-group certification-form-group">
+                <span class="input-icon icon-left">
+                    <input name="organizationcode" type="text" class="form-control" placeholder="组织机构代码号">
+                    <i class="fa fa-user circular"></i>
+                </span>
+            </div>
+            <div class="form-group certification-form-group">
+                <span class="input-icon icon-left">
+                    <input name="taxcode" type="text" class="form-control" placeholder="税务登记证号">
+                    <i class="fa fa-user circular"></i>
+                </span>
+            </div>
+            <div id="divUpload" class="form-group certification-form-group">
+                <div class="certification-row row">
+                    <div class="certification-col col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                        <i id="imgUpload" class="fa fa-picture-o"></i>
+                    </div>
+                    <div class="certification-col2 col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                        请上传您的相关证件照片，我们将会尽快为您审核
+                    </div>
+                </div>
+                <span>
+                    <input name="txtUpload" type="hidden" value="0">
+                </span>
+            </div>
+            <div class="form-group">
+                <button class="certification-submit" type="submit"></button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    /*
+    * 初始化布局
+    **/
+    function init() {
+        $("#floating").show("slow");
+        
+        // 定时隐藏
+        (function(isStatus) {
+            setTimeout(function() {
+                $("#floating").hide(isStatus ? "slow" : 0);
+            }, isStatus ? 1500 : 0);
+        })(sessionStorage.authstatus != 2);
+
+        // 选图
+        var mun = 4;
+        $("#widget-bottom").hide();
+
+        // 窗口高度调节
+        (function(height) {
+            $("#page-body").height(height).css("padding", "5px 5px");
+            $("#certificationForm").height(height);
+        })(document.documentElement.clientHeight - 68);
+
+        // 选图
+        $("#imgUpload").click(function() {
+            if (wx) {
+                // 设置图片上传
+                imgupload($("#divUpload"), {
+                    max: 4,
+                    num: $("input[name='txtUpload']").val()
+                }, function(data) {
+                    // 保存图片数量
+                    $("input[name='txtUpload']").val(data.num);
+                    // 图片个数是否合法
+                    if (data.num >= 3) {
+                        $("input[name='txtUpload']")
+                            .parent().parent()
+                            .removeClass("has-error")
+                            .find(".help-block")
+                            .hide();
+                    }
+                });
+            }
+        });
+
+        $("#btnOperation").click(function() {
+            $("[type='submit']").click();
+        });
+    }
+</script>

@@ -1,0 +1,93 @@
+<!-- 页面样式 -->
+<link rel="stylesheet" href="/css/app/carbrand.css" />
+<!-- 页面头部 -->
+<div class="app_header">
+	<%=title%><span class="bx <% if (data.hidebx) { %>hide<% } %>">不限</span><span class="qk">清空</span>
+</div>
+<!-- 页面内容 -->
+<div class="app_body">
+	<div id="app_body" class="body_left <% if (brand != 'true') { %>body_left_active<% } %>">
+		<% if (brand == 'true') { %>
+			<div class="left_header">
+				<a name="热门品牌">
+					<div class="header_title">
+						热门品牌
+					</div>
+				</a>
+				<div class="header_body">
+					<% if (data.hot) { 
+						for (var i=0; i < data.hot.length; i++) { %>
+							<a class="djxz" text="<%=data.hot[i][colname]%>" value="<%=data.hot[i].Innerid%>"
+								<% if ({ 1: "BrandName", 2: "SeriesName", 3: "Modelname" }[type] != colname) { %>
+									href="<% if (ishide != 'true') { %>/open/carBrand<% } else { %>/open/carBrandAll<% } %>?id=<%=data.hot[i].Innerid%><% if ( brand == 'true' ) { %>&isseries=true<% } else { if (series == 'true') { %>&ismodel=true<% } } %>&type=<%=type%>"
+								<% } %>
+							>
+								<div class="body_li">
+									<img src="<%= data.qnUrl + data.hot[i].Logurl + '?imageView2/2/w/60/h/50' %>" height="50" width="60"/>
+									<div class="li_title"><%= data.hot[i][colname] %></div>
+								</div>
+							</a>
+						<%} 
+					}%>
+				</div>
+			</div>
+		<% } %>
+		<div class="left_body <% if (brand != 'true') { %>body_left_active<% } %>">
+			<% if (data.obj) { 
+				for (var name in data.obj) { %>
+					<a name="<%= name %>">
+						<div class="body_title">
+							<%= name %>
+						</div>
+					</a> 
+					<div class="body_content">
+						<% for (var i=0; i < data.obj[name].length; i++) { %>
+							<a  class="djxz" text="<%=data.obj[name][i][colname]%>" value="<%=data.obj[name][i].Innerid%>"
+								<% if ({ 1: "BrandName", 2: "SeriesName", 3: "Modelname" }[type] != colname) { %>
+									href="<% if (ishide != 'true') { %>/open/carBrand<% } else { %>/open/carBrandAll<% } %>?id=<%=data.obj[name][i].Innerid%><% if ( brand == 'true' ) { %>&isseries=true<% } else { if (series == 'true') { %>&ismodel=true<% } } %>&type=<%=type%>"
+								<% } %>
+							>
+								<div class="content_li"><%= data.obj[name][i][colname] %></div>
+							</a>
+						<% } %>
+					</div>
+				<% } 
+			} %>
+		</div>
+	</div>
+	<div class="body_right">
+		<a href="#A"><div class="right_li">A</div></a>
+		<a href="#B"><div class="right_li">B</div></a>
+		<a href="#C"><div class="right_li">C</div></a>
+		<a href="#D"><div class="right_li">D</div></a>
+		<a href="#E"><div class="right_li">E</div></a>
+		<a href="#F"><div class="right_li">F</div></a>
+		<a href="#G"><div class="right_li">J</div></a>
+		<a href="#H"><div class="right_li">H</div></a>
+		<a href="#I"><div class="right_li">I</div></a>
+		<a href="#J"><div class="right_li">J</div></a>
+		<a href="#K"><div class="right_li">K</div></a>
+		<a href="#L"><div class="right_li">L</div></a>
+		<a href="#M"><div class="right_li">M</div></a>
+		<a href="#N"><div class="right_li">N</div></a>
+		<a href="#O"><div class="right_li">O</div></a>
+		<a href="#P"><div class="right_li">P</div></a>
+		<a href="#Q"><div class="right_li">Q</div></a>
+		<a href="#R"><div class="right_li">R</div></a>
+		<a href="#S"><div class="right_li">S</div></a>
+		<a href="#T"><div class="right_li">T</div></a>
+		<a href="#U"><div class="right_li">U</div></a>
+		<a href="#V"><div class="right_li">V</div></a>
+		<a href="#W"><div class="right_li">W</div></a>
+		<a href="#X"><div class="right_li">X</div></a>
+		<a href="#Y"><div class="right_li">Y</div></a>
+		<a href="#Z"><div class="right_li">Z</div></a>
+		<a href="#热门品牌"><div class="right_li">#</div></a>
+	</div>
+</div>
+<!-- 隐藏数据 -->
+<input id="type" type="hidden" value="<%= type %>"/>
+<input id="colname" type="hidden" value="<%= colname %>"/>
+<!-- 页面脚本 -->
+<script src="../js/app/scroll.js"></script>
+<script src="../js/app/carbrand.js"></script>

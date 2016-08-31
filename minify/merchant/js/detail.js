@@ -1,0 +1,1 @@
+$(function(){var i;$(".btns .back").tap(function(){$(".pictures").show(),i||(i=new Swiper(".swiper-container"))}),$(".pictures").click(function(){$(this).hide()}),$(".btns .close").tap(function(){history.go(-1)})});

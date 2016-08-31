@@ -1,0 +1,30 @@
+<style>
+	.extend-row {
+		margin: 0;
+		height: 45px;
+	}
+	.extend-btn-title {
+		padding: 12px 10px;
+	}
+	.extend-btn-back {
+		padding: 12px 0px;
+	}
+	.extend-glyphicon-arrow-left {
+		white-space:nowrap;
+		font-size: 20px; 
+		color: #5db2ff;
+		float: right;
+	}
+</style>
+<div class="row extend-row">
+	<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 extend-btn-back">
+		<%if(hasLogin){%>
+			<a href="<%= backUrl %>">
+				<span class="glyphicon glyphicon-arrow-left extend-glyphicon-arrow-left"></span>
+			</a>
+		<%}%>
+	</div>
+	<div id="lblTitle" class="col-lg-11 col-md-11 col-sm-11 col-xs-11 extend-btn-title text-left"> 
+		<span class="widget-caption" style="font-size: 18px;"><%=title%></span>
+	</div>
+</div>

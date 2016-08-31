@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>跳转等待中</title>
+    <script>
+    	/*
+		* 获取微信个人信息的方法
+		*/
+		function getQueryString(name) {
+		    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		    var r = window.location.search.substr(1).match(reg);
+		    if (r != null) return unescape(r[2]);
+		    return null;
+		}
+
+    	function goToHtml() {
+    		window.location.href = "http://localshake.chexinwang.cn/app/open?code=" + getQueryString("code");
+    	}
+    </script>
+</head>
+<body onload="goToHtml();">
+    <img src="../img/yqts.jpg" style="width: 100%;"/>
+</body>
+</html>

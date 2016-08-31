@@ -1,0 +1,152 @@
+<style>
+    .friends_list {
+        position: absolute;
+        display: block;
+        height: 400px;
+        padding-right: 35px;
+        background: #ded5e9;
+        -webkit-box-shadow: 3px 3px 7px #444;
+        -moz-box-shadow: 3px 3px 7px #444;
+        box-shadow: 3px 3px 7px #444;
+    }
+    .initials {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 30px;
+        height: 100%;
+    }
+    .initials div {
+        position: relative;
+        font-size: 20px;
+        font-weight: 600;
+        color: #427fed;
+        text-align: center;
+        line-height: 100%;
+        cursor: pointer;
+        -webkit-transition: background-color 0.4s ease-in-out;
+        -moz-transition: background-color 0.4s ease-in-out;
+        -ms-transition: background-color 0.4s ease-in-out;
+        -o-transition: background-color 0.4s ease-in-out;
+        transition: background-color 0.4s ease-in-out;
+    }
+    .initials div:active {
+        background-color: #427fed;
+        color: #ded5e9;
+        font-size: 32px;
+    }
+    .friends_list ul {
+        position: relative;
+        display: block;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        overflow-x: hidden;
+        list-style: none;
+        background-color: #eee;
+    }
+    .friends_list ul li {
+        position: relative;
+        display: block;
+        padding: 10px;
+        color: rgb(85, 85, 85);
+        cursor: pointer;
+        -webkit-transition: background-color 0.4s ease-in-out;
+        -moz-transition: background-color 0.4s ease-in-out;
+        -ms-transition: background-color 0.4s ease-in-out;
+        -o-transition: background-color 0.4s ease-in-out;
+        transition: background-color 0.4s ease-in-out;
+        border: 1px solid #e5e5e5;
+        background-color: #fff;
+    }
+    .friends_list ul li img {
+        width: 40px;
+        height: 40px;
+        border: 1px solid #e5e5e5;
+        -webkit-box-shadow: 3px 3px 7px #444;
+        -moz-box-shadow: 3px 3px 7px #444;
+        box-shadow: 3px 3px 7px #444;
+    }
+    .friends_list ul li span {
+        font-size: 18px;
+        padding-left: 10px;
+    }
+    .friends_list ul li:hover {
+        background: rgba(255, 255, 255, .1);
+    }
+</style>
+<div id="friends" class="orders-container" style="margin-bottom: 0;">
+    <div class="rows">
+        <div class="friends_list col-lg-12 col-sm-12 col-xs-12" style="padding-left: 0;">
+            <div class="initials"></div>
+            <ul>
+                <% if (data.length) {
+                    console.log(data);
+                    for (var n = 0; n < data.length; n++) { %>
+                        <li class="animated fadeInDown" onclick="location.href='/open/information?innerid=<%=data[n].Friendsid%>';">
+                            <img src="<%= data[n].Headportrait ? (qnurl + data[n].Headportrait + '?imageView2/2/w/40/h/40') : data[n].Photo %>">
+                            <span sort="<%= data[n].sort %>"><%= data[n].Custname %></span>
+                        </li>
+                    <% }
+                } %>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    function init() {
+        (function () {
+            // Initials' Array
+            var initials = [];
+            $(".friends_list ul li span").each(function(i) {
+                // Get first letter
+                var initial = $(this).attr("sort");
+                // If the letter isn't in the array
+                if (initials.indexOf(initial) === -1)
+                // Add to the array
+                initials.push(initial);
+            });
+
+            // Append the letters to the div
+            var h = 100 / initials.length;
+
+            var val = "";
+            $.each(initials.sort(), function(index, value) {
+                if (value != '#') {
+                    $(".initials").append("<div style='height:" + h + "%;'>" + value + "</div>");
+                } else {
+                    val = "#";
+                }
+            });
+            if (val) {
+                 $(".initials").append("<div style='height:" + h + "%;'>" + val + "</div>");
+            }
+        })();
+
+        // When click to an initial
+        $(".initials div").click(function() {
+            var letter = $(this).html().toLowerCase(),
+                found = 0,
+                index = 0;
+            $(".friends_list ul li").each(function(i) {
+                if (found == 0) {
+                    var initial = $(this).find("span").html().charAt(0).toLowerCase();
+                    if (initial == letter) {
+                        index = $(this).index();
+                        found = 1;
+                    }
+                }
+            });
+            //
+            $(".friends_list ul").animate({
+                scrollTop: index * 62
+            }, 5);
+        });
+        // 
+        $("#friends .friends_list").height($("#page-body").height() - 5);
+        $(".initials div").css("line-height", $(".initials div").height() + "px");
+    }
+</script>

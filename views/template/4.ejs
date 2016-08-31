@@ -1,0 +1,180 @@
+﻿	<% include ../merchant/header.ejs %>
+		<title><%= carData.model_name %></title>
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<%if(isDebug){%>
+			<link rel="stylesheet" href="/template/css/common.css" />
+			<link rel="stylesheet" href="/template/css/4.css" />
+			<script src="/template/js/shake.min.js"></script>
+			<script src="/js/jquery.min.js"></script>
+			<script src="/template/js/common.js"></script>
+			<script src="/template/js/4.js"></script>
+		<%}else{%>
+			<link rel="stylesheet" href="/template/css/common.css" />
+			<link rel="stylesheet" href="/template/css/4.css" />
+			<script src="/template/js/shake.js"></script>
+			<script src="/js/jquery.min.js"></script>
+			<script src="/template/js/common.js"></script>
+			<script src="/template/js/4.js"></script>
+		<%}%>
+		<script src="/js/prefixfree.min.js"></script>
+	</head>
+	<body>
+		<%if(isshow){%>
+			<img class="back" src="/template/img/back.png" onclick="location.href = '<%= url%>';"/>
+		<%}%>
+		<img class="finger" src="/template/img/finger.png"/>
+		<img src="/template/img/4/4-background.jpg" style="width:640px; height:442px; margin-bottom: 8px;"/>
+		<div class="img-container" style="width:640px;height:421px;position:absolute;top:0">
+			<img src="/template/img/4/car1.png" style="width:89px;height:62px;position:absolute;top:10px;left:10px"/>
+			<img src="/template/img/4/car2.png" style="width:95px;height:74px;position:absolute;bottom:10px;right:10px"/>
+			<input name="qnUrl" type="hidden" value="<%=carData.qnUrl%>"/>
+			<%if(carData&&carData.imges&&carData.imges.length){%>
+				<input name="car" type="hidden" value="<%=JSON.stringify(carData.imges)%>"/>
+				<%if(carData.imges[0]&&carData.imges[0].Path){%>
+					<input name='first-img' type="hidden" value="<%=carData.qnUrl + carData.imges[0].Path%>"/>
+					<div class="photo1">
+						<img src="/template/img/4/sling.png" style="position: absolute; top: -31px; left: -48px;"/>
+						<img class="car photo-wall" src="<%= carData.qnUrl + carData.imges[0].Path %>" />
+					</div>
+				<%}%>
+				<%if(carData.imges[1]&&carData.imges[1].Path){%>
+					<div class="photo2">
+						<img src="/template/img/4/sling.png" style="position: absolute; top: -31px; left: 2px;"/>
+						<img class="car photo-wall" src="<%= carData.qnUrl + carData.imges[1].Path %>" >
+					</div>
+				<%}%>
+				<%if(carData.imges[2]&&carData.imges[2].Path){%>
+					<div class="photo3">
+						<img src="/template/img/4/sling.png" style="position: absolute; top: -31px; left: -11px;"/>
+						<img class="car photo-wall" src="<%= carData.qnUrl + carData.imges[2].Path %>" >
+					</div>
+				<%}%>
+				<%if(carData.imges[3]&&carData.imges[3].Path){%>
+					<div class="photo4">
+						<img src="/template/img/4/sling.png" style="position: absolute; top: -31px; left: 0px;"/>
+						<img class="car photo-wall" src="<%= carData.qnUrl + carData.imges[3].Path %>" >
+					</div>
+				<%}%>
+				<%if(carData.imges[4]&&carData.imges[4].Path){%>
+					<div class="photo5">
+						<img src="/template/img/4/sling.png" style="position: absolute; top: -31px; left: 0px;"/>
+						<img class="car photo-wall" src="<%= carData.qnUrl + carData.imges[4].Path %>" >
+					</div>
+				<%}%>
+				<%if(carData.imges[5]&&carData.imges[5].Path){%>
+					<div class="photo6">
+						<img src="/template/img/4/sling.png" style="position: absolute; top: -31px; left: -48px;"/>
+						<img class="car photo-wall" src="<%= carData.qnUrl + carData.imges[5].Path %>" >
+					</div>
+				<%}%>
+			<%}%>
+		</div>
+		<div class="grey-cover"></div>
+		<div class="big-img">
+			<div class="img"></div>
+			<div class="nav_btn nav-pre"></div>
+			<div class="nav_btn nav-next"></div>
+		</div>
+		<p><%= carData.model_name %></p>
+		<p>
+			<span class="price">售价</span>
+			<span class="triangle-right"></span>
+			<span style="color:red"> ￥<%= carData.price %>万</span>
+		</p>
+		<div class="title" style="top: 11px;">车辆详情</div>
+		<table class="datum item" cellspacing="0">
+			<tbody>
+				<tr>
+					<td class="td1">品牌</td>
+					<td class="td2"><%= carData.brand_name %></td>
+					<td class="td3">车型</td>
+					<td class="td4"><%= carData.series_name %></td>
+				</tr>
+				<tr>
+					<td class="td1">类型</td>
+					<td class="td2" colspan="3"><%= carData.model_name %></td>
+				</tr>
+				<tr>
+					<td class="td1">车源地</td>
+					<td class="td2"><%= carData.provname %>-<%= carData.cityname %></td>
+				</tr>
+				<tr>
+					<td class="td1">颜色</td>
+					<td class="td2"><%= carData.color %></td>
+				</tr>
+				<tr>
+					<td class="td1">排量</td>
+					<td class="td2"><%= carData.liter %></td>
+				</tr>
+				<tr>
+					<td class="td1">排放标准</td>
+					<td class="td2"><%= carData.dischargeName %></td>
+				</tr>
+				<tr>
+					<td class="td1">手自动档</td>
+					<td class="td2"><%= carData.geartype %></td>
+				</tr>
+				<tr>
+					<td class="td1">行驶里程数</td>
+					<td class="td2"><%= carData.mileage %>万公里</td>
+				</tr>
+				<tr>
+					<td class="td1">上牌时间</td>
+					<td class="td2" colspan="3"><%= carData.register_date %></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="more">
+			&nbsp;
+		</div>
+		<div class="title" style="top:11px">年检及保险</div>
+		<div class="item" style="padding: 15px 0 27px 0;">
+			<span style="display:inline-block; line-height:3rem; width: 42rem; font-size: 2.2rem; padding:10px 0 0 35px">
+				<img src="/template/img/time.png" style="width:17px;height:17px;margin-right:10px"><span class="region">年检到期: </span><%=carData.ckyear_date%><br/>
+				<img src="/template/img/time.png" style="width:17px;height:17px;margin-right:10px"><span class="region">交强险到期: </span><%=carData.tlci_date%><br/>
+				<img src="/template/img/time.png" style="width:17px;height:17px;margin-right:10px"><span class="region">商业险到期: </span><%=carData.audit_date%><br/>
+			</span>
+		</div>
+		<div style="height:29px"></div>
+		<div class="title" style="top:0">转让原因</div>
+		<div class="item" style="margin-top: -12px; padding: 9px 0px 7px 27px;">
+			<span class="desc">
+				<%= carData.remark %>
+			</span>
+		</div>
+		<div style="height:29px"></div>
+		<div class="title" style="top:11px">车主信息</div>
+		<div class="item" style="padding: 15px 0 27px 0;">
+			<span style="display:inline-block; line-height:3rem; width: 42rem; font-size: 2.2rem; padding:10px 0 0 35px">
+				<img src="/template/img/owner.png" style="width:17px;height:17px;margin-right:10px"><span class="region">车主: </span><%=name%>  <a href="tel:<%=mobile%>"><%=mobile%></a>
+			</span>
+		</div>
+		<div style="height:10px"></div>
+		<%if(!isshow){%>
+			<div class="region" style="margin-top:15px; margin-bottom: 50px; padding-left: 12px; font-size: 2.2rem; padding-left: 30px;">
+			<!-- 访问量 <%= seeCount || 0%> -->&nbsp;&nbsp;
+				<%if(!isDz){%>
+					<a class="good" href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=<%= appId %>&redirect_uri=http://<%=redirect_uri%>/template/thumbUp/4?carid=<%=carid%>&response_type=code&scope=snsapi_userinfo&state=<%=custid%>#wechat_redirect">
+						<img src="/template/img/good.png" style="width:17px;height:17px;margin-right:10px">赞 <%=list.length%>
+					</a>
+				<%}else{%>
+					<span class="good">
+						<img src="/template/img/good.png" style="width:17px;height:17px;margin-right:10px">赞 <%=list.length%>
+					</span>
+				<%}%>
+			</div>
+		<%}%>
+		<div style="height:10px"></div>
+		<div class="bottom-logo">
+			<img class="logo" src="/template/img/2/logo.png"/>
+			玖伍淘车提供技术支持
+		</div>
+		<input name="number" type="hidden" value="4">
+		<input name="appId" type="hidden" value="<%= appId %>">
+		<input name="model_name" type="hidden" value="<%= carData.model_name %>">
+		<input name="custid" type="hidden" value="<%= custid %>">
+		<input name="carid" type="hidden" value="<%= carid %>">
+		<input name="remark" type="hidden" value="<%= carData.remark %>">
+		<input name="redirect_uri" type="hidden" value="<%= redirect_uri %>">
+	</body>
+</html>
