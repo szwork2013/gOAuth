@@ -17,8 +17,29 @@ OAuth2.0 and RDBC for GD
     * [require.js文件](https://github.com/golden-tech-native/gOAuth#require.js文件)
 
 # 版本以及依赖安装
+Node版本: v6.5.0 </br>
+Npm版本: 3.10.3 </br>
+
+可使用NVM进行Node.js版本管理，请参考[NVM管理Node](https://github.com/golden-tech-native/dtlib/wiki/4.1-Node.js%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7NVM%E5%AE%89%E8%A3%85) </br>
+
+进入文件根目录，并运行下面命令</br>
+```
+$ npm install
+```
+安装完毕以后，会出现`node_modules`文件夹
 
 # 运行
+有两种方法运行程序: node 和 [PM2](https://github.com/golden-tech-native/dtlib/wiki/4.2-Node.js%E9%83%A8%E7%BD%B2%E5%B7%A5%E5%85%B7PM2%E5%AE%89%E8%A3%85)
+
+> node
+```
+$ node app.js -harmony
+```
+> PM2
+```
+$ pm2 start process.json
+```
+
 # 开发说明
 # 文件夹目录说明
 ## controller文件夹
