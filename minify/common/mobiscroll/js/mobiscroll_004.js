@@ -1,1 +1,0 @@
-!function(e){e.mobiscroll.i18n.zh=e.extend(e.mobiscroll.i18n.zh,{setText:"确定",cancelText:"取消",clearText:"清空"})}(jQuery);

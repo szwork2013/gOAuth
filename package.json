@@ -13,15 +13,16 @@
     "request": "*",
     "mysql": "*",
     "mysql-queues": "*",
-    "body-parser": "1.14.1",
+    "body-parser": "*",
     "compression": "*",
     "connect-redis": "*",
     "express-session": "*",
-    "multer": "0.1.8",
+    "multer": "*",
     "qn": "*",
     "jssha": "*",
     "fetch": "*",
-    "redis": "*"
+    "redis": "*",
+    "functions": "*"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

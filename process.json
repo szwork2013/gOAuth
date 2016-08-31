@@ -1,0 +1,13 @@
+{
+	"apps": [{
+		"name": "goauth",
+		"script": "app.js",
+		"node_args": ["--harmony"],
+		"watch": true,
+		"log_date_format": "YYYY - MM - DD HH: mm Z",
+		"error_file" : "./goauth-err.log",
+		"out_file": "./goauth-out.log",
+        "min_uptime": "60s",
+      	"max_restarts": 30,
+	}]
+}

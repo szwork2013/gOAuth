@@ -1,1 +1,0 @@
-!function(e){var d={defaults:{dateOrder:"Mddyy",mode:"mixed",rows:5,width:70,height:36,showLabel:!0,useShortLabels:!0}};e.mobiscroll.themes["android-ics"]=d,e.mobiscroll.themes["android-ics light"]=d}(jQuery);
