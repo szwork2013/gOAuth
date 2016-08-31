@@ -12,7 +12,7 @@ var config = module.exports = {
     // 程序路由指定
     dir: "controller",
     // 调试日志开关
-    debug: false,
+    debug: true,
     // 执行超过此值记日志
     time: 50,
     // 后台接口地址
@@ -28,7 +28,7 @@ var config = module.exports = {
         }
     },
     filter: {
-        "rules": ['js', 'css', 'fonts', 'html', 'img', 'api', 'template', 'common', 'merchant'],
+        "rules": ['js', 'css', 'fonts', 'html', 'img', 'common','font-awesome'],
         "white-list": [
             '/',
             '/manager/home'
