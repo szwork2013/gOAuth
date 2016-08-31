@@ -34,6 +34,7 @@ var config = module.exports = {
             '/manager/home'
         ],
         "rules-white-list" : [
+            '/api_v1/token'
         ],
         // 缓存过期时间单位秒
         "max-age": 3600 * 48
