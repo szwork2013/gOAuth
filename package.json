@@ -17,12 +17,12 @@
     "compression": "*",
     "connect-redis": "*",
     "express-session": "*",
-    "multer": "*",
     "qn": "*",
     "jssha": "*",
     "fetch": "*",
     "redis": "*",
-    "functions": "*"
+    "functions": "*",
+    "body-parser": "*"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
