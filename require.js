@@ -10,6 +10,8 @@ module.exports = {
     plug : "./lib/plug",
     // 引用db插件
     db : "./lib/db",
+    // 引用oauthserver插件
+    oauthserver: "./lib/oauthserver",
     // 处理层
     proxy : "./proxy"
 };

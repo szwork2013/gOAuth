@@ -4,10 +4,13 @@ var config = module.exports = {
     db: {
     },
     redis: {
-        host: "172.28.189.101",
-        port: 6379,
-        db: 3,
-		pass: 'P@ssword0'
+        // Config for oauthserver
+        oauthserver:{
+            host: "172.28.189.101",
+            port: 6379,
+            db: 0,
+            pass: 'P@ssword0'
+        }
     },
     // 程序路由指定
     dir: "controller",
@@ -27,18 +30,22 @@ var config = module.exports = {
         post: {
         }
     },
+    //路由过滤白名单
     filter: {
         "rules": ['js', 'css', 'fonts', 'html', 'img', 'common','font-awesome'],
         "white-list": [
             '/',
-            '/manager/home'
+            '/manager/home',
+            '/oauth/token'
         ],
         "rules-white-list" : [
-            '/api_v1/token'
+            
         ],
         // 缓存过期时间单位秒
         "max-age": 3600 * 48
     },
+    //oauth store Type: redis , memory 
+    oauth_store_type:"redis", 
     // websocket配置
     socket: {
         // socket端口
