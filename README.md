@@ -18,6 +18,7 @@ gOAuth用于提供接口OAuth授权以及用户权限管理的内部项目组件
     * [package.json文件](https://github.com/golden-tech-native/gOAuth#package.json文件)
     * [process.json文件](https://github.com/golden-tech-native/gOAuth#process.json文件)
     * [require.js文件](https://github.com/golden-tech-native/gOAuth#require.js文件)
+* [ToDo List](https://github.com/golden-tech-native/gOAuth#ToDoList)
 
 # 版本以及依赖安装
 Node版本: v6.5.0 </br>
@@ -56,3 +57,11 @@ $ pm2 start process.json
 ### package.js文件
 ### process.json文件
 ### require.js文件
+# ToDoList
+>oauthserver中，用户以及权限定义的重构以适应普片项目情况。（由于是在accesstoken重新生成以后需要失效原accesstoken的功能尚未实现）
+>oauthserver中加入客户端session的控制部分
+>redis组件构建缓存机制
+>redis组件构建缓存机制
+>websocket链接mqserver的扩充，当前只是提供统一http接口来触发服务器变化。
+>unit test案例的补充
+>exsample的补充
