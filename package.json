@@ -10,7 +10,6 @@
     "body-parser": "*",
     "colors": "*",
     "compression": "*",
-    "connect-redis": "*",
     "cookie-parser": "*",
     "ejs": "*",
     "express": "*",
@@ -22,10 +21,10 @@
     "mysql": "*",
     "mysql-queues": "*",
     "oauth20-provider": "*",
-    "qn": "*",
     "redis": "*",
     "request": "*",
-    "moment": "*"
+    "moment": "*",
+    "faye-websocket": "*"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
