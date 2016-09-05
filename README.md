@@ -1,4 +1,6 @@
 # gOAuth
+
+[![Build Status](https://travis-ci.org/golden-tech-native/gOAuth.svg?branch=master)](https://travis-ci.org/golden-tech-native/gOAuth)
 OAuth2.0 and RDBC for GD
 
 * [版本以及依赖安装](https://github.com/golden-tech-native/gOAuth#版本以及依赖安装)
