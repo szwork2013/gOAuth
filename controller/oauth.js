@@ -1,7 +1,7 @@
 /***
 * Controller for oauth2.0
 ***/
-var oauth20 = $.oauthserver.oauth20("redis");
+var oauth20 = $.oauthserver.oauth20($.config.oauth_store_type);
 
 // Define OAuth2 Token Endpoint 
 exports.posttoken = (req, res) => {
