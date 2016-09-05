@@ -29,7 +29,9 @@ Npm版本: 3.10.3 </br>
 ```
 $ npm install
 ```
-安装完毕以后，会出现`node_modules`文件夹
+安装完毕以后，会出现`node_modules`文件夹</br>
+
+拷贝根目录中的文件`index.js_nm`到文件夹`node_modules`中，并修改`index.js_nm`为`index.js`</br>
 
 # 运行
 有两种方法运行程序: node 和 [PM2](https://github.com/golden-tech-native/dtlib/wiki/4.2-Node.js%E9%83%A8%E7%BD%B2%E5%B7%A5%E5%85%B7PM2%E5%AE%89%E8%A3%85)
@@ -38,7 +40,7 @@ $ npm install
 ```
 $ node app.js -harmony
 ```
-> PM2
+> PM2 （推荐使用）
 ```
 $ pm2 start process.json
 ```
