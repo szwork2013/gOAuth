@@ -1,7 +1,8 @@
 # gOAuth
 
-[![Build Status](https://travis-ci.org/golden-tech-native/gOAuth.svg?branch=master)](https://travis-ci.org/golden-tech-native/gOAuth)
-OAuth2.0 and RDBC for GD
+[![Build Status](https://travis-ci.org/golden-tech-native/gOAuth.svg?branch=master)](https://travis-ci.org/golden-tech-native/gOAuth) </br>
+
+gOAuth用于提供接口OAuth授权以及用户权限管理的内部项目组件。当前仍在开发和完善中，陆续还会加入websocket实时响应的相关支持。
 
 * [版本以及依赖安装](https://github.com/golden-tech-native/gOAuth#版本以及依赖安装)
 * [运行](https://github.com/golden-tech-native/gOAuth#运行)
