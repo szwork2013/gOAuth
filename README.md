@@ -18,7 +18,7 @@ gOAuth用于提供接口OAuth授权以及用户权限管理的内部项目组件
     * [package.json文件](https://github.com/golden-tech-native/gOAuth#package.json文件)
     * [process.json文件](https://github.com/golden-tech-native/gOAuth#process.json文件)
     * [require.js文件](https://github.com/golden-tech-native/gOAuth#require.js文件)
-* [ToDo List](https://github.com/golden-tech-native/gOAuth#ToDoList)
+* [ToDo List](https://github.com/golden-tech-native/gOAuth#todolist)
 
 # 版本以及依赖安装
 Node版本: v6.5.0 </br>
