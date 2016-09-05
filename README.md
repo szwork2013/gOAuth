@@ -58,10 +58,10 @@ $ pm2 start process.json
 ### process.json文件
 ### require.js文件
 # ToDoList
->oauthserver中，用户以及权限定义的重构以适应普片项目情况。（由于是在accesstoken重新生成以后需要失效原accesstoken的功能尚未实现）
->oauthserver中加入客户端session的控制部分
->redis组件构建缓存机制
->redis组件构建缓存机制
->websocket链接mqserver的扩充，当前只是提供统一http接口来触发服务器变化。
->unit test案例的补充
->exsample的补充
+* oauthserver中，用户以及权限定义的重构以适应普片项目情况。（由于是在accesstoken重新生成以后需要失效原accesstoken的功能尚未实现）</br>
+* oauthserver中加入客户端session的控制部分</br>
+* redis组件构建缓存机制</br>
+* redis组件构建缓存机制</br>
+* websocket链接mqserver的扩充，当前只是提供统一http接口来触发服务器变化。</br>
+* unit test案例的补充</br>
+* exsample的补充</br>
