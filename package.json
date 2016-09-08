@@ -24,7 +24,8 @@
     "redis": "*",
     "request": "*",
     "moment": "*",
-    "faye-websocket": "*"
+    "faye-websocket": "*",
+    "websocket": "*"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
