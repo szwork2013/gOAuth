@@ -24,8 +24,7 @@
     "redis": "*",
     "request": "*",
     "moment": "*",
-    "faye-websocket": "*",
-    "websocket": "*"
+    "faye-websocket": "*"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
@@ -34,6 +33,7 @@
     "gulp-imagemin": "*",
     "gulp-minify-css": "*",
     "gulp-uglify": "*",
-    "imagemin-pngquant": "^4.2.0"
+    "imagemin-pngquant": "^4.2.0",
+    "should": "^11.1.0"
   }
 }
