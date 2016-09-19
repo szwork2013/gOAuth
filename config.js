@@ -10,6 +10,12 @@ var config = module.exports = {
             port: 6379,
             db: 0,
             pass: 'P@ssword0'
+        },
+        session:{
+            host: "172.28.189.101",
+            port: 6379,
+            db: 3,
+            pass: 'P@ssword0'
         }
     },
     // 程序路由指定
@@ -32,17 +38,17 @@ var config = module.exports = {
     },
     //路由过滤白名单
     filter: {
+        //不受控文件夹
         "rules": ['js', 'css', 'fonts', 'html', 'img', 'common','font-awesome'],
-        "white-list": [
+        //白名单
+        "white-list" : [
             '/',
             '/manager/home',
-            '/oauth/token'
+            '/oauth/token',
+            '/api/manager/user'
         ],
-        "rules-white-list" : [
-            
-        ],
-        // 缓存过期时间单位秒
-        "max-age": 3600 * 48
+        // 缓存过期时间单位秒, 一般为2个小时有效期
+        "max-age": 3600 * 2
     },
     //oauth store Type: redis , memory 
     oauth_store_type:"redis", 

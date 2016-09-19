@@ -12,7 +12,7 @@ describe('RBAC Instance', function() {
 describe('User', function() {
   var user = {
     id: 'tj'
-    , name: "dddd "
+    , username: "aa"
   };
 
   describe('#createUser()', function() {
@@ -31,10 +31,10 @@ describe('User', function() {
     it('should get user successful', function(done) {
       rbac.user.fetchById(user.id,function(err,data){
        should.not.exist(err);
-       var d=JSON.parse(data);
+       var d = JSON.parse(data);
        d.should.be.type("object");
        d.id.should.equal(user.id);
-       d.name.should.equal(user.name);
+       d.username.should.equal(user.username);
 
        done();
      });
@@ -49,4 +49,31 @@ describe('User', function() {
      });
     });
   });
+
+
+  describe('#fetchByUsername()', function() {
+    it('should get user successful', function(done) {
+      rbac.user.fetchByUsername(user.username,function(err,data){
+        should.not.exist(err);
+        var d = JSON.parse(data);
+        d.should.be.type("object");
+        d.id.should.equal(user.id);
+        d.username.should.equal(user.username);
+        done();
+     });
+    });
+  });
+
+
+  // describe('#deleteUser()', function() {
+  //   it('should delete user successful', function(done) {
+  //     rbac.user.deleteUser(user.id,function(err,data){
+  //       should.not.exist(err);
+  //       data.should.be.OK;
+        
+  //       done();
+  //    });
+  //   });
+  // });
 });
+

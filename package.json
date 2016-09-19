@@ -22,6 +22,7 @@
     "mysql-queues": "*",
     "oauth20-provider": "*",
     "redis": "*",
+    "connect-redis": "*",
     "request": "*",
     "moment": "*",
     "faye-websocket": "*"
