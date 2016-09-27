@@ -12,6 +12,7 @@ exports.posttoken = (req, res) => {
 exports.getauthorization = (req, res) => {
 	oauth20.controller.authorization(req,res);
 };
+
 //todo test
 exports.posauthorization = (req, res) => {
 	oauth20.controller.authorization(req,res);

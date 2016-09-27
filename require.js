@@ -13,5 +13,6 @@ module.exports = {
     // 引用oauthserver插件
     //oauthserver: "./lib/oauthserver",
     // 处理层
-    proxy : "./proxy"
+    proxy_custmg : "./proxy/custmg",
+    proxy_rbacmg : "./proxy/rbacmg",
 };

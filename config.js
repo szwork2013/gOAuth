@@ -16,6 +16,12 @@ var config = module.exports = {
             port: 6379,
             db: 3,
             pass: 'P@ssword0'
+        },
+        userdb:{
+            host: "172.28.189.101",
+            port: 6379,
+            db: 2,
+            pass: 'P@ssword0'
         }
     },
     // 程序路由指定
@@ -45,7 +51,9 @@ var config = module.exports = {
             '/',
             '/manager/home',
             '/oauth/token',
-            '/api/manager/user'
+            '/api/manager/user',
+            '/api/manager/UserSession',
+            '/api/manager/userlogin'
         ],
         // 缓存过期时间单位秒, 一般为2个小时有效期
         "max-age": 3600 * 2

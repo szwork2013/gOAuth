@@ -35,6 +35,7 @@
     "gulp-minify-css": "*",
     "gulp-uglify": "*",
     "imagemin-pngquant": "^4.2.0",
-    "should": "^11.1.0"
+    "should": "^11.1.0",
+    "supertest": "^2.0.0"
   }
 }
