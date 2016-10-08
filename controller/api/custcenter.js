@@ -1,40 +1,6 @@
 var
 async = $.async;
 
-var userSession ={
-	user:{
-		userid:"userId",
-		username:"userName",
-		value:{
-			resourceValue:6,
-			actionsValue:256
-		},
-		userExtentions:{}
-	},
-	roles:[
-	{
-		roleId:"roleId",
-		roleName:"admin"
-	}
-	],
-	resource:[
-	{
-		resourceId:"resourceId",
-		resourceName:"point.pointlist",
-		value: 2,
-		resource:"/point/pointlist.html"
-	}
-	],
-	actions:[
-	{
-		actionId:"actionId",
-		actionName:"point.getpoint",
-		value: 32,
-		action:"/point/pointlist"
-	}
-	]
-};
-
 /*用户中心－开放登录*/
 exports.postlogin = (req,res)  => {
 	$.proxy_custmg.custcenter.login(req.body,(result) => {
@@ -48,7 +14,7 @@ exports.postlogin = (req,res)  => {
 }
 
 /*用户中心－开放注册*/
-exports.getregister = (req,res) => {
+exports.postregister = (req,res) => {
     $.proxy_custmg.custcenter.register(req.body,(result)=>{
 		res.send(result);
 	});
@@ -95,4 +61,15 @@ exports.postlogout = (req,res) => {
 	});
 }
 
+exports.postencrypt = (req,res) => {
+	$.proxy_common.securitymg.encrypt(req.body,(result)=>{
+		res.send(result);
+	});
+}
+
+exports.postdecrypt = (req,res) => {
+	$.proxy_common.securitymg.decrypt(req.body,(result)=>{
+		res.send(result);
+	});
+}
 

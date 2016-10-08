@@ -25,7 +25,8 @@
     "connect-redis": "*",
     "request": "*",
     "moment": "*",
-    "faye-websocket": "*"
+    "faye-websocket": "*",
+    "crypto": "*"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

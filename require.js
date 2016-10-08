@@ -15,4 +15,5 @@ module.exports = {
     // 处理层
     proxy_custmg : "./proxy/custmg",
     proxy_rbacmg : "./proxy/rbacmg",
+    proxy_common : "./proxy/common",
 };

@@ -1,5 +1,6 @@
 ﻿// 配置数据Json
 var config = module.exports = {
+    cryptsalt : "gold-tech",
     // 数据库配置
     db: {
     },

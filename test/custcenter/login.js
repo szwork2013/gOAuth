@@ -36,7 +36,7 @@ describe('POST /api/custcenter/login', function() {
         });
     });
 
-    it('用户成功失败-账户为空', function(done) {
+    it('用户登陆失败-账户为空', function(done) {
       request(hostname)
         .post('/api/custcenter/login',user)
         .send({username:"",password:"1111"})
@@ -50,7 +50,7 @@ describe('POST /api/custcenter/login', function() {
         });
     });
 
-    it('用户成功失败-密码为空', function(done) {
+    it('用户登陆失败-密码为空', function(done) {
       request(hostname)
         .post('/api/custcenter/login',user)
         .send({username:"userName",password:""})
@@ -64,7 +64,7 @@ describe('POST /api/custcenter/login', function() {
         });
     });
 
-    it('用户成功失败-密码不正确', function(done) {
+    it('用户登陆失败-密码不正确', function(done) {
       request(hostname)
         .post('/api/custcenter/login',user)
         .send({username:"userName",password:"121212"})
@@ -78,7 +78,7 @@ describe('POST /api/custcenter/login', function() {
         });
     });
 
-    it('用户成功失败-用户找不到', function(done) {
+    it('用户登陆失败-用户找不到', function(done) {
       request(hostname)
         .post('/api/custcenter/login',user)
         .send({username:"aaaaa",password:"121212"})
@@ -88,6 +88,34 @@ describe('POST /api/custcenter/login', function() {
           should.exist(res);
           res.status.should.be.equal(200);
           res.body.errcode.should.be.equal(30002);
+          done();
+        });
+    });
+
+    it('用户登陆失败-验证码不正确', function(done) {
+      request(hostname)
+        .post('/api/custcenter/login',user)
+        .send({username:"userName",password:"1111",code:"1111"})
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .end(function (err, res) {
+          should.exist(res);
+          res.status.should.be.equal(200);
+          res.body.errcode.should.be.equal(30005);
+          done();
+        });
+    });
+
+    it('用户登陆失败-必须验证码', function(done) {
+      request(hostname)
+        .post('/api/custcenter/login',user)
+        .send({username:"userName",password:"1111",code:""})
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .end(function (err, res) {
+          should.exist(res);
+          res.status.should.be.equal(200);
+          res.body.errcode.should.be.equal(30005);
           done();
         });
     });

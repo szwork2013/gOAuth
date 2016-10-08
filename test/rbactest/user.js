@@ -1,6 +1,15 @@
 var assert = require('assert');
 var should = require('should');
 var request = require('supertest');
+var util = require('util');
+var async = require('async');
+
+var redis=require('redis');
+require("bluebird").promisifyAll(redis.RedisClient.prototype);
+var redisclient = redis.createClient(require("../../config.js").redis.session);
+
+var hostname = "http://localhost:8080";
+var users = require("../../data.js").users;
 
 //测试案例
 //1.创建用户基本信息
@@ -10,77 +19,110 @@ var request = require('supertest');
 //5.根据用户字段进行搜索
 //6.根据用户ID获取用户密码，并配对；
 
-// describe('RBAC Instance', function() {
-//   it('should be an instance', function() {
-//     rbac.should.be.type('object');
-//   });
-// });
+describe('用户创建', function() {
+    before(()=>{
+       var keys=['user:'+users[0].id,'user:'+users[1].id];
+       redisclient.send_command("DEL",keys);
+    });
 
-// describe('User', function() {
-//   var user = {
-//     id: 'tj'
-//     , username: "aa"
-//   };
+    it('创建成功1', function(done) {
+      request(hostname)
+        .post('/api/rbacmg/createuser')
+        .send(users[0])
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .end(function (err, res) {
+          should.exist(res);
+          res.status.should.be.equal(200);
+          res.body.errcode.should.be.equal(0);
+          done();
+        });
+    });
 
-//   describe('#createUser()', function() {
-//     it('should save user successful', function(done) {
-//       rbac.user.createUser(user,function(err,data){
-//        should.not.exist(err);
-//        should.exist(data);
-//        data.should.be.OK;
+    it('创建成功2', function(done) {
+      request(hostname)
+        .post('/api/rbacmg/createuser')
+        .send(users[1])
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .end(function (err, res) {
+          should.exist(res);
+          res.status.should.be.equal(200);
+          res.body.errcode.should.be.equal(0);
+          done();
+        });
+    });
 
-//        done();
-//      });
-//     });
-//   });
+    it('创建失败-少参数', function(done) {
+      request(hostname)
+        .post('/api/rbacmg/createuser')
+        .send(users[1].ID)
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .end(function (err, res) {
+          should.exist(res);
+          res.status.should.be.equal(200);
+          res.body.errcode.should.be.equal(40001);
+          done();
+        });
+    });
+  });
 
-//   describe('#fetchById()', function() {
-//     it('should get user successful', function(done) {
-//       rbac.user.fetchById(user.id,function(err,data){
-//        should.not.exist(err);
-//        var d = JSON.parse(data);
-//        d.should.be.type("object");
-//        d.id.should.equal(user.id);
-//        d.username.should.equal(user.username);
+describe('获取用户', function() {
+    it('获取单个用户信息', function(done) {
+      request(hostname)
+        .get('/api/rbacmg/userbyid?id='+users[0].id)
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .end(function (err, res) {
+          should.exist(res);
+          res.status.should.be.equal(200);
+          res.body.errcode.should.be.equal(0);
+          res.body.data.id.should.be.equal(users[0].id);
+          res.body.data.name.should.be.equal(users[0].name);
+          res.body.data.desc.should.be.equal(users[0].desc);
+          res.body.data.status.should.be.equal(users[0].status);
 
-//        done();
-//      });
-//     });
+          done();
+        });
+    });
+  });
 
-//     it('should get user failed', function(done) {
-//       rbac.user.fetchById("xxxxxxx",function(err,data){
-//        should.not.exist(err);
-//        should.not.exist(data);
+describe('分页获取用户', function() {
+    it('获取成功', function(done) {
+      request(hostname)
+        .get(util.format('/api/rbacmg/allusers?from=%s&size=%s','0','10'))
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .end(function (err, res) {
+          should.exist(res);
+          res.status.should.be.equal(200);
+          res.body.errcode.should.be.equal(0);
+          //res.body.data.length.should.be.equal(users.length);
 
-//        done();
-//      });
-//     });
-//   });
+          async.each(users,(item)=>{
+            if(item.id==res.body.data.id)
+            {
+              res.body.data.name.should.be.equal(item.name);
+              res.body.data.desc.should.be.equal(item.desc);
+              res.body.data.isactive.should.be.equal(item.isactive);
+            }
+          });
+          done();
+        });
+    });
 
-
-//   describe('#fetchByUsername()', function() {
-//     it('should get user successful', function(done) {
-//       rbac.user.fetchByUsername(user.username,function(err,data){
-//         should.not.exist(err);
-//         var d = JSON.parse(data);
-//         d.should.be.type("object");
-//         d.id.should.equal(user.id);
-//         d.username.should.equal(user.username);
-//         done();
-//      });
-//     });
-//   });
-
-
-//   // describe('#deleteUser()', function() {
-//   //   it('should delete user successful', function(done) {
-//   //     rbac.user.deleteUser(user.id,function(err,data){
-//   //       should.not.exist(err);
-//   //       data.should.be.OK;
-        
-//   //       done();
-//   //    });
-//   //   });
-//   // });
-// });
+    it('获取失败', function(done) {
+      request(hostname)
+        .get(util.format('/api/rbacmg/allusers?from=%s&size=%s','',''))
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .end(function (err, res) {
+          should.exist(res);
+          res.status.should.be.equal(200);
+          res.body.errcode.should.be.equal(40001);
+          done();
+          });
+    });
+});
 

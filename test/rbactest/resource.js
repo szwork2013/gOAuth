@@ -1,178 +1,123 @@
 var assert = require('assert');
 var should = require('should');
 var request = require('supertest');
+var util = require('util');
+var async = require('async');
 
 var redis=require('redis');
 require("bluebird").promisifyAll(redis.RedisClient.prototype);
-var redisclient = redis.createClient(require("../../config.js").redis.userdb);
+var redisclient = redis.createClient(require("../../config.js").redis.session);
+
+var hostname = "http://localhost:8080";
+var resources = require("../../data.js").resources;
 
 //   //resourcetype: Menu, Actions, Tab
 //   //ParrentID
 //status:1. Active, 2. InActive
-var hostname="http://localhost:8080";
 
-//1.创建一个资源，如创建一个菜单，以及菜单的级别；如果有父资源时，创建父子关联关系表 parentid:id；
-describe('POST /api/rbacmg/resourceinit', function() {
-  var noparent_resourceid,
-      withparent_resourceid,
-      parentresource = {
-        id: ''
-        ,name: "父节点"
-        ,type: "menu"
-        ,parentid: null
-        ,status: 1
-      },
-      childresource = {
-        id: ''
-        ,name: "子节点"
-        ,type: "action"
-        ,parentid: noparent_resourceid
-        ,status: 1
-      };
 
-  describe('创建资源成功', function() {
-    it('创建一个资源，如创建一个菜单，没有父节点', function(done) {
+describe('资源创建', function() {
+    before(()=>{
+       var keys=['resource:'+resources[0].id,'resource:'+resources[1].id];
+       redisclient.send_command("DEL",keys);
+    });
+
+    it('创建成功1', function(done) {
       request(hostname)
-        .post('/api/rbacmg/resourceinit')
+        .post('/api/rbacmg/createresource')
+        .send(resources[0])
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .end(function (err, res) {
           should.exist(res);
           res.status.should.be.equal(200);
           res.body.errcode.should.be.equal(0);
-          noparent_resourceid = res.body.data.id;
           done();
         });
     });
 
-    it('创建一个资源，如创建一个菜单，有父节点', function(done) {
+    it('创建成功2', function(done) {
       request(hostname)
-        .post('/api/rbacmg/resourceinit')
+        .post('/api/rbacmg/createresource')
+        .send(resources[1])
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .end(function (err, res) {
           should.exist(res);
           res.status.should.be.equal(200);
           res.body.errcode.should.be.equal(0);
-          noparent_resourceid = res.body.data.id;
+          done();
+        });
+    });
+
+    it('创建失败-少参数', function(done) {
+      request(hostname)
+        .post('/api/rbacmg/createresource')
+        .send(resources[1].ID)
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .end(function (err, res) {
+          should.exist(res);
+          res.status.should.be.equal(200);
+          res.body.errcode.should.be.equal(40001);
           done();
         });
     });
   });
 
-  describe('资源创建成功结果比对', function() {
-    var expect_parentresource,expect_childresource;
+describe('获取资源', function() {
+    it('获取单个资源信息', function(done) {
+      request(hostname)
+        .get('/api/rbacmg/resourcebyid?id='+resources[0].id)
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .end(function (err, res) {
+          should.exist(res);
+          res.status.should.be.equal(200);
+          res.body.errcode.should.be.equal(0);
 
-    before(function() {
-      parentresource.id = noparent_resourceid;
-      childresource.id = withparent_resourceid;
+          res.body.data.id.should.be.equal(resources[0].id);
+          res.body.data.name.should.be.equal(resources[0].name);
+          res.body.data.desc.should.be.equal(resources[0].desc);
+          res.body.data.isactive.should.be.equal(resources[0].isactive);
+          done();
+        });
+    });
+  });
 
-      redisclient.get(noparent_resourceid,(err, data) => {
-        expect_parentresource = data;
+describe('分页获取资源', function() {
+    it('获取成功', function(done) {
+      request(hostname)
+        .get(util.format('/api/rbacmg/allresources?from=%s&size=%s','0','10'))
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .end(function (err, res) {
+          should.exist(res);
+          res.status.should.be.equal(200);
+          res.body.errcode.should.be.equal(0);
+
+          async.each(resources,(item)=>{
+            if(item.id==res.body.data.id)
+            {
+              res.body.data.name.should.be.equal(item.name);
+              res.body.data.desc.should.be.equal(item.desc);
+              res.body.data.isactive.should.be.equal(item.isactive);
+            }
+          });
+          done();
       });
-
-      redisclient.get(withparent_resourceid,(err, data) => {
-        expect_childresource = data;
-      });
     });
 
-    after(function() { 
-
+    it('获取失败', function(done) {
+      request(hostname)
+        .get(util.format('/api/rbacmg/allresources?from=%s&size=%s','',''))
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .end(function (err, res) {
+          should.exist(res);
+          res.status.should.be.equal(200);
+          res.body.errcode.should.be.equal(40001);
+          done();
+          });
     });
-
-    it('获取没有父资源菜单信息', function(done) {
-       expect_parentresource.should.be.equal(parentresource);
-    });
-
-    it('获取有父资源菜单信息，以及父节点关联关系表parentid:id', function(done) {
-       expect_childresource.should.be.equal(childresource);
-    });
-  })
 });
-
-//测试案例
-//1.创建一个资源，如创建一个菜单，以及菜单的级别；如果有父资源时，创建父子关联关系表 parentid:id；
-//2.展示所有资源列表；
-//3.根据资源ID获取所有上下级依赖；包括权限依赖的Hash关系
-//4.针对资源类型、名称进行搜索方法 ，Post测试；
-//5.根据ID删除某个资源，并且，check所有的依赖并删除；限制，除非所有权限没有依赖此权限。
-
-// describe('RBAC Instance', function() {
-//   it('should be an instance', function() {
-//     rbac.should.be.type('object');
-//   });
-// });
-
-// describe('Resource', function() {
-//   //resourcetype: Menu, Actions, Tab
-//   //ParrentID
-//   //status:1. Active, 2. InActive
-//   var resource = {
-//     id: 'tj'
-//     ,name: "aa"
-//     ,type: "Menu"
-//     ,parentid:'aaaaa'
-//     ,status: 1
-//   };
-
-//   describe('#createResource()', function() {
-//     it('should save resource successful', function(done) {
-//       rbac.resource.createResource(resource,function(err,data){
-//        should.not.exist(err);
-//        should.exist(data);
-//        data.should.be.OK;
-
-//        done();
-//      });
-//     });
-//   });
-
-//   describe('#fetchById()', function() {
-//     it('should get resource successful', function(done) {
-//       rbac.resource.fetchById(resource.id,function(err,data){
-//        should.not.exist(err);
-//        var d = JSON.parse(data);
-//        d.should.be.type("object");
-//        d.id.should.equal(resource.id);
-//        d.resourcename.should.equal(resource.resourcename);
-
-//        done();
-//      });
-//     });
-
-//     it('should get resource failed', function(done) {
-//       rbac.resource.fetchById("xxxxxxx",function(err,data){
-//        should.not.exist(err);
-//        should.not.exist(data);
-
-//        done();
-//      });
-//     });
-//   });
-
-
-//   describe('#fetchByResourcename()', function() {
-//     it('should get resource successful', function(done) {
-//       rbac.resource.fetchByResourcename(resource.resourcename,function(err,data){
-//         should.not.exist(err);
-//         var d = JSON.parse(data);
-//         d.should.be.type("object");
-//         d.id.should.equal(resource.id);
-//         d.resourcename.should.equal(resource.resourcename);
-//         done();
-//      });
-//     });
-//   });
-
-
-//   describe('#deleteResource()', function() {
-//     it('should delete resource successful', function(done) {
-//       rbac.resource.deleteResource(resource.id,function(err,data){
-//         should.not.exist(err);
-//         data.should.be.OK;
-        
-//         done();
-//      });
-//     });
-//   });
-// });
