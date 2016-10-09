@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>rbacmg - gOAuth</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="https://avatars1.githubusercontent.com/u/20122745?v=3&amp;s=200" title="gOAuth"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.3</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/custcenter.html">custcenter</a></li>
+                                <li><a href="../classes/rbacmg.html">rbacmg</a></li>
+                            </ul>
+                
+                
+                            <ul id="api-modules" class="apis modules">
+                                <li><a href="../modules/API.html">API</a></li>
+                                <li><a href="../modules/custcenter.html">custcenter</a></li>
+                                <li><a href="../modules/rbacmg.html">rbacmg</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1>rbacmg Class</h1>
+<div class="box meta">
+
+
+        <div class="foundat">
+            Defined in: <a href="../files/controller_api_rbacmg.js.html#l1"><code>controller&#x2F;api&#x2F;rbacmg.js:1</code></a>
+        </div>
+
+            Module: <a href="../modules/rbacmg.html">rbacmg</a><br>
+            Parent Module: <a href="../modules/API.html">API</a>
+
+</div>
+
+
+<div class="box intro">
+    <p>RBAC角色权限用户管理模块</p>
+
+</div>
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods">
+                            <li class="index-item method">
+                                <a href="#method_api/rbacmg/allresources">api/rbacmg/allresources</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_api/rbacmg/allroles">api/rbacmg/allroles</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_api/rbacmg/allusers">api/rbacmg/allusers</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_api/rbacmg/createresource">api/rbacmg/createresource</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_api/rbacmg/createrole">api/rbacmg/createrole</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_api/rbacmg/createroleresources">api/rbacmg/createroleresources</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_api/rbacmg/createuser">api/rbacmg/createuser</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_api/rbacmg/createuserroles">api/rbacmg/createuserroles</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_api/rbacmg/resourcebyid">api/rbacmg/resourcebyid</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_api/rbacmg/rolebyid">api/rbacmg/rolebyid</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_api/rbacmg/roleresourcesbyroleid">api/rbacmg/roleresourcesbyroleid</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_api/rbacmg/userbyid">api/rbacmg/userbyid</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_api/rbacmg/usergrants">api/rbacmg/usergrants</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_api/rbacmg/userrolesbyuserd">api/rbacmg/userrolesbyuserd</a>
+
+                            </li>
+                    </ul>
+                </div>
+
+
+
+        </div>
+
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+<div id="method_api/rbacmg/allresources" class="method item">
+    <h3 class="name"><code>api/rbacmg/allresources</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>from</code>
+                </li>
+                <li class="arg">
+                        <code>size</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/controller_api_rbacmg.js.html#l163"><code>controller&#x2F;api&#x2F;rbacmg.js:163</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>分页获取资源列表             </br>
+请求类型: GET             </br>
+请求类型: application/json </br>
+返回结构:                 </br>
+<code>{ &quot;errcode&quot;: &quot;0&quot;, &quot;errmsg&quot;: &quot;&quot;, &quot;data&quot;:{}, &quot;extention&quot;:{} }</code>
+</br>
+<code>data</code> 参数名说明:            </br>
+id 资源ID，GUID
+name 资源名称
+desc 资源说明
+action 资源对应页面或者接口
+type 资源类型，有三种类型menu、action、others
+parentid 父资源ID，对于action、others会隶属于menu
+isactive 是否启用，0代表禁用，1代表启用</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">from</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+                    <div class="param-description">
+                        <p>列表起始位置，1代表第一条数据</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">size</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+                    <div class="param-description">
+                        <p>返回条数，建议10</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>返回架构中的 <code>data</code> 说明，<code>data</code> 是一个数组结构</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>输入样例
+/api/rbacmg/allresources?from=11&amp;size=10
+
+返回码说明
+0        创建或修改成功
+40001    创建或修改失败</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_api/rbacmg/allroles" class="method item">
+    <h3 class="name"><code>api/rbacmg/allroles</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>from</code>
+                </li>
+                <li class="arg">
+                        <code>size</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/controller_api_rbacmg.js.html#l47"><code>controller&#x2F;api&#x2F;rbacmg.js:47</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>分页获取角色列表             </br>
+请求类型: GET             </br>
+请求类型: application/json </br>
+返回结构:                 </br>
+<code>{ &quot;errcode&quot;: &quot;0&quot;, &quot;errmsg&quot;: &quot;&quot;, &quot;data&quot;:{}, &quot;extention&quot;:{} }</code>
+</br>
+<code>data</code> 参数名说明:            </br>
+id 角色ID，GUID </br>
+name 角色名称 </br>
+desc 角色说明 </br>
+isactive 是否启用，0代表禁用，1代表启用 </br></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">from</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+                    <div class="param-description">
+                        <p>列表起始位置，1代表第一条数据</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">size</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+                    <div class="param-description">
+                        <p>返回条数，建议10</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>返回架构中的 <code>data</code> 说明，<code>data</code> 是一个数组结构</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>输入样例
+/api/rbacmg/allroles?from=11&amp;size=10
+
+返回码说明
+0        创建或修改成功
+40001    创建或修改失败</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_api/rbacmg/allusers" class="method item">
+    <h3 class="name"><code>api/rbacmg/allusers</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>from</code>
+                </li>
+                <li class="arg">
+                        <code>size</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/controller_api_rbacmg.js.html#l286"><code>controller&#x2F;api&#x2F;rbacmg.js:286</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>分页获取用户列表             </br>
+请求类型: GET             </br>
+请求类型: application/json </br>
+返回结构:                 </br>
+<code>{ &quot;errcode&quot;: &quot;0&quot;, &quot;errmsg&quot;: &quot;&quot;, &quot;data&quot;:{}, &quot;extention&quot;:{} }</code>
+</br>
+<code>data</code> 参数名说明:            </br>
+id 用户ID，GUID，唯一验证</br>
+name 用户名称，唯一验证</br>
+mobile 用户手机号，对于个人用户，name和mobile相同</br>
+type 用户类型，0代表企业，1代表个人</br>
+status 用户状态，1代表激活，0代表未激活，2代表删除，3代表冻结等</br>
+desc  资源说明</br></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">from</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+                    <div class="param-description">
+                        <p>列表起始位置，1代表第一条数据</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">size</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+                    <div class="param-description">
+                        <p>返回条数，建议10</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>返回架构中的 <code>data</code> 说明，<code>data</code> 是一个数组结构</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>输入样例
+/api/rbacmg/allusers?from=11&amp;size=10
+
+返回码说明
+0        创建或修改成功
+40001    创建或修改失败</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_api/rbacmg/createresource" class="method item">
+    <h3 class="name"><code>api/rbacmg/createresource</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>id</code>
+                </li>
+                <li class="arg">
+                        <code>name</code>
+                </li>
+                <li class="arg">
+                        <code>desc</code>
+                </li>
+                <li class="arg">
+                        <code>action</code>
+                </li>
+                <li class="arg">
+                        <code>type</code>
+                </li>
+                <li class="arg">
+                        <code>parentid</code>
+                </li>
+                <li class="arg">
+                        <code>isactive</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/controller_api_rbacmg.js.html#l119"><code>controller&#x2F;api&#x2F;rbacmg.js:119</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>创建、修改资源           </br>
+请求类型: POST             </br>
+请求类型: application/json </br>
+返回结构:                 </br>
+<code>{ &quot;errcode&quot;: &quot;0&quot;, &quot;errmsg&quot;: &quot;&quot;, &quot;data&quot;:{}, &quot;extention&quot;:{} }</code></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">id</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>资源ID，GUID，唯一验证</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">name</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>资源名称，唯一验证</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">desc</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>资源说明</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">action</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>资源对应页面或者接口</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">type</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>资源类型，有三种类型menu、action、others</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">parentid</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>父资源ID，对于action、others会隶属于menu</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">isactive</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>是否启用，0代表禁用，1代表启用</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>参考返回结构</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>输入样例
+{
+    &quot;id&quot;:&quot;0eaad0ac-3a5c-4382-8804-b093cc16287b&quot;,
+    &quot;name&quot;:&quot;myshow&quot;,
+    &quot;desc&quot;:&quot;我的展示&quot;,
+    &quot;action&quot;:&quot;/show/exhibition-1.html&quot;,
+    &quot;type&quot;:&quot;menu&quot;,
+    &quot;parentid&quot;:&quot;&quot;,
+    &quot;value&quot;: &quot;2&quot;,
+    &quot;isactive&quot;: &quot;1&quot;
+}
+
+返回码说明
+0        创建或修改成功
+40001    创建或修改失败</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_api/rbacmg/createrole" class="method item">
+    <h3 class="name"><code>api/rbacmg/createrole</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>id</code>
+                </li>
+                <li class="arg">
+                        <code>name</code>
+                </li>
+                <li class="arg">
+                        <code>desc</code>
+                </li>
+                <li class="arg">
+                        <code>isactive</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/controller_api_rbacmg.js.html#l10"><code>controller&#x2F;api&#x2F;rbacmg.js:10</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>创建、修改角色       </br>
+请求类型: POST             </br>
+请求类型: application/json </br>
+返回结构:                 </br>
+<code>{ &quot;errcode&quot;: &quot;0&quot;, &quot;errmsg&quot;: &quot;&quot;, &quot;data&quot;:{}, &quot;extention&quot;:{} }</code></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">id</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>角色ID，GUID，唯一验证</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">name</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>角色名称，唯一验证</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">desc</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>角色说明</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">isactive</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>是否启用，0代表禁用，1代表启用</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>参考返回结构</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>输入样例
+{
+    &quot;id&quot;:&quot;3b7c2d81-aa23-4025-85a7-44c28a472718&quot;,
+    &quot;name&quot;:&quot;admin&quot;,
+    &quot;desc&quot;:&quot;后台管理员权限&quot;,
+    &quot;isactive&quot;:&quot;1&quot;
+}
+
+返回码说明
+0        创建或修改成功
+40001    创建或修改失败</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_api/rbacmg/createroleresources" class="method item">
+    <h3 class="name"><code>api/rbacmg/createroleresources</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>id</code>
+                </li>
+                <li class="arg">
+                        <code>resources</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/controller_api_rbacmg.js.html#l362"><code>controller&#x2F;api&#x2F;rbacmg.js:362</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>创建、修改角色和资源关系      </br>
+请求类型: POST             </br>
+请求类型: application/json </br>
+返回结构:                 </br>
+<code>{ &quot;errcode&quot;: &quot;0&quot;, &quot;errmsg&quot;: &quot;&quot;, &quot;data&quot;:{}, &quot;extention&quot;:{} }</code></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">id</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>角色ID，GUID</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">resources</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+                    <div class="param-description">
+                        <p>资源ID数组</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>参考返回结构</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>输入样例
+{
+    &quot;id&quot;:&quot;3b7c2d81-aa23-4025-85a7-44c28a472718&quot;,
+    &quot;resources&quot;:[
+        &quot;e6c58811-4620-4c6b-96d6-514797763236&quot;,
+        &quot;8a2f52be-9e45-4d0d-a2d4-a1394de9b7a9&quot;,
+        &quot;e6c58811-4620-4c6b-96d6-514797763236&quot;
+    ]
+}
+
+返回码说明
+0        创建或修改成功
+40001    创建或修改失败</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_api/rbacmg/createuser" class="method item">
+    <h3 class="name"><code>api/rbacmg/createuser</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>id</code>
+                </li>
+                <li class="arg">
+                        <code>name</code>
+                </li>
+                <li class="arg">
+                        <code>mobile</code>
+                </li>
+                <li class="arg">
+                        <code>password</code>
+                </li>
+                <li class="arg">
+                        <code>type</code>
+                </li>
+                <li class="arg">
+                        <code>status</code>
+                </li>
+                <li class="arg">
+                        <code class="optional">[desc]</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/controller_api_rbacmg.js.html#l243"><code>controller&#x2F;api&#x2F;rbacmg.js:243</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>创建、修改用户           </br>
+请求类型: POST             </br>
+请求类型: application/json </br>
+返回结构:                 </br>
+<code>{ &quot;errcode&quot;: &quot;0&quot;, &quot;errmsg&quot;: &quot;&quot;, &quot;data&quot;:{}, &quot;extention&quot;:{} }</code></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">id</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>用户ID，GUID，唯一验证</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">name</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>用户名称，唯一验证</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">mobile</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>用户手机号，对于个人用户，name和mobile相同</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">password</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>用户初始化密码</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">type</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>用户类型，0代表企业，1代表个人</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">status</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>用户状态，1代表激活，0代表未激活，2代表删除，3代表冻结等</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name optional">[desc]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+                    <div class="param-description">
+                        <p>资源说明</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>参考返回结构</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>输入样例
+{
+    &quot;id:&quot;ecb3a193-e53e-4910-8e02-0269931a7093&quot;,
+    &quot;name&quot;:'admin&quot;,
+    &quot;mobile&quot;:'13999999999&quot;,
+    &quot;password&quot;:&quot;xxxxxxx&quot;,
+    &quot;type&quot;:&quot;0&quot;,
+    &quot;desc&quot;:&quot;后台管理员权限&quot;,
+    &quot;status&quot;:&quot;1&quot;
+}
+
+返回码说明
+0        创建或修改成功
+40001    创建或修改失败</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_api/rbacmg/createuserroles" class="method item">
+    <h3 class="name"><code>api/rbacmg/createuserroles</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>id</code>
+                </li>
+                <li class="arg">
+                        <code>roles</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/controller_api_rbacmg.js.html#l429"><code>controller&#x2F;api&#x2F;rbacmg.js:429</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>创建、修改用户和角色关系      </br>
+请求类型: POST             </br>
+请求类型: application/json </br>
+返回结构:                 </br>
+<code>{ &quot;errcode&quot;: &quot;0&quot;, &quot;errmsg&quot;: &quot;&quot;, &quot;data&quot;:{}, &quot;extention&quot;:{} }</code></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">id</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>用户ID，GUID</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">roles</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+                    <div class="param-description">
+                        <p>权限ID数组</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>参考返回结构</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>输入样例
+{
+    &quot;id&quot;:&quot;3b7c2d81-aa23-4025-85a7-44c28a472718&quot;,
+    &quot;roles&quot;:[
+        &quot;e6c58811-4620-4c6b-96d6-514797763236&quot;,
+        &quot;8a2f52be-9e45-4d0d-a2d4-a1394de9b7a9&quot;,
+        &quot;e6c58811-4620-4c6b-96d6-514797763236&quot;
+    ]
+}
+
+返回码说明
+0        创建或修改成功
+40001    创建或修改失败</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_api/rbacmg/resourcebyid" class="method item">
+    <h3 class="name"><code>api/rbacmg/resourcebyid</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>id</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/controller_api_rbacmg.js.html#l202"><code>controller&#x2F;api&#x2F;rbacmg.js:202</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>根据ID获取资源信息           </br>
+请求类型: GET             </br>
+请求类型: application/json </br>
+返回结构:                 </br>
+<code>{ &quot;errcode&quot;: &quot;0&quot;, &quot;errmsg&quot;: &quot;&quot;, &quot;data&quot;:{}, &quot;extention&quot;:{} }</code>
+</br>
+<code>data</code> 参数名说明:            </br>
+id 资源ID，GUID       </br>
+name 资源名称         </br>
+desc 资源说明         </br>
+action 资源对应页面或者接口</br>
+type 资源类型，有三种类型menu、action、others</br>
+parentid 父资源ID，对于action、others会隶属于menu</br>
+isactive 是否启用，0代表禁用，1代表启用</br></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">id</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>资源ID，GUID</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>返回架构中的 <code>data</code>说明</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>输入样例
+/api/rbacmg/resourcebyid?id=3b7c2d81-aa23-4025-85a7-44c28a472718
+
+返回码说明
+0        创建或修改成功
+40001    创建或修改失败</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_api/rbacmg/rolebyid" class="method item">
+    <h3 class="name"><code>api/rbacmg/rolebyid</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>id</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/controller_api_rbacmg.js.html#l83"><code>controller&#x2F;api&#x2F;rbacmg.js:83</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>根据ID获取角色信息           </br>
+请求类型: GET             </br>
+请求类型: application/json </br>
+返回结构:                 </br>
+<code>{ &quot;errcode&quot;: &quot;0&quot;, &quot;errmsg&quot;: &quot;&quot;, &quot;data&quot;:{}, &quot;extention&quot;:{} }</code>
+</br>
+<code>data</code> 参数名说明:            </br>
+id 角色ID，GUID </br>
+name 角色名称 </br>
+desc 角色说明 </br>
+isactive 是否启用，0代表禁用，1代表启用 </br></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">id</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>角色ID，GUID</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>返回架构中的 <code>data</code>说明</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>输入样例
+/api/rbacmg/rolebyid?id=3b7c2d81-aa23-4025-85a7-44c28a472718
+
+返回码说明
+0        创建或修改成功
+40001    创建或修改失败</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_api/rbacmg/roleresourcesbyroleid" class="method item">
+    <h3 class="name"><code>api/rbacmg/roleresourcesbyroleid</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>id</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/controller_api_rbacmg.js.html#l399"><code>controller&#x2F;api&#x2F;rbacmg.js:399</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>获取角色和资源关系     </br>
+请求类型: GET             </br>
+请求类型: application/json </br>
+返回结构:                 </br>
+<code>{ &quot;errcode&quot;: &quot;0&quot;, &quot;errmsg&quot;: &quot;&quot;, &quot;data&quot;:{}, &quot;extention&quot;:{} }</code>
+<code>data</code> 参数名说明:            </br>
+id 角色ID，GUID，唯一验证</br></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">id</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>用户ID，GUID</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>返回架构中的 <code>data</code>说明</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>输入样例
+api/rbacmg/roleresourcesbyroleid?id=3b7c2d81-aa23-4025-85a7-44c28a472718
+
+返回码说明
+0        创建或修改成功
+40001    创建或修改失败</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_api/rbacmg/userbyid" class="method item">
+    <h3 class="name"><code>api/rbacmg/userbyid</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>id</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/controller_api_rbacmg.js.html#l324"><code>controller&#x2F;api&#x2F;rbacmg.js:324</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>根据ID获取用户信息           </br>
+请求类型: GET             </br>
+请求类型: application/json </br>
+返回结构:                 </br>
+<code>{ &quot;errcode&quot;: &quot;0&quot;, &quot;errmsg&quot;: &quot;&quot;, &quot;data&quot;:{}, &quot;extention&quot;:{} }</code>
+</br>
+<code>data</code> 参数名说明:            </br>
+id 用户ID，GUID，唯一验证</br>
+name 用户名称，唯一验证</br>
+mobile 用户手机号，对于个人用户，name和mobile相同</br>
+type 用户类型，0代表企业，1代表个人</br>
+status 用户状态，1代表激活，0代表未激活，2代表删除，3代表冻结等</br>
+desc  资源说明</br></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">id</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>资源ID，GUID</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>返回架构中的 <code>data</code>说明</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>输入样例
+/api/rbacmg/userbyid?id=3b7c2d81-aa23-4025-85a7-44c28a472718
+
+返回码说明
+0        创建或修改成功
+40001    创建或修改失败</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_api/rbacmg/usergrants" class="method item">
+    <h3 class="name"><code>api/rbacmg/usergrants</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>id</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/controller_api_rbacmg.js.html#l496"><code>controller&#x2F;api&#x2F;rbacmg.js:496</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>获取完整用户角色权限数据      </br>
+请求类型: POST             </br>
+请求类型: application/json </br>
+返回结构:                 </br>
+<code>{ &quot;errcode&quot;: &quot;0&quot;, &quot;errmsg&quot;: &quot;&quot;, &quot;data&quot;:{}, &quot;extention&quot;:{} }</code>
+<code>data</code> 参数名说明:            </br>
+id 用户ID</br>
+roles 角色ID数组</br>
+resources 资源ID数组</br></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">id</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>用户ID，GUID</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>返回架构中的 <code>data</code> 说明</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>输入样例
+/api/rbacmg/createuserroles?id=3b7c2d81-aa23-4025-85a7-44c28a472718
+
+返回码说明
+0        创建或修改成功
+40001    创建或修改失败</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_api/rbacmg/userrolesbyuserd" class="method item">
+    <h3 class="name"><code>api/rbacmg/userrolesbyuserd</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>id</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/controller_api_rbacmg.js.html#l466"><code>controller&#x2F;api&#x2F;rbacmg.js:466</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>获取用户和角色关系     </br>
+请求类型: GET             </br>
+请求类型: application/json </br>
+返回结构:                 </br>
+<code>{ &quot;errcode&quot;: &quot;0&quot;, &quot;errmsg&quot;: &quot;&quot;, &quot;data&quot;:{}, &quot;extention&quot;:{} }</code>
+<code>data</code> 参数名说明:            </br>
+id 用户ID，GUID，唯一验证</br></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">id</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>用户ID，GUID</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>返回架构中的 <code>data</code>说明</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>输入样例
+api/rbacmg/userrolesbyuserd?id=3b7c2d81-aa23-4025-85a7-44c28a472718
+
+返回码说明
+0        创建或修改成功
+40001    创建或修改失败</code></pre>
+
+            </div>
+        </div>
+</div>
+            </div>
+
+
+
+    </div>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

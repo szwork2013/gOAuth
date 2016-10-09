@@ -7,19 +7,11 @@ require("bluebird").promisifyAll(redis.RedisClient.prototype);
 var redisclient = redis.createClient(require("../../config.js").redis.userdb);
 
 var hostname="http://localhost:8080";
+var users = require("../../data.js").users;
 
 //
 describe('POST /api/custcenter/login', function() {
-  var user = {
-        		userid:"userId",
-        		username:"userName",
-        		value:{
-        			resourceValue:6,
-        			actionsValue:256
-        		},
-        		password:"1111",
-        		userExtentions:{}
-        	}
+  var user = users[0];
 
   describe('用户登陆', function() {
     it('用户成功登陆', function(done) {

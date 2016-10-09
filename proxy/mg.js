@@ -2,17 +2,13 @@
 *** Management module***
 ***************/
 
-/**
-* Get User
-***/
+
 exports.getUserList = (para, callback) => {
 	
 	
 };
 
-/**
-* 发送验证码
-**/
+
 exports.sendVerification = (para, callback) => {
 	$.ajax({
 		url: $.config.htUrl + "/api/Base/SendVerification",

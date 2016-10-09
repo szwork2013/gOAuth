@@ -1,0 +1,702 @@
+{
+    "project": {
+        "name": "gOAuth",
+        "description": "gOAuth is a project for provide RBAC/OAuth services",
+        "version": "0.3",
+        "url": "https://github.com/golden-tech-native",
+        "logo": "https://avatars1.githubusercontent.com/u/20122745?v=3&s=200"
+    },
+    "files": {
+        "controller/api/custcenter.js": {
+            "name": "controller/api/custcenter.js",
+            "modules": {
+                "custcenter": 1
+            },
+            "classes": {
+                "custcenter": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "controller/api/rbacmg.js": {
+            "name": "controller/api/rbacmg.js",
+            "modules": {
+                "rbacmg": 1
+            },
+            "classes": {
+                "rbacmg": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "controller/manager.js": {
+            "name": "controller/manager.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "controller/oauth.js": {
+            "name": "controller/oauth.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "API": {
+            "name": "API",
+            "submodules": {
+                "custcenter": 1,
+                "rbacmg": 1
+            },
+            "elements": {},
+            "classes": {
+                "custcenter": 1,
+                "rbacmg": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "file": "controller/api/rbacmg.js",
+            "line": 1
+        },
+        "custcenter": {
+            "name": "custcenter",
+            "submodules": {},
+            "elements": {},
+            "classes": {
+                "custcenter": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "API",
+            "namespace": "",
+            "file": "controller/api/custcenter.js",
+            "line": 1,
+            "description": "用户中心接口模块"
+        },
+        "rbacmg": {
+            "name": "rbacmg",
+            "submodules": {},
+            "elements": {},
+            "classes": {
+                "rbacmg": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "API",
+            "namespace": "",
+            "file": "controller/api/rbacmg.js",
+            "line": 1,
+            "description": "RBAC角色权限用户管理模块"
+        }
+    },
+    "classes": {
+        "custcenter": {
+            "name": "custcenter",
+            "shortname": "custcenter",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "API",
+            "submodule": "custcenter",
+            "namespace": "",
+            "file": "controller/api/custcenter.js",
+            "line": 1,
+            "description": "用户中心接口模块"
+        },
+        "rbacmg": {
+            "name": "rbacmg",
+            "shortname": "rbacmg",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "API",
+            "submodule": "rbacmg",
+            "namespace": "",
+            "file": "controller/api/rbacmg.js",
+            "line": 1,
+            "description": "RBAC角色权限用户管理模块"
+        }
+    },
+    "elements": {},
+    "classitems": [
+        {
+            "file": "controller/api/custcenter.js",
+            "line": 10,
+            "description": "用户中心－登录\t\t\t  </br>\n\t请求类型: POST             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t\t\t                 </br>\n\tdata参数名说明:            </br>\n\t\tusername 用户名 </br>\n\t\tmobile 手机号 </br>\n\t\troles 角色ID数组 </br>\n\t\tresources 资源ID数组 </br>",
+            "itemtype": "method",
+            "name": "api/custcenter/login",
+            "params": [
+                {
+                    "name": "username",
+                    "description": "注册用户名，唯一",
+                    "type": "String"
+                },
+                {
+                    "name": "password",
+                    "description": "密码",
+                    "type": "String"
+                },
+                {
+                    "name": "code",
+                    "description": "验证码,根据安全需要时会要求提供",
+                    "type": "String",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "返回架构中的 `data`说明"
+            },
+            "example": [
+                "\n\t输入样例\n\t{\n       \"username\":\"admin\",\n       \"password\":\"xxxxxxx\",\n       \"code\": \"xxxx\"\n\t}\n\n\t返回样例\n\t{\n\t   \"id: \"\",\n\t   \"user\":{\n\t\t   \"username\": \"\",\n\t\t   \"mobile\": \"\"\n\t\t   \"extention\":{}\n\t   },\n\t   \"roles\":[\"abc\",\"efg\"],\n\t   \"resources\":[\"123\",\"456\"] \t\n\t}"
+            ],
+            "class": "custcenter",
+            "module": "API",
+            "submodule": "custcenter"
+        },
+        {
+            "file": "controller/api/custcenter.js",
+            "line": 64,
+            "description": "用户中心－注册\t\t\t </br>\n\t请求类型: POST             </br>\n\t请求类型: application/json </br>\n\t返回结构: {RESULTMSG}      </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t\t\t\t\t\t      </br>\n\tdata参数名说明:            </br>\n\t\tusername 用户名 </br>\n\t\tmobile 手机号 </br>\n\t\troles 角色ID数组 </br>\n\t\tresources 资源ID数组 </br>",
+            "itemtype": "method",
+            "name": "api/custcenter/register",
+            "params": [
+                {
+                    "name": "username",
+                    "description": "注册用户名，唯一",
+                    "type": "String"
+                },
+                {
+                    "name": "password",
+                    "description": "密码",
+                    "type": "String"
+                },
+                {
+                    "name": "code",
+                    "description": "验证码，必须",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "返回架构中的 `data`说明"
+            },
+            "example": [
+                " \n\t输入参数\n\t   {\n\t        username:'admin',\n\t        password:'xxxxxxx',\n\t        code: 'xxxx'\n\t   }"
+            ],
+            "class": "custcenter",
+            "module": "API",
+            "submodule": "custcenter"
+        },
+        {
+            "file": "controller/api/custcenter.js",
+            "line": 101,
+            "class": "custcenter",
+            "module": "API",
+            "submodule": "custcenter"
+        },
+        {
+            "file": "controller/api/rbacmg.js",
+            "line": 10,
+            "description": "创建、修改角色\t\t  </br>\n\t请求类型: POST             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`",
+            "itemtype": "method",
+            "name": "api/rbacmg/createrole",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "角色ID，GUID，唯一验证",
+                    "type": "String"
+                },
+                {
+                    "name": "name",
+                    "description": "角色名称，唯一验证",
+                    "type": "String"
+                },
+                {
+                    "name": "desc",
+                    "description": "角色说明",
+                    "type": "String"
+                },
+                {
+                    "name": "isactive",
+                    "description": "是否启用，0代表禁用，1代表启用",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "参考返回结构"
+            },
+            "example": [
+                "\n\t输入样例\n\t{\n        \"id\":\"3b7c2d81-aa23-4025-85a7-44c28a472718\",\n        \"name\":\"admin\",\n        \"desc\":\"后台管理员权限\",\n        \"isactive\":\"1\"\n    }\n\n\t返回码说明\n\t0        创建或修改成功\n\t40001\t 创建或修改失败"
+            ],
+            "class": "rbacmg",
+            "module": "API",
+            "submodule": "rbacmg"
+        },
+        {
+            "file": "controller/api/rbacmg.js",
+            "line": 47,
+            "description": "分页获取角色列表\t\t\t </br>\n\t请求类型: GET             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t\t\t                 </br>\n\t`data` 参数名说明:            </br>\n\t\tid 角色ID，GUID </br>\n\t\tname 角色名称 </br>\n\t\tdesc 角色说明 </br>\n\t\tisactive 是否启用，0代表禁用，1代表启用 </br>",
+            "itemtype": "method",
+            "name": "api/rbacmg/allroles",
+            "params": [
+                {
+                    "name": "from",
+                    "description": "列表起始位置，1代表第一条数据",
+                    "type": "Number"
+                },
+                {
+                    "name": "size",
+                    "description": "返回条数，建议10",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "返回架构中的 `data` 说明，`data` 是一个数组结构"
+            },
+            "example": [
+                "\n\t输入样例\n\t/api/rbacmg/allroles?from=11&size=10\n\n\t返回码说明\n\t0        创建或修改成功\n\t40001\t 创建或修改失败"
+            ],
+            "class": "rbacmg",
+            "module": "API",
+            "submodule": "rbacmg"
+        },
+        {
+            "file": "controller/api/rbacmg.js",
+            "line": 83,
+            "description": "根据ID获取角色信息\t\t\t </br>\n\t请求类型: GET             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t\t\t                 </br>\n\t`data` 参数名说明:            </br>\n\t\tid 角色ID，GUID </br>\n\t\tname 角色名称 </br>\n\t\tdesc 角色说明 </br>\n\t\tisactive 是否启用，0代表禁用，1代表启用 </br>",
+            "itemtype": "method",
+            "name": "api/rbacmg/rolebyid",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "角色ID，GUID",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "返回架构中的 `data`说明"
+            },
+            "example": [
+                "\n\t输入样例\n\t/api/rbacmg/rolebyid?id=3b7c2d81-aa23-4025-85a7-44c28a472718\n\n\t返回码说明\n\t0        创建或修改成功\n\t40001\t 创建或修改失败"
+            ],
+            "class": "rbacmg",
+            "module": "API",
+            "submodule": "rbacmg"
+        },
+        {
+            "file": "controller/api/rbacmg.js",
+            "line": 119,
+            "description": "创建、修改资源\t\t\t  </br>\n\t请求类型: POST             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`",
+            "itemtype": "method",
+            "name": "api/rbacmg/createresource",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "资源ID，GUID，唯一验证",
+                    "type": "String"
+                },
+                {
+                    "name": "name",
+                    "description": "资源名称，唯一验证",
+                    "type": "String"
+                },
+                {
+                    "name": "desc",
+                    "description": "资源说明",
+                    "type": "String"
+                },
+                {
+                    "name": "action",
+                    "description": "资源对应页面或者接口",
+                    "type": "String"
+                },
+                {
+                    "name": "type",
+                    "description": "资源类型，有三种类型menu、action、others",
+                    "type": "String"
+                },
+                {
+                    "name": "parentid",
+                    "description": "父资源ID，对于action、others会隶属于menu",
+                    "type": "String"
+                },
+                {
+                    "name": "isactive",
+                    "description": "是否启用，0代表禁用，1代表启用",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "参考返回结构"
+            },
+            "example": [
+                "\n\t输入样例\n\t{\n        \"id\":\"0eaad0ac-3a5c-4382-8804-b093cc16287b\",\n        \"name\":\"myshow\",\n        \"desc\":\"我的展示\",\n        \"action\":\"/show/exhibition-1.html\",\n        \"type\":\"menu\",\n        \"parentid\":\"\",\n        \"value\": \"2\",\n        \"isactive\": \"1\"\n    }\n\n\t返回码说明\n\t0        创建或修改成功\n\t40001\t 创建或修改失败"
+            ],
+            "class": "rbacmg",
+            "module": "API",
+            "submodule": "rbacmg"
+        },
+        {
+            "file": "controller/api/rbacmg.js",
+            "line": 163,
+            "description": "分页获取资源列表\t\t\t </br>\n\t请求类型: GET             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t\t\t                 </br>\n\t`data` 参数名说明:            </br>\n\t\tid 资源ID，GUID\n\t\tname 资源名称\n\t\tdesc 资源说明\n\t\taction 资源对应页面或者接口\n\t\ttype 资源类型，有三种类型menu、action、others\n\t\tparentid 父资源ID，对于action、others会隶属于menu\n\t\tisactive 是否启用，0代表禁用，1代表启用",
+            "itemtype": "method",
+            "name": "api/rbacmg/allresources",
+            "params": [
+                {
+                    "name": "from",
+                    "description": "列表起始位置，1代表第一条数据",
+                    "type": "Number"
+                },
+                {
+                    "name": "size",
+                    "description": "返回条数，建议10",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "返回架构中的 `data` 说明，`data` 是一个数组结构"
+            },
+            "example": [
+                "\n\t输入样例\n\t/api/rbacmg/allresources?from=11&size=10\n\n\t返回码说明\n\t0        创建或修改成功\n\t40001\t 创建或修改失败"
+            ],
+            "class": "rbacmg",
+            "module": "API",
+            "submodule": "rbacmg"
+        },
+        {
+            "file": "controller/api/rbacmg.js",
+            "line": 202,
+            "description": "根据ID获取资源信息\t\t\t </br>\n\t请求类型: GET             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t\t\t                 </br>\n\t`data` 参数名说明:            </br>\n\t\tid 资源ID，GUID       </br>\n\t\tname 资源名称         </br>\n\t\tdesc 资源说明         </br>\n\t\taction 资源对应页面或者接口</br>\n\t\ttype 资源类型，有三种类型menu、action、others</br>\n\t\tparentid 父资源ID，对于action、others会隶属于menu</br>\n\t\tisactive 是否启用，0代表禁用，1代表启用</br>",
+            "itemtype": "method",
+            "name": "api/rbacmg/resourcebyid",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "资源ID，GUID",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "返回架构中的 `data`说明"
+            },
+            "example": [
+                "\n\t输入样例\n\t/api/rbacmg/resourcebyid?id=3b7c2d81-aa23-4025-85a7-44c28a472718\n\n\t返回码说明\n\t0        创建或修改成功\n\t40001\t 创建或修改失败"
+            ],
+            "class": "rbacmg",
+            "module": "API",
+            "submodule": "rbacmg"
+        },
+        {
+            "file": "controller/api/rbacmg.js",
+            "line": 243,
+            "description": "创建、修改用户\t\t  \t  </br>\n\t请求类型: POST             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`",
+            "itemtype": "method",
+            "name": "api/rbacmg/createuser",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "用户ID，GUID，唯一验证",
+                    "type": "String"
+                },
+                {
+                    "name": "name",
+                    "description": "用户名称，唯一验证",
+                    "type": "String"
+                },
+                {
+                    "name": "mobile",
+                    "description": "用户手机号，对于个人用户，name和mobile相同",
+                    "type": "String"
+                },
+                {
+                    "name": "password",
+                    "description": "用户初始化密码",
+                    "type": "String"
+                },
+                {
+                    "name": "type",
+                    "description": "用户类型，0代表企业，1代表个人",
+                    "type": "String"
+                },
+                {
+                    "name": "status",
+                    "description": "用户状态，1代表激活，0代表未激活，2代表删除，3代表冻结等",
+                    "type": "String"
+                },
+                {
+                    "name": "desc",
+                    "description": "资源说明",
+                    "type": "String",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "参考返回结构"
+            },
+            "example": [
+                "\n\t输入样例\n\t{\n        \"id:\"ecb3a193-e53e-4910-8e02-0269931a7093\",\n        \"name\":'admin\",\n        \"mobile\":'13999999999\",\n        \"password\":\"xxxxxxx\",\n        \"type\":\"0\",\n        \"desc\":\"后台管理员权限\",\n        \"status\":\"1\"\n    }\n\n\t返回码说明\n\t0        创建或修改成功\n\t40001\t 创建或修改失败"
+            ],
+            "class": "rbacmg",
+            "module": "API",
+            "submodule": "rbacmg"
+        },
+        {
+            "file": "controller/api/rbacmg.js",
+            "line": 286,
+            "description": "分页获取用户列表\t\t\t </br>\n\t请求类型: GET             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t\t\t                 </br>\n\t`data` 参数名说明:            </br>\n\t\tid 用户ID，GUID，唯一验证</br>\n\t\tname 用户名称，唯一验证</br>\n\t\tmobile 用户手机号，对于个人用户，name和mobile相同</br>\n\t\ttype 用户类型，0代表企业，1代表个人</br>\n\t\tstatus 用户状态，1代表激活，0代表未激活，2代表删除，3代表冻结等</br>\n\t\tdesc  资源说明</br>",
+            "itemtype": "method",
+            "name": "api/rbacmg/allusers",
+            "params": [
+                {
+                    "name": "from",
+                    "description": "列表起始位置，1代表第一条数据",
+                    "type": "Number"
+                },
+                {
+                    "name": "size",
+                    "description": "返回条数，建议10",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "返回架构中的 `data` 说明，`data` 是一个数组结构"
+            },
+            "example": [
+                "\n\t输入样例\n\t/api/rbacmg/allusers?from=11&size=10\n\n\t返回码说明\n\t0        创建或修改成功\n\t40001\t 创建或修改失败"
+            ],
+            "class": "rbacmg",
+            "module": "API",
+            "submodule": "rbacmg"
+        },
+        {
+            "file": "controller/api/rbacmg.js",
+            "line": 324,
+            "description": "根据ID获取用户信息\t\t\t </br>\n\t请求类型: GET             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t\t\t                 </br>\n\t`data` 参数名说明:            </br>\n\t\tid 用户ID，GUID，唯一验证</br>\n\t\tname 用户名称，唯一验证</br>\n\t\tmobile 用户手机号，对于个人用户，name和mobile相同</br>\n\t\ttype 用户类型，0代表企业，1代表个人</br>\n\t\tstatus 用户状态，1代表激活，0代表未激活，2代表删除，3代表冻结等</br>\n\t\tdesc  资源说明</br>",
+            "itemtype": "method",
+            "name": "api/rbacmg/userbyid",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "资源ID，GUID",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "返回架构中的 `data`说明"
+            },
+            "example": [
+                "\n\t输入样例\n\t/api/rbacmg/userbyid?id=3b7c2d81-aa23-4025-85a7-44c28a472718\n\n\t返回码说明\n\t0        创建或修改成功\n\t40001\t 创建或修改失败"
+            ],
+            "class": "rbacmg",
+            "module": "API",
+            "submodule": "rbacmg"
+        },
+        {
+            "file": "controller/api/rbacmg.js",
+            "line": 362,
+            "description": "创建、修改角色和资源关系\t  </br>\n\t请求类型: POST             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`",
+            "itemtype": "method",
+            "name": "api/rbacmg/createroleresources",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "角色ID，GUID",
+                    "type": "String"
+                },
+                {
+                    "name": "resources",
+                    "description": "资源ID数组",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "参考返回结构"
+            },
+            "example": [
+                "\n\t输入样例\n\t{\n        \"id\":\"3b7c2d81-aa23-4025-85a7-44c28a472718\",\n        \"resources\":[\n            \"e6c58811-4620-4c6b-96d6-514797763236\",\n            \"8a2f52be-9e45-4d0d-a2d4-a1394de9b7a9\",\n            \"e6c58811-4620-4c6b-96d6-514797763236\"\n        ]\n    }\n\n\t返回码说明\n\t0        创建或修改成功\n\t40001\t 创建或修改失败"
+            ],
+            "class": "rbacmg",
+            "module": "API",
+            "submodule": "rbacmg"
+        },
+        {
+            "file": "controller/api/rbacmg.js",
+            "line": 399,
+            "description": "获取角色和资源关系\t  </br>\n\t请求类型: GET             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t`data` 参数名说明:            </br>\n\t\tid 角色ID，GUID，唯一验证</br>",
+            "itemtype": "method",
+            "name": "api/rbacmg/roleresourcesbyroleid",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "用户ID，GUID",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "返回架构中的 `data`说明"
+            },
+            "example": [
+                "\n\t输入样例\n\tapi/rbacmg/roleresourcesbyroleid?id=3b7c2d81-aa23-4025-85a7-44c28a472718\n\n\t返回码说明\n\t0        创建或修改成功\n\t40001\t 创建或修改失败"
+            ],
+            "class": "rbacmg",
+            "module": "API",
+            "submodule": "rbacmg"
+        },
+        {
+            "file": "controller/api/rbacmg.js",
+            "line": 429,
+            "description": "创建、修改用户和角色关系\t  </br>\n\t请求类型: POST             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`",
+            "itemtype": "method",
+            "name": "api/rbacmg/createuserroles",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "用户ID，GUID",
+                    "type": "String"
+                },
+                {
+                    "name": "roles",
+                    "description": "权限ID数组",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "参考返回结构"
+            },
+            "example": [
+                "\n\t输入样例\n\t{\n        \"id\":\"3b7c2d81-aa23-4025-85a7-44c28a472718\",\n        \"roles\":[\n            \"e6c58811-4620-4c6b-96d6-514797763236\",\n            \"8a2f52be-9e45-4d0d-a2d4-a1394de9b7a9\",\n            \"e6c58811-4620-4c6b-96d6-514797763236\"\n        ]\n    }\n\n\t返回码说明\n\t0        创建或修改成功\n\t40001\t 创建或修改失败"
+            ],
+            "class": "rbacmg",
+            "module": "API",
+            "submodule": "rbacmg"
+        },
+        {
+            "file": "controller/api/rbacmg.js",
+            "line": 466,
+            "description": "获取用户和角色关系\t  </br>\n\t请求类型: GET             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t`data` 参数名说明:            </br>\n\t\tid 用户ID，GUID，唯一验证</br>",
+            "itemtype": "method",
+            "name": "api/rbacmg/userrolesbyuserd",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "用户ID，GUID",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "返回架构中的 `data`说明"
+            },
+            "example": [
+                "\n\t输入样例\n\tapi/rbacmg/userrolesbyuserd?id=3b7c2d81-aa23-4025-85a7-44c28a472718\n\n\t返回码说明\n\t0        创建或修改成功\n\t40001\t 创建或修改失败"
+            ],
+            "class": "rbacmg",
+            "module": "API",
+            "submodule": "rbacmg"
+        },
+        {
+            "file": "controller/api/rbacmg.js",
+            "line": 496,
+            "description": "获取完整用户角色权限数据\t  </br>\n\t请求类型: POST             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t`data` 参数名说明:            </br>\n\t\tid 用户ID</br>\n\t\troles 角色ID数组</br>\n\t\tresources 资源ID数组</br>",
+            "itemtype": "method",
+            "name": "api/rbacmg/usergrants",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "用户ID，GUID",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "返回架构中的 `data` 说明"
+            },
+            "example": [
+                "\n\t输入样例\n\t/api/rbacmg/createuserroles?id=3b7c2d81-aa23-4025-85a7-44c28a472718\n\t\n\t返回码说明\n\t0        创建或修改成功\n\t40001\t 创建或修改失败"
+            ],
+            "class": "rbacmg",
+            "module": "API",
+            "submodule": "rbacmg"
+        },
+        {
+            "file": "controller/manager.js",
+            "line": 1,
+            "params": [
+                {
+                    "name": "UNKNOWN",
+                    "description": "",
+                    "type": "[type]"
+                },
+                {
+                    "name": "UNKNOWN",
+                    "description": "",
+                    "type": "[type]"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "[type]"
+            },
+            "class": "",
+            "module": "API"
+        },
+        {
+            "file": "controller/manager.js",
+            "line": 27,
+            "description": "Controller for oauth2.0",
+            "class": "",
+            "module": "API"
+        },
+        {
+            "file": "controller/manager.js",
+            "line": 51,
+            "description": "Controller for oauth2.0",
+            "class": "",
+            "module": "API"
+        },
+        {
+            "file": "controller/oauth.js",
+            "line": 1,
+            "description": "Controller for oauth2.0",
+            "class": "",
+            "module": "API"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "param name missing: {[type]}",
+            "line": " controller/manager.js:1"
+        },
+        {
+            "message": "param name missing: {[type]}",
+            "line": " controller/manager.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " controller/api/custcenter.js:101"
+        },
+        {
+            "message": "Missing item type",
+            "line": " controller/manager.js:1"
+        },
+        {
+            "message": "Missing item type\nController for oauth2.0",
+            "line": " controller/manager.js:27"
+        },
+        {
+            "message": "Missing item type\nController for oauth2.0",
+            "line": " controller/manager.js:51"
+        },
+        {
+            "message": "Missing item type\nController for oauth2.0",
+            "line": " controller/oauth.js:1"
+        }
+    ]
+}

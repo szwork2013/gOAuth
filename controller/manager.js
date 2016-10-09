@@ -1,4 +1,8 @@
-// Home page
+/**
+ * @param  {[type]}
+ * @param  {[type]}
+ * @return {[type]}
+ */
 exports.getHome = (req, res) => {
 	// 整合参数
 	(function (para) {
