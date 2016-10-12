@@ -28,7 +28,8 @@
     "faye-websocket": "*",
     "crypto": "*",
     "bluebird": "*",
-    "node-uuid" :"*"
+    "node-uuid" :"*",
+    "data-driven" : "*"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

@@ -122,7 +122,24 @@ exports.postchangepassword = (req,res)  => {
 
 /*用户中心－获取验证码*/
 exports.getcodegenerate = (req,res)  => {
-	$.proxy_custmg.custcenter.codegenerate(req.body,(result)=>{
+	var data={
+		name:req.query.username,
+		type:req.query.type
+	};
+
+	$.proxy_custmg.custcenter.codegenerate(data,(result)=>{
+		res.send(result);
+	});
+}
+
+exports.getcodeverify = (req,res)  => {
+	var data= {
+		name:req.query.username,
+		type:req.query.type,
+		code:req.query.code
+	};
+
+	$.proxy_custmg.custcenter.codeverify(data,(result)=>{
 		res.send(result);
 	});
 }

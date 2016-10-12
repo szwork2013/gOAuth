@@ -1,7 +1,7 @@
 var
 util = require('util'),
 async = $.async,
-redis = $.plug.redis.sessionserver;
+redis = $.plug.redis.userdbserver;
 
 var KEY = {
     USER         : 'user:%s',

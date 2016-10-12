@@ -6,7 +6,7 @@ var async = require('async');
 
 var redis=require('redis');
 require("bluebird").promisifyAll(redis.RedisClient.prototype);
-var redisclient = redis.createClient(require("../../config.js").redis.session);
+var redisclient = redis.createClient(require("../../config.js").redis.userdb);
 
 var hostname=require("../../config.js").testhostname;
 var user_resources = require("../../data.js").user_resources;

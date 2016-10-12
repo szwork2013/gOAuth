@@ -1,8 +1,8 @@
 var uuid = require('node-uuid');
-var
-util = require('util'),
+var bluebird = require('bluebird');
+var util = require('util'),
 async = $.async,
-redis = $.plug.redis.sessionserver;
+redis = $.plug.redis.userdbserver;
 
 var KEY = {
     USER         : 'user:%s',
@@ -31,10 +31,10 @@ exports.login = (para, callback) =>
             },
             //验证码验证
             function (cb) {
-                //todo check code-generation service, if code is required.
-                var isrequired = false;
-                if (isrequired&&(!para.code || para.code!="1234")) return cb($.plug.resultformat(30005, "Code is requiered or incorrect"));
-                cb();
+                var data = {name:para.username,type:"0",code:para.code};
+                forcecodeverify(data, (data)=>{
+                    return cb(data);
+                });
             },
             //账户异常
             function (cb) {
@@ -48,7 +48,11 @@ exports.login = (para, callback) =>
                 redis.hgetall(util.format(KEY.USER, userid),(err, data)=>{
                     if (err) return cb($.plug.resultformat(40001, err));
                     else {
-                       if (data.password != para.password) return cb($.plug.resultformat(30003, "Either username or password is incorrect"));
+                       if (data.password != para.password) 
+                       {
+                           forceverify({name:para.username, type:"1"});
+                           return cb($.plug.resultformat(30003, "Either username or password is incorrect"));
+                       }
                        else return cb();
                     }
                 });
@@ -197,21 +201,90 @@ exports.verify = (para, callback) =>
 
 
 function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min;
+   min = Math.ceil(min);
+   max = Math.floor(max);
+   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+//生成验证码
+//type: 1 登录验证
+function forceverify(para) {
+    var codeid = util.format("forceverify:%s:%s", para.type, para.name);
+    redis.lpush(codeid, 1, (err, data) => {
+        redis.expire(codeid, 2000);
+    });
+}
+
+//生成验证码
+//type: 0注册，1登录验证，2忘记密码
 exports.codegenerate = (para, callback) =>
 {
-   var code = getRandomInt(1000,9999);
-   callback($.plug.resultformat(0, '',{code:code}));
+    var code = getRandomInt(1000,9999);
+    var codeid = util.format("code:%s:%s", para.type, para.name);
+    redis.set(codeid, code, (err, data) => {
+        redis.expire(codeid, 300);
+        return callback($.plug.resultformat(0, '', {code:code}));
+    });
 }
 
 
+function forcecodeverify(para, callback)
+{
+    var forceverifyid = util.format("forceverify:%s:%s", "1", para.name);
+    var codeid = util.format("code:%s:%s", "0", para.name);
+    var getcode;
+    async.waterfall([
+        //检察是否必须强制验证码
+        function (cb) {
+            redis.llen(forceverifyid, (err, data) => {
+                if(data > 5 && !para.code) return cb($.plug.resultformat(30005, "Code is forcing requiered"));
+                cb();
+            });
+        },
+        function (cb) {
+           redis.get(codeid, (err, data) => {
+               getcode = data;
+               return cb();
+           });
+        },
+        function (cb) {
+            // redis.expire(codeid,0, (err,data)=>{
+            //     return cb();
+            // });
+            // fuck the code:不知道为什么就是调不对！！！！ 
+             if(para.code != getcode) {
+                  return cb($.plug.resultformat(30011, "code is incorrect or expired"));
+             }
+             cb();
+             // else {
+             //      //redis.send_command("DEL",[codeid]);
+             //      return cb();
+             // }
+        },
+        function (cb) {
+            console.log(1);
+            cb();
+        }],
+        function (err) {
+            if (err) {
+                callback(err);
+            } else {
+                callback(null);
+            }
+        }
+    );
+}
 
-
-
+exports.codeverify = (para, callback) => {
+    var codeid = util.format("code:%s:%s", para.type, para.name);
+    redis.get(codeid, (err, data) => {
+        if(para.code == data) {
+           redis.expire(codeid , 0);
+           return callback($.plug.resultformat(0, ''));
+        }
+        return callback($.plug.resultformat(30011, 'code is incorrect'));
+    });
+}
 
 
 
