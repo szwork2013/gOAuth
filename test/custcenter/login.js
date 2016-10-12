@@ -16,8 +16,8 @@ describe('POST /api/custcenter/login', function() {
   describe('用户登陆', function() {
     it('用户成功登陆', function(done) {
       request(hostname)
-        .post('/api/custcenter/login',user)
-        .send({username:"userName",password:"1111"})
+        .post('/api/custcenter/login')
+        .send({username: users[0].name, password:users[0].password})
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .end(function (err, res) {
@@ -59,7 +59,7 @@ describe('POST /api/custcenter/login', function() {
     it('用户登陆失败-密码不正确', function(done) {
       request(hostname)
         .post('/api/custcenter/login',user)
-        .send({username:"userName",password:"121212"})
+        .send({username:users[0].name,password:"121212"})
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .end(function (err, res) {

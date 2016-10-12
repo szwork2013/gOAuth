@@ -23,18 +23,11 @@ exports.login = (para, callback) =>
             },
             //获取用户信息
             function (cb) {
-                user = {
-                    id: "userId",
-                    name: "userName",
-                    value: {
-                        resourceValue: 6,
-                        actionsValue: 256
-                    },
-                    password: "1111",
-                    extentions: {}
-                };
-                if (!user || user.name != para.username) return cb($.plug.resultformat(30002, "User is not existed"));
-                cb();
+                redis.get(util.format(KEY.USER_USERNAME, para.username), (err, data) =>{
+                    userid = data;
+                    if(!data) return cb($.plug.resultformat(30002, "User is not existed"));
+                    else return cb();
+                });
             },
             //验证码验证
             function (cb) {
@@ -52,48 +45,20 @@ exports.login = (para, callback) =>
             },
             //获取权限
             function (cb) {
-                if (user.password != para.password)return cb($.plug.resultformat(30003, "Either username or password is incorrect"));
-                userSession = {
-                    user: {
-                        id: 'userId',
-                        name: 'userName',
-                        value: {
-                            resourceValue: 6,
-                            actionsValue: 256
-                        },
-                        extentions: {}
-                    },
-                    roles: [
-                        {
-                            id: 'roleId',
-                            name: 'admin'
-                        }
-                    ],
-                    resources: [
-                        {
-                            id: 'resourceId',
-                            name: 'point.pointlist',
-                            value: 2,
-                            resource: '/point/pointlist.html'
-                        }
-                    ],
-                    actions: [
-                        {
-                            id: 'actionId',
-                            name: 'point.getpoint',
-                            value: 32,
-                            action: '/point/pointlist'
-                        }
-                    ]
-                };
-                cb();
+                redis.hgetall(util.format(KEY.USER, userid),(err, data)=>{
+                    if (err) return cb($.plug.resultformat(40001, err));
+                    else {
+                       if (data.password != para.password) return cb($.plug.resultformat(30003, "Either username or password is incorrect"));
+                       else return cb();
+                    }
+                });
             }
         ],
         function (err) {
             if (err) {
                 callback(err);
             } else {
-                callback($.plug.resultformat(0, '', userSession));
+                callback($.plug.resultformat(0, ''));
             }
         });
 }
@@ -113,7 +78,7 @@ exports.register = (para, callback) =>
             //获取是否已经注册过
             function (cb) {
                 redis.get(util.format(KEY.USER_USERNAME, para.username), (err, data) =>{
-                    userid = data
+                    userid = data;
                     if(userid) return cb($.plug.resultformat(30006, "User is already existing"));
                     else return cb();
                 });

@@ -297,7 +297,7 @@ var users = [
         id:'ecb3a193-e53e-4910-8e02-0269931a7093',
         name:'admin',
         mobile:'13999999999',
-        password:'',
+        password:'123456',
         desc:'后台管理员权限',
         status:'0'
     },
@@ -305,7 +305,7 @@ var users = [
         id:'19458182-f664-4a8e-b3ed-f5b45a3f51a1',
         name:'18888888888',
         mobile:'18888888888',
-        password:'',
+        password:'123456',
         desc:'普通用户',
         status:'0'
     },
@@ -313,7 +313,7 @@ var users = [
         id:'642f2230-d9ef-4c78-ac17-64d731649866',
         name:'18999999999',
         mobile:'18999999999',
-        password:'',
+        password:'123456',
         desc:'普通用户',
         status:'0'
     }
