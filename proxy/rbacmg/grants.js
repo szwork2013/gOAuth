@@ -140,7 +140,6 @@ var createuser_resources = (id,callback) => {
 };
 
 // module.exports.createuser_resources = (para,callback) => createuser_resources;
-
 module.exports.user_roles_resources = (id,callback) => {
     var user_roles_id = util.format(KEY.USER_ROLES, id);
     var user_resources_id = util.format(KEY.URER_RESOURCES, id);

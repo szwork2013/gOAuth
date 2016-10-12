@@ -121,7 +121,7 @@ exports.postchangepassword = (req,res)  => {
 }
 
 /*用户中心－获取验证码*/
-exports.postcodegenerate = (req,res)  => {
+exports.getcodegenerate = (req,res)  => {
 	$.proxy_custmg.custcenter.codegenerate(req.body,(result)=>{
 		res.send(result);
 	});

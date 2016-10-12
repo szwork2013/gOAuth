@@ -14,7 +14,6 @@ exports.decrypt = (para, callback) =>
 	});
 }
 
-
 /*生成scode*/
 exports.generatecode = (para, callback) =>
 {

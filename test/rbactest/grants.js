@@ -8,7 +8,7 @@ var redis=require('redis');
 require("bluebird").promisifyAll(redis.RedisClient.prototype);
 var redisclient = redis.createClient(require("../../config.js").redis.session);
 
-var hostname = "http://localhost:8080";
+var hostname=require("../../config.js").testhostname;
 var user_resources = require("../../data.js").user_resources;
 var user_roles = require("../../data.js").user_roles;
 var role_resources = require("../../data.js").role_resources;

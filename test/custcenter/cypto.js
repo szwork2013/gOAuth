@@ -6,7 +6,7 @@ var redis=require('redis');
 require("bluebird").promisifyAll(redis.RedisClient.prototype);
 var redisclient = redis.createClient(require("../../config.js").redis.userdb);
 
-var hostname="http://localhost:8080";
+var hostname=require("../../config.js").testhostname;
 
 
 describe('POST 密码算法', function() {

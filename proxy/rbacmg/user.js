@@ -17,6 +17,7 @@ module.exports.createuser = (user,callback) => {
     //2. 同时保存key='user:id:%s',入redis.
     redis.hmset(util.format(KEY.USER, user.id), user,(err, data)=>{
         if (err) return callback($.plug.resultformat(40001, err));
+        redis.set(util.format(KEY.USER_USERNAME, user.name),user.id);
         callback($.plug.resultformat(0, ""));
     });
 };
@@ -81,8 +82,12 @@ module.exports.userbyid = (id, callback) =>{
     });
 };
 
-
-
+module.exports.useridbyname = (name, callback) =>{
+    redis.get(util.format(KEY.USER_USERNAME, name),(err, data) =>{
+        if (err) callback($.plug.resultformat(40001, err));
+        callback($.plug.resultformat(0, "",{id:data}));
+    });
+};
 
 
 
