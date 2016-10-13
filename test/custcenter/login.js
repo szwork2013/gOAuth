@@ -162,7 +162,7 @@ describe('POST /api/custcenter/login', function() {
           .end(function (err, res) {
             should.exist(res);
             res.status.should.be.equal(200);
-            res.body.errcode.should.be.equal(30011);
+            res.body.errcode.should.be.equal(0);
             done();
           });
       });

@@ -227,7 +227,6 @@ exports.codegenerate = (para, callback) =>
     });
 }
 
-
 function forcecodeverify(para, callback)
 {
     var forceverifyid = util.format("forceverify:%s:%s", "1", para.name);
@@ -244,26 +243,15 @@ function forcecodeverify(para, callback)
         function (cb) {
            redis.get(codeid, (err, data) => {
                getcode = data;
-               return cb();
+               if(para.code != getcode) {
+                  return cb($.plug.resultformat(30011, "code is incorrect or expired"));
+               } else cb();
            });
         },
         function (cb) {
-            // redis.expire(codeid,0, (err,data)=>{
-            //     return cb();
-            // });
-            // fuck the code:不知道为什么就是调不对！！！！ 
-             if(para.code != getcode) {
-                  return cb($.plug.resultformat(30011, "code is incorrect or expired"));
-             }
-             cb();
-             // else {
-             //      //redis.send_command("DEL",[codeid]);
-             //      return cb();
-             // }
-        },
-        function (cb) {
-            console.log(1);
-            cb();
+           redis.expire(codeid , 0);
+           redis.expire(forceverifyid , 0);
+           cb();
         }],
         function (err) {
             if (err) {

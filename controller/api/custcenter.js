@@ -120,7 +120,31 @@ exports.postchangepassword = (req,res)  => {
 	});
 }
 
-/*用户中心－获取验证码*/
+/**
+@description
+	获取验证码			 </br>
+	请求类型: GET             </br>
+	请求类型: application/json </br>
+	返回结构: {RESULTMSG}      </br>
+			`{
+			    "errcode": "0",
+			    "errmsg": "",
+			    "data":{},
+			    "extention":{}
+			}`
+						      </br>
+@method api/custcenter/codeverify
+@param username {String} 注册用户名，唯一
+@param type {String} 参数值的应用场景分别为 0：注册，1：登录验证，2：忘记密码
+@return 参考返回结构
+@example 
+	输入样例
+	/api/custcenter/codeverify?username=admin&type=0
+
+	返回码说明
+	0        创建或修改成功
+	40001	 创建或修改失败
+*/
 exports.getcodegenerate = (req,res)  => {
 	var data={
 		name:req.query.username,
@@ -131,6 +155,7 @@ exports.getcodegenerate = (req,res)  => {
 		res.send(result);
 	});
 }
+
 
 exports.getcodeverify = (req,res)  => {
 	var data= {
