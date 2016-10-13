@@ -50,7 +50,7 @@ module.exports.allusers = (para, callback) =>{
         function (cb) {
             async.each(keys,(formatid, callback) => {
                 fetchuserbyid(formatid, (err, data)=>{
-                    list.push(data);
+                    if(data) list.push(data);
                     callback();
                 });
             },(err)=> {
