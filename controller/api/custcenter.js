@@ -133,17 +133,17 @@ exports.postchangepassword = (req,res)  => {
 			    "extention":{}
 			}`
 						      </br>
-@method api/custcenter/codeverify
+@method api/custcenter/codegenerate
 @param username {String} 注册用户名，唯一
 @param type {String} 参数值的应用场景分别为 0：注册，1：登录验证，2：忘记密码
 @return 参考返回结构
 @example 
 	输入样例
-	/api/custcenter/codeverify?username=admin&type=0
+	/api/custcenter/codegenerate?username=admin&type=0
 
 	返回码说明
-	0        创建或修改成功
-	40001	 创建或修改失败
+	0        生成成功
+	40001	 生成失败
 */
 exports.getcodegenerate = (req,res)  => {
 	var data={
