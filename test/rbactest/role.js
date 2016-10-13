@@ -110,7 +110,7 @@ describe('获取角色', function() {
 describe('分页获取角色', function() {
     it('获取成功', function(done) {
       request(hostname)
-        .get(util.format('/api/rbacmg/allroles?from=%s&size=%s','0','10'))
+        .get(util.format('/api/rbacmg/allroles?from=%s&size=%s','1','10'))
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .end(function (err, res) {

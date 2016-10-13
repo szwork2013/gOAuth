@@ -6,7 +6,7 @@ redis = $.plug.redis.userdbserver;
 
 var KEY = {
     USER         : 'user:%s',
-    USER_USERNAME: 'user:username:%s'
+    USER_USERNAME: 'username:%s'
 };
 
 /*用户中心－开放登录*/

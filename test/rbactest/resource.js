@@ -88,7 +88,7 @@ describe('获取资源', function() {
 describe('分页获取资源', function() {
     it('获取成功', function(done) {
       request(hostname)
-        .get(util.format('/api/rbacmg/allresources?from=%s&size=%s','0','10'))
+        .get(util.format('/api/rbacmg/allresources?from=%s&size=%s','1','10'))
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .end(function (err, res) {

@@ -25,16 +25,20 @@ module.exports.allroles = (para, callback) =>{
     async.waterfall([
         //检察请求参数完整性
         function (cb) {
-            if (!para.from || !para.size)
-                return cb($.plug.resultformat(40001, "from and size is mandatory"));
+            if (!para.from || !para.size||!Number(para.from)||!Number(para.size))
+                return cb($.plug.resultformat(40001, "from and size is mandatory, and should be number"));
             cb();
         },
         //获取分页后的Key
         function (cb) {
+            var from = para.from - 1;
+            var size = Number(para.from) + Number(para.size) - 1;
+
             redis.keys(util.format(KEY.ROLE,"*"),(err, data) => {
                 if (err) return cb($.plug.resultformat(40001, err));
                 
-                for(var i = para.from - 1 ;i < para.size && i < data.length; i++ ) {
+                for(var i = from;i < size; i++ ) {
+                   if(i > data.length) return cb();
                    if(data[i])
                    {
                       keys.push(data[i]);
