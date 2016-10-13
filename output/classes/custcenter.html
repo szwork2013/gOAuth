@@ -116,6 +116,10 @@
 
                     <ul class="index-list methods">
                             <li class="index-item method">
+                                <a href="#method_api/custcenter/codeverify">api/custcenter/codeverify</a>
+
+                            </li>
+                            <li class="index-item method">
                                 <a href="#method_api/custcenter/login">api/custcenter/login</a>
 
                             </li>
@@ -133,6 +137,103 @@
             <div id="methods" class="api-class-tabpanel">
                 <h2 class="off-left">Methods</h2>
 
+<div id="method_api/custcenter/codeverify" class="method item">
+    <h3 class="name"><code>api/custcenter/codeverify</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>username</code>
+                </li>
+                <li class="arg">
+                        <code>type</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/controller_api_custcenter.js.html#l123"><code>controller&#x2F;api&#x2F;custcenter.js:123</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>获取验证码            </br>
+请求类型: GET             </br>
+请求类型: application/json </br>
+返回结构: {RESULTMSG}      </br>
+<code>{ &quot;errcode&quot;: &quot;0&quot;, &quot;errmsg&quot;: &quot;&quot;, &quot;data&quot;:{}, &quot;extention&quot;:{} }</code>
+</br></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">username</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>注册用户名，唯一</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">type</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>参数值的应用场景分别为 0：注册，1：登录验证，2：忘记密码</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>参考返回结构</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>输入样例
+/api/custcenter/codeverify?username=admin&amp;type=0
+
+返回码说明
+0        创建或修改成功
+40001    创建或修改失败</code></pre>
+
+            </div>
+        </div>
+</div>
 <div id="method_api/custcenter/login" class="method item">
     <h3 class="name"><code>api/custcenter/login</code></h3>
 

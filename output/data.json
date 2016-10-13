@@ -203,6 +203,34 @@
             "submodule": "custcenter"
         },
         {
+            "file": "controller/api/custcenter.js",
+            "line": 123,
+            "description": "获取验证码\t\t\t </br>\n\t请求类型: GET             </br>\n\t请求类型: application/json </br>\n\t返回结构: {RESULTMSG}      </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t\t\t\t\t\t      </br>",
+            "itemtype": "method",
+            "name": "api/custcenter/codeverify",
+            "params": [
+                {
+                    "name": "username",
+                    "description": "注册用户名，唯一",
+                    "type": "String"
+                },
+                {
+                    "name": "type",
+                    "description": "参数值的应用场景分别为 0：注册，1：登录验证，2：忘记密码",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "参考返回结构"
+            },
+            "example": [
+                " \n\t输入样例\n\t/api/custcenter/codeverify?username=admin&type=0\n\n\t返回码说明\n\t0        创建或修改成功\n\t40001\t 创建或修改失败"
+            ],
+            "class": "custcenter",
+            "module": "API",
+            "submodule": "custcenter"
+        },
+        {
             "file": "controller/api/rbacmg.js",
             "line": 10,
             "description": "创建、修改角色\t\t  </br>\n\t请求类型: POST             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`",

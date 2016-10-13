@@ -206,9 +206,51 @@ exports.postchangepassword = (req,res)  =&gt; {
 	});
 }
 
-/*用户中心－获取验证码*/
-exports.postcodegenerate = (req,res)  =&gt; {
-	$.proxy_custmg.custcenter.codegenerate(req.body,(result)=&gt;{
+/**
+@description
+	获取验证码			 &lt;/br&gt;
+	请求类型: GET             &lt;/br&gt;
+	请求类型: application/json &lt;/br&gt;
+	返回结构: {RESULTMSG}      &lt;/br&gt;
+			&#x60;{
+			    &quot;errcode&quot;: &quot;0&quot;,
+			    &quot;errmsg&quot;: &quot;&quot;,
+			    &quot;data&quot;:{},
+			    &quot;extention&quot;:{}
+			}&#x60;
+						      &lt;/br&gt;
+@method api/custcenter/codeverify
+@param username {String} 注册用户名，唯一
+@param type {String} 参数值的应用场景分别为 0：注册，1：登录验证，2：忘记密码
+@return 参考返回结构
+@example 
+	输入样例
+	/api/custcenter/codeverify?username=admin&amp;type=0
+
+	返回码说明
+	0        创建或修改成功
+	40001	 创建或修改失败
+*/
+exports.getcodegenerate = (req,res)  =&gt; {
+	var data={
+		name:req.query.username,
+		type:req.query.type
+	};
+
+	$.proxy_custmg.custcenter.codegenerate(data,(result)=&gt;{
+		res.send(result);
+	});
+}
+
+
+exports.getcodeverify = (req,res)  =&gt; {
+	var data= {
+		name:req.query.username,
+		type:req.query.type,
+		code:req.query.code
+	};
+
+	$.proxy_custmg.custcenter.codeverify(data,(result)=&gt;{
 		res.send(result);
 	});
 }
