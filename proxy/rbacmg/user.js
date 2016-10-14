@@ -16,7 +16,7 @@ module.exports.createuser = (user,callback) => {
     //1. 保存数据入MySQL
     //2. 同时保存key='user:id:%s',入redis.
     if(!user.id) user.id = uuid.v4();
-
+    
     redis.hmset(util.format(KEY.USER, user.id), user,(err, data)=>{
         if (err) return callback($.plug.resultformat(40001, err));
         redis.set(util.format(KEY.USER_USERNAME, user.name),user.id);

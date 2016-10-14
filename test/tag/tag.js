@@ -57,11 +57,11 @@ describe('标签创建', function() {
 
 describe('分页查询', function() {
     var tagdata ={
-      name:"男子",
-      status:"1",
+      name:"",
+      status:"",
       from: 1,
       size: 1
-    }
+    };
     before(()=>{
     });
 

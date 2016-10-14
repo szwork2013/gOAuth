@@ -94,6 +94,7 @@ module.exports.alltags = (para, callback) =>{
         },
         //获取分页后的Key
         function (cb) {
+           // (ifnull('{0}','') = '' or name like '%{0}%')\
             var sql = "\
                 select \
                     `id`,\
@@ -101,15 +102,12 @@ module.exports.alltags = (para, callback) =>{
                     `desc`,\
                     `status`\
                 from `tag`\
-                WHERE (ifnull('{0}','') = '' or name like '%{0}%')\
-                    and (ifnull({1},'') = '' or status = {1})\
-                    limit {2},{3};\
+                limit {0},{1};\
                 ".format(
-                    para.name,
-                    para.status,
                     para.from-1,
                     para.size
                 );
+            console.log(sql);
             $.db.mysql.gd.query(sql, (err, data) => {
                    if (err) return callback($.plug.resultformat(40001, err));
                    return cb(null,data);
@@ -132,11 +130,11 @@ module.exports.alltags = (para, callback) =>{
         },
         //获取tags
         function (data, cb) {
+            // WHERE (ifnull('{0}','') = '' or name like '%{0}%')\
+                //     and (ifnull({1},'') = '' or status = {1});\
             var sql = "\
                 select count(1) as count\
                 from `tag`\
-                WHERE (ifnull('{0}','') = '' or name like '%{0}%')\
-                    and (ifnull({1},'') = '' or status = {1});\
                 ".format(
                     para.name,
                     para.status,
