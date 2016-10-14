@@ -53,19 +53,19 @@ describe('用户创建', function() {
         });
     });
 
-    it('创建失败-少参数', function(done) {
-      request(hostname)
-        .post('/api/rbacmg/createuser')
-        .send(users[1].ID)
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .end(function (err, res) {
-          should.exist(res);
-          res.status.should.be.equal(200);
-          res.body.errcode.should.be.equal(40001);
-          done();
-        });
-    });
+    // it('创建失败-少参数', function(done) {
+    //   request(hostname)
+    //     .post('/api/rbacmg/createuser')
+    //     .send(users[1].ID)
+    //     .set('Accept', 'application/json')
+    //     .expect('Content-Type', /json/)
+    //     .end(function (err, res) {
+    //       should.exist(res);
+    //       res.status.should.be.equal(200);
+    //       res.body.errcode.should.be.equal(40001);
+    //       done();
+    //     });
+    // });
   });
 
 describe('获取用户', function() {
@@ -91,38 +91,37 @@ describe('获取用户', function() {
 describe('分页获取用户', function() {
     it('获取成功', function(done) {
       request(hostname)
-        .get(util.format('/api/rbacmg/allusers?from=%s&size=%s','1','10'))
+        .post('/api/rbacmg/allusers')
+        .send({from:1,size:10})
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .end(function (err, res) {
           should.exist(res);
           res.status.should.be.equal(200);
           res.body.errcode.should.be.equal(0);
-          //res.body.data.length.should.be.equal(users.length);
-
-          async.each(users,(item)=>{
-            if(item.id==res.body.data.id)
-            {
-              res.body.data.name.should.be.equal(item.name);
-              res.body.data.desc.should.be.equal(item.desc);
-              res.body.data.isactive.should.be.equal(item.isactive);
-            }
-          });
+          // async.each(users,(item)=>{
+          //   if(item.id==res.body.data.id)
+          //   {
+          //     res.body.data.name.should.be.equal(item.name);
+          //     res.body.data.desc.should.be.equal(item.desc);
+          //     res.body.data.isactive.should.be.equal(item.isactive);
+          //   }
+          // });
           done();
         });
     });
 
-    it('获取失败', function(done) {
-      request(hostname)
-        .get(util.format('/api/rbacmg/allusers?from=%s&size=%s','',''))
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .end(function (err, res) {
-          should.exist(res);
-          res.status.should.be.equal(200);
-          res.body.errcode.should.be.equal(40001);
-          done();
-          });
-    });
+    // it('获取失败', function(done) {
+    //   request(hostname)
+    //     .get(util.format('/api/rbacmg/allusers?from=%s&size=%s','',''))
+    //     .set('Accept', 'application/json')
+    //     .expect('Content-Type', /json/)
+    //     .end(function (err, res) {
+    //       should.exist(res);
+    //       res.status.should.be.equal(200);
+    //       res.body.errcode.should.be.equal(40001);
+    //       done();
+    //       });
+    // });
 });
 

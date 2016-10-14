@@ -40,6 +40,7 @@
                             <ul id="api-classes" class="apis classes">
                                 <li><a href="../classes/custcenter.html">custcenter</a></li>
                                 <li><a href="../classes/rbacmg.html">rbacmg</a></li>
+                                <li><a href="../classes/tabmg.html">tabmg</a></li>
                             </ul>
                 
                 
@@ -47,6 +48,7 @@
                                 <li><a href="../modules/API.html">API</a></li>
                                 <li><a href="../modules/custcenter.html">custcenter</a></li>
                                 <li><a href="../modules/rbacmg.html">rbacmg</a></li>
+                                <li><a href="../modules/tabmg.html">tabmg</a></li>
                             </ul>
                         </div>
                     </div>
@@ -395,14 +397,18 @@ exports.postcreateuser = (req,res)  =&gt; {
 @return 返回架构中的 &#x60;data&#x60; 说明，&#x60;data&#x60; 是一个数组结构
 @example
 	输入样例
-	/api/rbacmg/allusers?from=11&amp;size=10
+	{
+		&quot;from&quot;:1,
+		&quot;size&quot;:10
+	}
+	/api/rbacmg/allusers?
 
 	返回码说明
 	0        创建或修改成功
 	40001	 创建或修改失败
 */
-exports.getallusers = (req,res)  =&gt; {
-	$.proxy_rbacmg.user.allusers({from:req.query.from,size:req.query.size}, (result) =&gt; {
+exports.postallusers = (req,res)  =&gt; {
+	$.proxy_rbacmg.user.allusers(req.body, (result) =&gt; {
 		res.send(result);
 	});
 }

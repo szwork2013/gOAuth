@@ -16,4 +16,5 @@ module.exports = {
     proxy_custmg : "./proxy/custmg",
     proxy_rbacmg : "./proxy/rbacmg",
     proxy_common : "./proxy/common",
+    proxy_tagmg : "./proxy/tagmg"
 };

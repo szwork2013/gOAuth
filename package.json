@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node -harmony app.js"
+    "test": "grunt qunit"
   },
   "dependencies": {
     "biskviit": "^1.0.1",
@@ -28,10 +28,12 @@
     "faye-websocket": "*",
     "crypto": "*",
     "bluebird": "*",
-    "node-uuid" :"*",
-    "data-driven" : "*"
+    "node-uuid": "*",
+    "data-driven": "*"
   },
   "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-jshint": "^1.0.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "*",
     "gulp-filter": "^3.0.1",
@@ -39,6 +41,7 @@
     "gulp-minify-css": "*",
     "gulp-uglify": "*",
     "imagemin-pngquant": "^4.2.0",
+    "jshint": "^2.9.3",
     "should": "^11.1.0",
     "supertest": "^2.0.0"
   }

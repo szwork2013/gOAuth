@@ -29,6 +29,17 @@
             "fors": {},
             "namespaces": {}
         },
+        "controller/api/tagmg.js": {
+            "name": "controller/api/tagmg.js",
+            "modules": {
+                "tabmg": 1
+            },
+            "classes": {
+                "tabmg": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "controller/manager.js": {
             "name": "controller/manager.js",
             "modules": {},
@@ -49,16 +60,18 @@
             "name": "API",
             "submodules": {
                 "custcenter": 1,
-                "rbacmg": 1
+                "rbacmg": 1,
+                "tabmg": 1
             },
             "elements": {},
             "classes": {
                 "custcenter": 1,
-                "rbacmg": 1
+                "rbacmg": 1,
+                "tabmg": 1
             },
             "fors": {},
             "namespaces": {},
-            "file": "controller/api/rbacmg.js",
+            "file": "controller/api/tagmg.js",
             "line": 1
         },
         "custcenter": {
@@ -92,6 +105,22 @@
             "file": "controller/api/rbacmg.js",
             "line": 1,
             "description": "RBAC角色权限用户管理模块"
+        },
+        "tabmg": {
+            "name": "tabmg",
+            "submodules": {},
+            "elements": {},
+            "classes": {
+                "tabmg": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "API",
+            "namespace": "",
+            "file": "controller/api/tagmg.js",
+            "line": 1,
+            "description": "标签管理模块"
         }
     },
     "classes": {
@@ -124,6 +153,21 @@
             "file": "controller/api/rbacmg.js",
             "line": 1,
             "description": "RBAC角色权限用户管理模块"
+        },
+        "tabmg": {
+            "name": "tabmg",
+            "shortname": "tabmg",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "API",
+            "submodule": "tabmg",
+            "namespace": "",
+            "file": "controller/api/tagmg.js",
+            "line": 1,
+            "description": "标签管理模块"
         }
     },
     "elements": {},
@@ -499,7 +543,7 @@
                 "description": "返回架构中的 `data` 说明，`data` 是一个数组结构"
             },
             "example": [
-                "\n\t输入样例\n\t/api/rbacmg/allusers?from=11&size=10\n\n\t返回码说明\n\t0        创建或修改成功\n\t40001\t 创建或修改失败"
+                "\n\t输入样例\n\t{\n\t\t\"from\":1,\n\t\t\"size\":10\n\t}\n\t/api/rbacmg/allusers?\n\n\t返回码说明\n\t0        创建或修改成功\n\t40001\t 创建或修改失败"
             ],
             "class": "rbacmg",
             "module": "API",
@@ -507,7 +551,7 @@
         },
         {
             "file": "controller/api/rbacmg.js",
-            "line": 324,
+            "line": 328,
             "description": "根据ID获取用户信息\t\t\t </br>\n\t请求类型: GET             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t\t\t                 </br>\n\t`data` 参数名说明:            </br>\n\t\tid 用户ID，GUID，唯一验证</br>\n\t\tname 用户名称，唯一验证</br>\n\t\tmobile 用户手机号，对于个人用户，name和mobile相同</br>\n\t\ttype 用户类型，0代表企业，1代表个人</br>\n\t\tstatus 用户状态，1代表激活，0代表未激活，2代表删除，3代表冻结等</br>\n\t\tdesc  资源说明</br>",
             "itemtype": "method",
             "name": "api/rbacmg/userbyid",
@@ -530,7 +574,7 @@
         },
         {
             "file": "controller/api/rbacmg.js",
-            "line": 362,
+            "line": 366,
             "description": "创建、修改角色和资源关系\t  </br>\n\t请求类型: POST             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`",
             "itemtype": "method",
             "name": "api/rbacmg/createroleresources",
@@ -558,7 +602,7 @@
         },
         {
             "file": "controller/api/rbacmg.js",
-            "line": 399,
+            "line": 403,
             "description": "获取角色和资源关系\t  </br>\n\t请求类型: GET             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t`data` 参数名说明:            </br>\n\t\tid 角色ID，GUID，唯一验证</br>",
             "itemtype": "method",
             "name": "api/rbacmg/roleresourcesbyroleid",
@@ -581,7 +625,7 @@
         },
         {
             "file": "controller/api/rbacmg.js",
-            "line": 429,
+            "line": 433,
             "description": "创建、修改用户和角色关系\t  </br>\n\t请求类型: POST             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`",
             "itemtype": "method",
             "name": "api/rbacmg/createuserroles",
@@ -609,7 +653,7 @@
         },
         {
             "file": "controller/api/rbacmg.js",
-            "line": 466,
+            "line": 470,
             "description": "获取用户和角色关系\t  </br>\n\t请求类型: GET             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t`data` 参数名说明:            </br>\n\t\tid 用户ID，GUID，唯一验证</br>",
             "itemtype": "method",
             "name": "api/rbacmg/userrolesbyuserd",
@@ -632,7 +676,7 @@
         },
         {
             "file": "controller/api/rbacmg.js",
-            "line": 496,
+            "line": 500,
             "description": "获取完整用户角色权限数据\t  </br>\n\t请求类型: POST             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t`data` 参数名说明:            </br>\n\t\tid 用户ID</br>\n\t\troles 角色ID数组</br>\n\t\tresources 资源ID数组</br>",
             "itemtype": "method",
             "name": "api/rbacmg/usergrants",
@@ -652,6 +696,95 @@
             "class": "rbacmg",
             "module": "API",
             "submodule": "rbacmg"
+        },
+        {
+            "file": "controller/api/tagmg.js",
+            "line": 9,
+            "description": "标签创建修改\t\t  </br>\n\t请求类型: POST             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`",
+            "itemtype": "method",
+            "name": "api/tagmg/createtag",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "TagID，GUID，唯一验证",
+                    "type": "String"
+                },
+                {
+                    "name": "name",
+                    "description": "Tag名称，唯一验证",
+                    "type": "String"
+                },
+                {
+                    "name": "desc",
+                    "description": "Tag说明",
+                    "type": "String"
+                },
+                {
+                    "name": "isactive",
+                    "description": "是否启用，0代表禁用，1代表启用",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "参考返回结构"
+            },
+            "example": [
+                "\n\t输入样例\n\t{\n        \"id\":\"3b7c2d81-aa23-4025-85a7-44c28a472718\",\n        \"name\":\"美男子\",\n        \"desc\":\"给所有美男子打的标签\",\n        \"status\":\"1\"\n    }\n\n\t返回码说明\n\t0        创建或修改成功\n\t40001\t 创建或修改失败"
+            ],
+            "class": "tabmg",
+            "module": "API",
+            "submodule": "tabmg"
+        },
+        {
+            "file": "controller/api/tagmg.js",
+            "line": 46,
+            "description": "分页获取标签列表\t\t\t </br>\n\t请求类型: GET             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t\t\t                 </br>\n\t`data` 参数名说明:            </br>\n\t\tid 标签ID，GUID </br>\n\t\tname 标签名称 </br>\n\t\tdesc 标签说明 </br>\n\t\tstatus 是否启用，0代表禁用，1代表启用 </br>\n\t\tcount  </br>",
+            "itemtype": "method",
+            "name": "api/tagmg/alltags",
+            "params": [
+                {
+                    "name": "from",
+                    "description": "列表起始位置，1代表第一条数据",
+                    "type": "Number"
+                },
+                {
+                    "name": "size",
+                    "description": "返回条数，建议10",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "返回架构中的 `data` 说明，`data` 是一个数组结构"
+            },
+            "example": [
+                "\n\t输入样例\n\t{\n        \"name\":\"美男子\",\n        \"status\":\"1\",\n        \"from\": 1,\n        \"size\": 10\n    }\n    \n    返回样例：\n    {\n\t\t\"count\":\"\",\n\t\t\"result\": [{\n\t        \"id\":\"3b7c2d81-aa23-4025-85a7-44c28a472718\",\n\t        \"name\":\"美男子\",\n\t        \"desc\":\"给所有美男子打的标签\",\n\t        \"status\":\"1\"\n    \t}]\n\t}\n\t返回码说明\n\t0        创建或修改成功\n\t40001\t 创建或修改失败"
+            ],
+            "class": "tabmg",
+            "module": "API",
+            "submodule": "tabmg"
+        },
+        {
+            "file": "controller/api/tagmg.js",
+            "line": 98,
+            "description": "根据ID获取标签信息\t\t\t </br>\n\t请求类型: GET             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t\t\t                 </br>\n\t`data` 参数名说明:            </br>\n\t\tid 标签ID，GUID </br>\n\t\tname 标签名称 </br>\n\t\tdesc 标签说明 </br>\n\t\tstatus 是否启用，0代表禁用，1代表启用 </br>\n\t\tcount 已打标签用户个数 </br>",
+            "itemtype": "method",
+            "name": "api/tagmg/tagbyid",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "标签ID，GUID",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "返回架构中的 `data`说明"
+            },
+            "example": [
+                "\n\t输入样例\n\t/api/tagmg/tagbyid?id=3b7c2d81-aa23-4025-85a7-44c28a472718\n\n\t返回码说明\n\t0        创建或修改成功\n\t40001\t 创建或修改失败"
+            ],
+            "class": "tabmg",
+            "module": "API",
+            "submodule": "tabmg"
         },
         {
             "file": "controller/manager.js",

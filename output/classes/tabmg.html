@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>custcenter - gOAuth</title>
+    <title>tabmg - gOAuth</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -82,22 +82,22 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1>custcenter Class</h1>
+<h1>tabmg Class</h1>
 <div class="box meta">
 
 
         <div class="foundat">
-            Defined in: <a href="../files/controller_api_custcenter.js.html#l1"><code>controller&#x2F;api&#x2F;custcenter.js:1</code></a>
+            Defined in: <a href="../files/controller_api_tagmg.js.html#l1"><code>controller&#x2F;api&#x2F;tagmg.js:1</code></a>
         </div>
 
-            Module: <a href="../modules/custcenter.html">custcenter</a><br>
+            Module: <a href="../modules/tabmg.html">tabmg</a><br>
             Parent Module: <a href="../modules/API.html">API</a>
 
 </div>
 
 
 <div class="box intro">
-    <p>用户中心接口模块</p>
+    <p>标签管理模块</p>
 
 </div>
 
@@ -118,15 +118,15 @@
 
                     <ul class="index-list methods">
                             <li class="index-item method">
-                                <a href="#method_api/custcenter/codegenerate">api/custcenter/codegenerate</a>
+                                <a href="#method_api/tagmg/alltags">api/tagmg/alltags</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_api/custcenter/login">api/custcenter/login</a>
+                                <a href="#method_api/tagmg/createtag">api/tagmg/createtag</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_api/custcenter/register">api/custcenter/register</a>
+                                <a href="#method_api/tagmg/tagbyid">api/tagmg/tagbyid</a>
 
                             </li>
                     </ul>
@@ -139,16 +139,16 @@
             <div id="methods" class="api-class-tabpanel">
                 <h2 class="off-left">Methods</h2>
 
-<div id="method_api/custcenter/codegenerate" class="method item">
-    <h3 class="name"><code>api/custcenter/codegenerate</code></h3>
+<div id="method_api/tagmg/alltags" class="method item">
+    <h3 class="name"><code>api/tagmg/alltags</code></h3>
 
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
-                        <code>username</code>
+                        <code>from</code>
                 </li>
                 <li class="arg">
-                        <code>type</code>
+                        <code>size</code>
                 </li>
             </ul><span class="paren">)</span>
         </div>
@@ -166,7 +166,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/controller_api_custcenter.js.html#l123"><code>controller&#x2F;api&#x2F;custcenter.js:123</code></a>
+        <a href="../files/controller_api_tagmg.js.html#l46"><code>controller&#x2F;api&#x2F;tagmg.js:46</code></a>
         </p>
 
 
@@ -174,12 +174,18 @@
     </div>
 
     <div class="description">
-        <p>获取验证码            </br>
+        <p>分页获取标签列表             </br>
 请求类型: GET             </br>
 请求类型: application/json </br>
-返回结构: {RESULTMSG}      </br>
+返回结构:                 </br>
 <code>{ &quot;errcode&quot;: &quot;0&quot;, &quot;errmsg&quot;: &quot;&quot;, &quot;data&quot;:{}, &quot;extention&quot;:{} }</code>
-</br></p>
+</br>
+<code>data</code> 参数名说明:            </br>
+id 标签ID，GUID </br>
+name 标签名称 </br>
+desc 标签说明 </br>
+status 是否启用，0代表禁用，1代表启用 </br>
+count  </br></p>
 
     </div>
 
@@ -188,23 +194,162 @@
 
             <ul class="params-list">
                 <li class="param">
-                        <code class="param-name">username</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <code class="param-name">from</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 
 
                     <div class="param-description">
-                        <p>注册用户名，唯一</p>
+                        <p>列表起始位置，1代表第一条数据</p>
 
                     </div>
 
                 </li>
                 <li class="param">
-                        <code class="param-name">type</code>
+                        <code class="param-name">size</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+                    <div class="param-description">
+                        <p>返回条数，建议10</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>返回架构中的 <code>data</code> 说明，<code>data</code> 是一个数组结构</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>输入样例
+{
+    &quot;name&quot;:&quot;美男子&quot;,
+    &quot;status&quot;:&quot;1&quot;,
+    &quot;from&quot;: 1,
+    &quot;size&quot;: 10
+}
+
+返回样例：
+{
+    &quot;count&quot;:&quot;&quot;,
+    &quot;result&quot;: [{
+        &quot;id&quot;:&quot;3b7c2d81-aa23-4025-85a7-44c28a472718&quot;,
+        &quot;name&quot;:&quot;美男子&quot;,
+        &quot;desc&quot;:&quot;给所有美男子打的标签&quot;,
+        &quot;status&quot;:&quot;1&quot;
+    }]
+}
+返回码说明
+0        创建或修改成功
+40001    创建或修改失败</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_api/tagmg/createtag" class="method item">
+    <h3 class="name"><code>api/tagmg/createtag</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>id</code>
+                </li>
+                <li class="arg">
+                        <code>name</code>
+                </li>
+                <li class="arg">
+                        <code>desc</code>
+                </li>
+                <li class="arg">
+                        <code>isactive</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/controller_api_tagmg.js.html#l9"><code>controller&#x2F;api&#x2F;tagmg.js:9</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>标签创建修改        </br>
+请求类型: POST             </br>
+请求类型: application/json </br>
+返回结构:                 </br>
+<code>{ &quot;errcode&quot;: &quot;0&quot;, &quot;errmsg&quot;: &quot;&quot;, &quot;data&quot;:{}, &quot;extention&quot;:{} }</code></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">id</code>
                         <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
 
                     <div class="param-description">
-                        <p>参数值的应用场景分别为 0：注册，1：登录验证，2：忘记密码</p>
+                        <p>TagID，GUID，唯一验证</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">name</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>Tag名称，唯一验证</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">desc</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>Tag说明</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">isactive</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>是否启用，0代表禁用，1代表启用</p>
 
                     </div>
 
@@ -227,28 +372,27 @@
 
             <div class="example-content">
                 <pre class="code prettyprint"><code>输入样例
-/api/custcenter/codegenerate?username=admin&amp;type=0
+{
+    &quot;id&quot;:&quot;3b7c2d81-aa23-4025-85a7-44c28a472718&quot;,
+    &quot;name&quot;:&quot;美男子&quot;,
+    &quot;desc&quot;:&quot;给所有美男子打的标签&quot;,
+    &quot;status&quot;:&quot;1&quot;
+}
 
 返回码说明
-0        生成成功
-40001    生成失败</code></pre>
+0        创建或修改成功
+40001    创建或修改失败</code></pre>
 
             </div>
         </div>
 </div>
-<div id="method_api/custcenter/login" class="method item">
-    <h3 class="name"><code>api/custcenter/login</code></h3>
+<div id="method_api/tagmg/tagbyid" class="method item">
+    <h3 class="name"><code>api/tagmg/tagbyid</code></h3>
 
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
-                        <code>username</code>
-                </li>
-                <li class="arg">
-                        <code>password</code>
-                </li>
-                <li class="arg">
-                        <code class="optional">[code]</code>
+                        <code>id</code>
                 </li>
             </ul><span class="paren">)</span>
         </div>
@@ -266,7 +410,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/controller_api_custcenter.js.html#l10"><code>controller&#x2F;api&#x2F;custcenter.js:10</code></a>
+        <a href="../files/controller_api_tagmg.js.html#l98"><code>controller&#x2F;api&#x2F;tagmg.js:98</code></a>
         </p>
 
 
@@ -274,17 +418,18 @@
     </div>
 
     <div class="description">
-        <p>用户中心－登录           </br>
-请求类型: POST             </br>
+        <p>根据ID获取标签信息           </br>
+请求类型: GET             </br>
 请求类型: application/json </br>
 返回结构:                 </br>
 <code>{ &quot;errcode&quot;: &quot;0&quot;, &quot;errmsg&quot;: &quot;&quot;, &quot;data&quot;:{}, &quot;extention&quot;:{} }</code>
 </br>
-data参数名说明:            </br>
-username 用户名 </br>
-mobile 手机号 </br>
-roles 角色ID数组 </br>
-resources 资源ID数组 </br></p>
+<code>data</code> 参数名说明:            </br>
+id 标签ID，GUID </br>
+name 标签名称 </br>
+desc 标签说明 </br>
+status 是否启用，0代表禁用，1代表启用 </br>
+count 已打标签用户个数 </br></p>
 
     </div>
 
@@ -293,35 +438,12 @@ resources 资源ID数组 </br></p>
 
             <ul class="params-list">
                 <li class="param">
-                        <code class="param-name">username</code>
+                        <code class="param-name">id</code>
                         <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
 
                     <div class="param-description">
-                        <p>注册用户名，唯一</p>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">password</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-
-                    <div class="param-description">
-                        <p>密码</p>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name optional">[code]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-
-
-                    <div class="param-description">
-                        <p>验证码,根据安全需要时会要求提供</p>
+                        <p>标签ID，GUID</p>
 
                     </div>
 
@@ -344,139 +466,11 @@ resources 资源ID数组 </br></p>
 
             <div class="example-content">
                 <pre class="code prettyprint"><code>输入样例
-{
-   &quot;username&quot;:&quot;admin&quot;,
-   &quot;password&quot;:&quot;xxxxxxx&quot;,
-   &quot;code&quot;: &quot;xxxx&quot;
-}
+/api/tagmg/tagbyid?id=3b7c2d81-aa23-4025-85a7-44c28a472718
 
-返回样例
-{
-   &quot;id: &quot;&quot;,
-   &quot;user&quot;:{
-       &quot;username&quot;: &quot;&quot;,
-       &quot;mobile&quot;: &quot;&quot;
-       &quot;extention&quot;:{}
-   },
-   &quot;roles&quot;:[&quot;abc&quot;,&quot;efg&quot;],
-   &quot;resources&quot;:[&quot;123&quot;,&quot;456&quot;]    
-}</code></pre>
-
-            </div>
-        </div>
-</div>
-<div id="method_api/custcenter/register" class="method item">
-    <h3 class="name"><code>api/custcenter/register</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>username</code>
-                </li>
-                <li class="arg">
-                        <code>password</code>
-                </li>
-                <li class="arg">
-                        <code>code</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-        <span class="returns-inline">
-            <span class="type"></span>
-        </span>
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/controller_api_custcenter.js.html#l64"><code>controller&#x2F;api&#x2F;custcenter.js:64</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>用户中心－注册          </br>
-请求类型: POST             </br>
-请求类型: application/json </br>
-返回结构: {RESULTMSG}      </br>
-<code>{ &quot;errcode&quot;: &quot;0&quot;, &quot;errmsg&quot;: &quot;&quot;, &quot;data&quot;:{}, &quot;extention&quot;:{} }</code>
-</br>
-data参数名说明:            </br>
-username 用户名 </br>
-mobile 手机号 </br>
-roles 角色ID数组 </br>
-resources 资源ID数组 </br></p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">username</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-
-                    <div class="param-description">
-                        <p>注册用户名，唯一</p>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">password</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-
-                    <div class="param-description">
-                        <p>密码</p>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">code</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-
-                    <div class="param-description">
-                        <p>验证码，必须</p>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                    <p>返回架构中的 <code>data</code>说明</p>
-
-            </div>
-        </div>
-
-
-        <div class="example">
-            <h4>Example:</h4>
-
-            <div class="example-content">
-                <pre class="code prettyprint"><code>输入参数
-   {
-        username:'admin',
-        password:'xxxxxxx',
-        code: 'xxxx'
-   }</code></pre>
+返回码说明
+0        创建或修改成功
+40001    创建或修改失败</code></pre>
 
             </div>
         </div>

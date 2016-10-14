@@ -2,12 +2,14 @@ YUI.add("yuidoc-meta", function(Y) {
    Y.YUIDoc = { meta: {
     "classes": [
         "custcenter",
-        "rbacmg"
+        "rbacmg",
+        "tabmg"
     ],
     "modules": [
         "API",
         "custcenter",
-        "rbacmg"
+        "rbacmg",
+        "tabmg"
     ],
     "allModules": [
         {
@@ -23,6 +25,11 @@ YUI.add("yuidoc-meta", function(Y) {
             "displayName": "rbacmg",
             "name": "rbacmg",
             "description": "RBAC角色权限用户管理模块"
+        },
+        {
+            "displayName": "tabmg",
+            "name": "tabmg",
+            "description": "标签管理模块"
         }
     ],
     "elements": []

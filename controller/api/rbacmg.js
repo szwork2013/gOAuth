@@ -309,14 +309,18 @@ exports.postcreateuser = (req,res)  => {
 @return 返回架构中的 `data` 说明，`data` 是一个数组结构
 @example
 	输入样例
-	/api/rbacmg/allusers?from=11&size=10
+	{
+		"from":1,
+		"size":10
+	}
+	/api/rbacmg/allusers?
 
 	返回码说明
 	0        创建或修改成功
 	40001	 创建或修改失败
 */
-exports.getallusers = (req,res)  => {
-	$.proxy_rbacmg.user.allusers({from:req.query.from,size:req.query.size}, (result) => {
+exports.postallusers = (req,res)  => {
+	$.proxy_rbacmg.user.allusers(req.body, (result) => {
 		res.send(result);
 	});
 }

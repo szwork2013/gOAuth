@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>API - gOAuth</title>
+    <title>controller/api/tagmg.js - gOAuth</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -82,79 +82,151 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1>API Module</h1>
-<div class="box clearfix meta">
+<h1 class="file-heading">File: controller/api/tagmg.js</h1>
 
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+@description 
+标签管理模块
+@module API
+@submodule tabmg
+@class tabmg
+*/
 
-        <div class="foundat">
-            Defined in: <a href="../files/controller_api_tagmg.js.html#l1"><code>controller&#x2F;api&#x2F;tagmg.js:1</code></a>
-        </div>
+/**
+@description
+	标签创建修改		  &lt;/br&gt;
+	请求类型: POST             &lt;/br&gt;
+	请求类型: application/json &lt;/br&gt;
+	返回结构:      			  &lt;/br&gt;
+			&#x60;{
+			    &quot;errcode&quot;: &quot;0&quot;,
+			    &quot;errmsg&quot;: &quot;&quot;,
+			    &quot;data&quot;:{},
+			    &quot;extention&quot;:{}
+			}&#x60;
+@method api/tagmg/createtag
+@param id {String} TagID，GUID，唯一验证
+@param name {String} Tag名称，唯一验证
+@param desc {String} Tag说明
+@param isactive {String} 是否启用，0代表禁用，1代表启用
+@return 参考返回结构
+@example
+	输入样例
+	{
+        &quot;id&quot;:&quot;3b7c2d81-aa23-4025-85a7-44c28a472718&quot;,
+        &quot;name&quot;:&quot;美男子&quot;,
+        &quot;desc&quot;:&quot;给所有美男子打的标签&quot;,
+        &quot;status&quot;:&quot;1&quot;
+    }
 
-</div>
+	返回码说明
+	0        创建或修改成功
+	40001	 创建或修改失败
+*/
+module.exports.postcreatetag = (req,res) =&gt; {
+    $.proxy_tagmg.tag.createtag(req.body, (result) =&gt; {
+		res.send(result);
+	});
+};
 
-
-<div class="box intro">
+/**
+@description
+	分页获取标签列表			 &lt;/br&gt;
+	请求类型: GET             &lt;/br&gt;
+	请求类型: application/json &lt;/br&gt;
+	返回结构:      			  &lt;/br&gt;
+			&#x60;{
+			    &quot;errcode&quot;: &quot;0&quot;,
+			    &quot;errmsg&quot;: &quot;&quot;,
+			    &quot;data&quot;:{},
+			    &quot;extention&quot;:{}
+			}&#x60;
+			                 &lt;/br&gt;
+	&#x60;data&#x60; 参数名说明:            &lt;/br&gt;
+		id 标签ID，GUID &lt;/br&gt;
+		name 标签名称 &lt;/br&gt;
+		desc 标签说明 &lt;/br&gt;
+		status 是否启用，0代表禁用，1代表启用 &lt;/br&gt;
+		count  &lt;/br&gt;
+@method api/tagmg/alltags
+@param from {Number} 列表起始位置，1代表第一条数据
+@param size {Number} 返回条数，建议10
+@return 返回架构中的 &#x60;data&#x60; 说明，&#x60;data&#x60; 是一个数组结构
+@example
+	输入样例
+	{
+        &quot;name&quot;:&quot;美男子&quot;,
+        &quot;status&quot;:&quot;1&quot;,
+        &quot;from&quot;: 1,
+        &quot;size&quot;: 10
+    }
     
-</div>
+    返回样例：
+    {
+		&quot;count&quot;:&quot;&quot;,
+		&quot;result&quot;: [{
+	        &quot;id&quot;:&quot;3b7c2d81-aa23-4025-85a7-44c28a472718&quot;,
+	        &quot;name&quot;:&quot;美男子&quot;,
+	        &quot;desc&quot;:&quot;给所有美男子打的标签&quot;,
+	        &quot;status&quot;:&quot;1&quot;
+    	}]
+	}
+	返回码说明
+	0        创建或修改成功
+	40001	 创建或修改失败
+*/
+exports.postalltags = (req,res)  =&gt; {
+	$.proxy_tagmg.tag.alltags(req.body, (result) =&gt; {
+		res.send(result);
+	});
+}
+
+/**
+@description
+	根据ID获取标签信息			 &lt;/br&gt;
+	请求类型: GET             &lt;/br&gt;
+	请求类型: application/json &lt;/br&gt;
+	返回结构:      			  &lt;/br&gt;
+			&#x60;{
+			    &quot;errcode&quot;: &quot;0&quot;,
+			    &quot;errmsg&quot;: &quot;&quot;,
+			    &quot;data&quot;:{},
+			    &quot;extention&quot;:{}
+			}&#x60;
+			                 &lt;/br&gt;
+	&#x60;data&#x60; 参数名说明:            &lt;/br&gt;
+		id 标签ID，GUID &lt;/br&gt;
+		name 标签名称 &lt;/br&gt;
+		desc 标签说明 &lt;/br&gt;
+		status 是否启用，0代表禁用，1代表启用 &lt;/br&gt;
+		count 已打标签用户个数 &lt;/br&gt;
+@method api/tagmg/tagbyid
+@param id {String} 标签ID，GUID
+@return 返回架构中的 &#x60;data&#x60;说明
+@example
+	输入样例
+	/api/tagmg/tagbyid?id=3b7c2d81-aa23-4025-85a7-44c28a472718
+
+	返回码说明
+	0        创建或修改成功
+	40001	 创建或修改失败
+*/
+exports.gettagbyid = (req,res)  =&gt; {
+	$.proxy_tagmg.tag.tagbyid(req.query.id, (result) =&gt; {
+		res.send(result);
+	});
+}
+
+exports.gettagcount = (req,res)  =&gt; {
+	$.proxy_tagmg.tag.tagcount(null, (result) =&gt; {
+		res.send(result);
+	});
+}
 
 
-<div class="yui3-g">
-    <div class="yui3-u-1-2">
-            <p>This module provides the following classes:</p>
-
-            <ul class="module-classes">
-                <li class="module-class">
-                    <a href="../classes/custcenter.html">
-                        custcenter
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/rbacmg.html">
-                        rbacmg
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/tabmg.html">
-                        tabmg
-                    </a>
-                </li>
-            </ul>
-    </div>
-
-
-    <div class="yui3-u-1-2">
-            <p>This module is a rollup of the following modules:</p>
-
-            <ul class="module-submodules">
-                <li class="module-submodule">
-                    <a href="../modules/custcenter.html">
-                        custcenter
-                    </a>
-
-                    <div class="module-submodule-description">
-                        用户中心接口模块
-                    </div>
-                </li>
-                <li class="module-submodule">
-                    <a href="../modules/rbacmg.html">
-                        rbacmg
-                    </a>
-
-                    <div class="module-submodule-description">
-                        RBAC角色权限用户管理模块
-                    </div>
-                </li>
-                <li class="module-submodule">
-                    <a href="../modules/tabmg.html">
-                        tabmg
-                    </a>
-
-                    <div class="module-submodule-description">
-                        标签管理模块
-                    </div>
-                </li>
-            </ul>
-    </div>
+    </pre>
 </div>
                     </div>
                 </div>

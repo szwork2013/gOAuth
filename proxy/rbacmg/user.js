@@ -2,7 +2,7 @@ var
 util = require('util'),
 async = $.async,
 redis = $.plug.redis.userdbserver;
-
+var uuid = require('node-uuid');
 var KEY = {
     USER         : 'user:%s',
     USER_USERNAME: 'username:%s'
@@ -15,6 +15,8 @@ module.exports.createuser = (user,callback) => {
     //todo:
     //1. 保存数据入MySQL
     //2. 同时保存key='user:id:%s',入redis.
+    if(!user.id) user.id = uuid.v4();
+
     redis.hmset(util.format(KEY.USER, user.id), user,(err, data)=>{
         if (err) return callback($.plug.resultformat(40001, err));
         redis.set(util.format(KEY.USER_USERNAME, user.name),user.id);
@@ -38,7 +40,7 @@ module.exports.allusers = (para, callback) =>{
             var size = Number(para.from) + Number(para.size) - 1;
             redis.keys(util.format(KEY.USER,"*"),(err, data) => {
                 if (err) return cb($.plug.resultformat(40001, err));
-                
+
                 for(var i = from ;i < size ; i++ ) {
                    if(i > data.length) return cb();
                    if(data[i])
@@ -62,11 +64,17 @@ module.exports.allusers = (para, callback) =>{
             });
         }],
         function (err) {
-            if (err) {
-               callback(err);
-            } else {
-                callback($.plug.resultformat(0,'', list));
+            redis.keys(util.format(KEY.USER,"*"),(err, countresult) => {
+                var  data = {
+                    count: countresult.length,
+                    result:list
+                };
+                if (err) {
+                    callback(err);
+                } else {
+                    callback($.plug.resultformat(0,'', data));
             }
+        });
     });
 };
 
