@@ -3,6 +3,16 @@ var config = module.exports = {
     cryptsalt : "gold-tech",
     // 数据库配置
     db: {
+        mysql: {
+            gd: {
+                host: '172.28.189.101',
+                user: 'root',
+                password: 'P@ssword0',
+                database: 'szzx',
+                port: 3306,
+                multipleStatements: true
+            }
+        }
     },
     redis: {
         // Config for oauthserver
@@ -33,6 +43,9 @@ var config = module.exports = {
     time: 50,
     // 后台接口地址
     htUrl: "http://10.46.20.98:84",
+    //testhostname
+    testhostname: "http://172.28.184.75:9091",
+    //testhostname: "http://localhost:9091",
     // 程序路由结构
     routes: {
         get: {
@@ -80,10 +93,10 @@ var config = module.exports = {
 
 //Specify config for prod and dev 
 if (config.debug) {
-    config.port = 8080;
+    config.port = 9091;
     config.static = 'public';
 } else {
     // 程序端口
-    config.port = 8080;
+    config.port = 9091;
 	config.static = 'minify';
 }
