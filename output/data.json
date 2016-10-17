@@ -242,13 +242,34 @@
         {
             "file": "controller/api/custcenter.js",
             "line": 101,
+            "description": "重置密码\t\t\t </br>\n\t请求类型: GET             </br>\n\t请求类型: application/json </br>\n\t返回结构: {RESULTMSG}      </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t\t\t\t\t\t      </br>",
+            "itemtype": "method",
+            "name": "api/custcenter/resetpassword",
+            "params": [
+                {
+                    "name": "username",
+                    "description": "注册用户名，唯一",
+                    "type": "String"
+                },
+                {
+                    "name": "newpassword",
+                    "description": "重置后密码",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "参考返回结构"
+            },
+            "example": [
+                " \n\t输入样例\n\t{\n\t        username:'admin',\n\t        newpassword:'xxxxxxx',\n\t        code: 'xxxx'\n\t}\n\n\t返回码说明\n\t0        生成成功\n\t40001\t 生成失败"
+            ],
             "class": "custcenter",
             "module": "API",
             "submodule": "custcenter"
         },
         {
             "file": "controller/api/custcenter.js",
-            "line": 123,
+            "line": 136,
             "description": "获取验证码\t\t\t </br>\n\t请求类型: GET             </br>\n\t请求类型: application/json </br>\n\t返回结构: {RESULTMSG}      </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t\t\t\t\t\t      </br>",
             "itemtype": "method",
             "name": "api/custcenter/codegenerate",
@@ -270,6 +291,41 @@
             "example": [
                 " \n\t输入样例\n\t/api/custcenter/codegenerate?username=admin&type=0\n\n\t返回码说明\n\t0        生成成功\n\t40001\t 生成失败"
             ],
+            "class": "custcenter",
+            "module": "API",
+            "submodule": "custcenter"
+        },
+        {
+            "file": "controller/api/custcenter.js",
+            "line": 180,
+            "description": "登出\t\t\t </br>\n\t请求类型: POST             </br>\n\t请求类型: application/json </br>\n\t返回结构: {RESULTMSG}      </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t\t\t\t\t\t      </br>",
+            "itemtype": "method",
+            "name": "api/custcenter/logout",
+            "params": [
+                {
+                    "name": "username",
+                    "description": "注册用户名，唯一",
+                    "type": "String"
+                },
+                {
+                    "name": "session_id",
+                    "description": "sessionid",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "参考返回结构"
+            },
+            "example": [
+                " \n\t输入样例\n\t{\n\t    username:'admin',\n\t \tsession_id:\"xxxxx\"\n\t}\n\n\t返回码说明\n\t0        生成成功\n\t40001\t 生成失败"
+            ],
+            "class": "custcenter",
+            "module": "API",
+            "submodule": "custcenter"
+        },
+        {
+            "file": "controller/api/custcenter.js",
+            "line": 214,
             "class": "custcenter",
             "module": "API",
             "submodule": "custcenter"
@@ -698,6 +754,40 @@
             "submodule": "rbacmg"
         },
         {
+            "file": "controller/api/rbacmg.js",
+            "line": 533,
+            "description": "后台系统－登录           </br>\n    请求类型: POST             </br>\n    请求类型: application/json </br>\n    返回结构:                 </br>\n            `{\n                \"errcode\": \"0\",\n                \"errmsg\": \"\",\n                \"data\":{},\n                \"extention\":{}\n            }`\n                             </br>\n    data参数名说明:            </br>\n        username 用户名 </br>\n        mobile 手机号 </br>\n        roles 角色ID数组 </br>\n        resources 资源ID数组 </br>",
+            "itemtype": "method",
+            "name": "api/rbacmg/userlogin",
+            "params": [
+                {
+                    "name": "username",
+                    "description": "注册用户名，唯一",
+                    "type": "String"
+                },
+                {
+                    "name": "password",
+                    "description": "密码",
+                    "type": "String"
+                },
+                {
+                    "name": "code",
+                    "description": "验证码,根据安全需要时会要求提供",
+                    "type": "String",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "返回架构中的 `data`说明"
+            },
+            "example": [
+                "\n    输入样例\n    {\n       \"username\":\"admin\",\n       \"password\":\"xxxxxxx\",\n       \"code\": \"xxxx\"\n    }\n\n    返回样例\n    {\n       \"id: \"\",\n       \"user\":{\n           \"username\": \"\",\n           \"mobile\": \"\"\n           \"extention\":{}\n       },\n       \"roles\":[\"abc\",\"efg\"],\n       \"resources\":[\"123\",\"456\"]    \n    }"
+            ],
+            "class": "rbacmg",
+            "module": "API",
+            "submodule": "rbacmg"
+        },
+        {
             "file": "controller/api/tagmg.js",
             "line": 9,
             "description": "标签创建修改\t\t  </br>\n\t请求类型: POST             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`",
@@ -841,7 +931,7 @@
         },
         {
             "message": "Missing item type",
-            "line": " controller/api/custcenter.js:101"
+            "line": " controller/api/custcenter.js:214"
         },
         {
             "message": "Missing item type",

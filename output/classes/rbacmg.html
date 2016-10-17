@@ -170,6 +170,10 @@
 
                             </li>
                             <li class="index-item method">
+                                <a href="#method_api/rbacmg/userlogin">api/rbacmg/userlogin</a>
+
+                            </li>
+                            <li class="index-item method">
                                 <a href="#method_api/rbacmg/userrolesbyuserd">api/rbacmg/userrolesbyuserd</a>
 
                             </li>
@@ -1618,6 +1622,135 @@ resources 资源ID数组</br></p>
 返回码说明
 0        创建或修改成功
 40001    创建或修改失败</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_api/rbacmg/userlogin" class="method item">
+    <h3 class="name"><code>api/rbacmg/userlogin</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>username</code>
+                </li>
+                <li class="arg">
+                        <code>password</code>
+                </li>
+                <li class="arg">
+                        <code class="optional">[code]</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/controller_api_rbacmg.js.html#l533"><code>controller&#x2F;api&#x2F;rbacmg.js:533</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>后台系统－登录           </br>
+请求类型: POST             </br>
+请求类型: application/json </br>
+返回结构:                 </br>
+<code>{ &quot;errcode&quot;: &quot;0&quot;, &quot;errmsg&quot;: &quot;&quot;, &quot;data&quot;:{}, &quot;extention&quot;:{} }</code>
+</br>
+data参数名说明:            </br>
+username 用户名 </br>
+mobile 手机号 </br>
+roles 角色ID数组 </br>
+resources 资源ID数组 </br></p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">username</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>注册用户名，唯一</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">password</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+                    <div class="param-description">
+                        <p>密码</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name optional">[code]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+                    <div class="param-description">
+                        <p>验证码,根据安全需要时会要求提供</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>返回架构中的 <code>data</code>说明</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>输入样例
+{
+   &quot;username&quot;:&quot;admin&quot;,
+   &quot;password&quot;:&quot;xxxxxxx&quot;,
+   &quot;code&quot;: &quot;xxxx&quot;
+}
+
+返回样例
+{
+   &quot;id: &quot;&quot;,
+   &quot;user&quot;:{
+       &quot;username&quot;: &quot;&quot;,
+       &quot;mobile&quot;: &quot;&quot;
+       &quot;extention&quot;:{}
+   },
+   &quot;roles&quot;:[&quot;abc&quot;,&quot;efg&quot;],
+   &quot;resources&quot;:[&quot;123&quot;,&quot;456&quot;]    
+}</code></pre>
 
             </div>
         </div>

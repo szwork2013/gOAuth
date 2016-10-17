@@ -186,24 +186,37 @@ exports.postregister = (req,res) =&gt; {
 	});
 }
 
-/**		
-/*用户中心－用户信息更新*/
-exports.postprofileupdate = (req,res) =&gt; {
-	$.proxy_custmg.custcenter.profileupdate(req.body,(result)=&gt;{
-		res.send(result);
-	});
-}
+/**
+@description
+	重置密码			 &lt;/br&gt;
+	请求类型: GET             &lt;/br&gt;
+	请求类型: application/json &lt;/br&gt;
+	返回结构: {RESULTMSG}      &lt;/br&gt;
+			&#x60;{
+			    &quot;errcode&quot;: &quot;0&quot;,
+			    &quot;errmsg&quot;: &quot;&quot;,
+			    &quot;data&quot;:{},
+			    &quot;extention&quot;:{}
+			}&#x60;
+						      &lt;/br&gt;
+@method api/custcenter/resetpassword
+@param username {String} 注册用户名，唯一
+@param newpassword {String} 重置后密码
+@return 参考返回结构
+@example 
+	输入样例
+	{
+	        username:&#x27;admin&#x27;,
+	        newpassword:&#x27;xxxxxxx&#x27;,
+	        code: &#x27;xxxx&#x27;
+	}
 
-/*用户中心－忘记密码*/
-exports.postforgetpassword = (req,res)  =&gt; {
-	$.proxy_custmg.custcenter.forgetpassword(req.body,(result)=&gt;{
-		res.send(result);
-	});
-}
-
-/*用户中心－密码修改*/
-exports.postchangepassword = (req,res)  =&gt; {
-	$.proxy_custmg.custcenter.changepassword(req.body,(result)=&gt;{
+	返回码说明
+	0        生成成功
+	40001	 生成失败
+*/
+exports.postresetpassword = (req,res)  =&gt; {
+	$.proxy_custmg.custcenter.resetpassword(req.body,(result)=&gt;{
 		res.send(result);
 	});
 }
@@ -245,18 +258,6 @@ exports.getcodegenerate = (req,res)  =&gt; {
 }
 
 
-exports.getcodeverify = (req,res)  =&gt; {
-	var data= {
-		name:req.query.username,
-		type:req.query.type,
-		code:req.query.code
-	};
-
-	$.proxy_custmg.custcenter.codeverify(data,(result)=&gt;{
-		res.send(result);
-	});
-}
-
 /*用户中心－用户认证*/
 exports.postverify = (req,res) =&gt; {
 	$.proxy_custmg.custcenter.verify(req.body,(result)=&gt;{
@@ -264,8 +265,44 @@ exports.postverify = (req,res) =&gt; {
 	});
 }
 
+/**
+@description
+	登出			 &lt;/br&gt;
+	请求类型: POST             &lt;/br&gt;
+	请求类型: application/json &lt;/br&gt;
+	返回结构: {RESULTMSG}      &lt;/br&gt;
+			&#x60;{
+			    &quot;errcode&quot;: &quot;0&quot;,
+			    &quot;errmsg&quot;: &quot;&quot;,
+			    &quot;data&quot;:{},
+			    &quot;extention&quot;:{}
+			}&#x60;
+						      &lt;/br&gt;
+@method api/custcenter/logout
+@param username {String} 注册用户名，唯一
+@param session_id {String} sessionid
+@return 参考返回结构
+@example 
+	输入样例
+	{
+	    username:&#x27;admin&#x27;,
+	 	session_id:&quot;xxxxx&quot;
+	}
+
+	返回码说明
+	0        生成成功
+	40001	 生成失败
+*/
 exports.postlogout = (req,res) =&gt; {
 	$.proxy_custmg.custcenter.logout(req.body,(result)=&gt;{
+		res.send(result);
+	});
+}
+
+/**		
+/*用户中心－用户信息更新*/
+exports.postprofileupdate = (req,res) =&gt; {
+	$.proxy_custmg.custcenter.profileupdate(req.body,(result)=&gt;{
 		res.send(result);
 	});
 }
@@ -282,6 +319,17 @@ exports.postdecrypt = (req,res) =&gt; {
 	});
 }
 
+exports.getcodeverify = (req,res)  =&gt; {
+	var data= {
+		name:req.query.username,
+		type:req.query.type,
+		code:req.query.code
+	};
+
+	$.proxy_custmg.custcenter.codeverify(data,(result)=&gt;{
+		res.send(result);
+	});
+}
 
     </pre>
 </div>

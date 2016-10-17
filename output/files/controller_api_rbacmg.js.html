@@ -618,6 +618,56 @@ exports.getusergrants = (req,res)  =&gt; {
 	});
 }
 
+/**
+@description
+    后台系统－登录           &lt;/br&gt;
+    请求类型: POST             &lt;/br&gt;
+    请求类型: application/json &lt;/br&gt;
+    返回结构:                 &lt;/br&gt;
+            &#x60;{
+                &quot;errcode&quot;: &quot;0&quot;,
+                &quot;errmsg&quot;: &quot;&quot;,
+                &quot;data&quot;:{},
+                &quot;extention&quot;:{}
+            }&#x60;
+                             &lt;/br&gt;
+    data参数名说明:            &lt;/br&gt;
+        username 用户名 &lt;/br&gt;
+        mobile 手机号 &lt;/br&gt;
+        roles 角色ID数组 &lt;/br&gt;
+        resources 资源ID数组 &lt;/br&gt;
+@method api/rbacmg/userlogin
+@param username {String} 注册用户名，唯一
+@param password {String} 密码
+@param [code] {String} 验证码,根据安全需要时会要求提供
+@return 返回架构中的 &#x60;data&#x60;说明
+@example
+    输入样例
+    {
+       &quot;username&quot;:&quot;admin&quot;,
+       &quot;password&quot;:&quot;xxxxxxx&quot;,
+       &quot;code&quot;: &quot;xxxx&quot;
+    }
+
+    返回样例
+    {
+       &quot;id: &quot;&quot;,
+       &quot;user&quot;:{
+           &quot;username&quot;: &quot;&quot;,
+           &quot;mobile&quot;: &quot;&quot;
+           &quot;extention&quot;:{}
+       },
+       &quot;roles&quot;:[&quot;abc&quot;,&quot;efg&quot;],
+       &quot;resources&quot;:[&quot;123&quot;,&quot;456&quot;]    
+    }
+*/
+exports.postuserlogin = (req,res)  =&gt; {
+	$.proxy_rbacmg.grants.userlogin(req.body, (result) =&gt; {
+		res.send(result);
+	});
+}
+
+
     </pre>
 </div>
                     </div>
