@@ -44,8 +44,8 @@ var config = module.exports = {
     // 后台接口地址
     htUrl: "http://10.46.20.98:84",
     //testhostname
-    testhostname: "http://172.28.184.75:9091",
-    //testhostname: "http://localhost:9091",
+    //testhostname: "http://172.28.184.75:9091",
+    testhostname: "http://localhost:9091",
     // 程序路由结构
     routes: {
         get: {
@@ -87,6 +87,10 @@ var config = module.exports = {
         // 自定义监听
         listeners: {
         }
+    },
+    backenduser:{
+        name:"admin",
+        password:""
     }
 };
 

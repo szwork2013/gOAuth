@@ -74,20 +74,6 @@ describe('POST /api/custcenter/login', function() {
           done();
         });
     });
-
-    it('用户登陆失败-用户找不到', function(done) {
-      request(hostname)
-        .post('/api/custcenter/login')
-        .send({username:"aaaaa",password:"121212"})
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .end(function (err, res) {
-          should.exist(res);
-          res.status.should.be.equal(200);
-          res.body.errcode.should.be.equal(30002);
-          done();
-        });
-    });
   });
 
   describe('强制验证码用户登陆', function() {

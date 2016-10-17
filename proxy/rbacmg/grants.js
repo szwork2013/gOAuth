@@ -157,3 +157,11 @@ module.exports.user_roles_resources = (id,callback) => {
         });
     });
 }
+
+
+
+//后台登录
+module.exports.userlogin = (user, callback) => {
+    if(user.name == $.config.backenduser.name && user.password ==$.config.backenduser.password) return cb($.plug.resultformat(0, ""));
+    return cb($.plug.resultformat(30099, "账户不存在或密码不正确"));
+}

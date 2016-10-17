@@ -98,24 +98,37 @@ exports.postregister = (req,res) => {
 	});
 }
 
-/**		
-/*用户中心－用户信息更新*/
-exports.postprofileupdate = (req,res) => {
-	$.proxy_custmg.custcenter.profileupdate(req.body,(result)=>{
-		res.send(result);
-	});
-}
+/**
+@description
+	重置密码			 </br>
+	请求类型: GET             </br>
+	请求类型: application/json </br>
+	返回结构: {RESULTMSG}      </br>
+			`{
+			    "errcode": "0",
+			    "errmsg": "",
+			    "data":{},
+			    "extention":{}
+			}`
+						      </br>
+@method api/custcenter/resetpassword
+@param username {String} 注册用户名，唯一
+@param newpassword {String} 重置后密码
+@return 参考返回结构
+@example 
+	输入样例
+	{
+	        username:'admin',
+	        newpassword:'xxxxxxx',
+	        code: 'xxxx'
+	}
 
-/*用户中心－忘记密码*/
-exports.postforgetpassword = (req,res)  => {
-	$.proxy_custmg.custcenter.forgetpassword(req.body,(result)=>{
-		res.send(result);
-	});
-}
-
-/*用户中心－密码修改*/
-exports.postchangepassword = (req,res)  => {
-	$.proxy_custmg.custcenter.changepassword(req.body,(result)=>{
+	返回码说明
+	0        生成成功
+	40001	 生成失败
+*/
+exports.postresetpassword = (req,res)  => {
+	$.proxy_custmg.custcenter.resetpassword(req.body,(result)=>{
 		res.send(result);
 	});
 }
@@ -157,18 +170,6 @@ exports.getcodegenerate = (req,res)  => {
 }
 
 
-exports.getcodeverify = (req,res)  => {
-	var data= {
-		name:req.query.username,
-		type:req.query.type,
-		code:req.query.code
-	};
-
-	$.proxy_custmg.custcenter.codeverify(data,(result)=>{
-		res.send(result);
-	});
-}
-
 /*用户中心－用户认证*/
 exports.postverify = (req,res) => {
 	$.proxy_custmg.custcenter.verify(req.body,(result)=>{
@@ -176,8 +177,44 @@ exports.postverify = (req,res) => {
 	});
 }
 
+/**
+@description
+	登出			 </br>
+	请求类型: POST             </br>
+	请求类型: application/json </br>
+	返回结构: {RESULTMSG}      </br>
+			`{
+			    "errcode": "0",
+			    "errmsg": "",
+			    "data":{},
+			    "extention":{}
+			}`
+						      </br>
+@method api/custcenter/logout
+@param username {String} 注册用户名，唯一
+@param session_id {String} sessionid
+@return 参考返回结构
+@example 
+	输入样例
+	{
+	    username:'admin',
+	 	session_id:"xxxxx"
+	}
+
+	返回码说明
+	0        生成成功
+	40001	 生成失败
+*/
 exports.postlogout = (req,res) => {
 	$.proxy_custmg.custcenter.logout(req.body,(result)=>{
+		res.send(result);
+	});
+}
+
+/**		
+/*用户中心－用户信息更新*/
+exports.postprofileupdate = (req,res) => {
+	$.proxy_custmg.custcenter.profileupdate(req.body,(result)=>{
 		res.send(result);
 	});
 }
@@ -194,3 +231,14 @@ exports.postdecrypt = (req,res) => {
 	});
 }
 
+exports.getcodeverify = (req,res)  => {
+	var data= {
+		name:req.query.username,
+		type:req.query.type,
+		code:req.query.code
+	};
+
+	$.proxy_custmg.custcenter.codeverify(data,(result)=>{
+		res.send(result);
+	});
+}

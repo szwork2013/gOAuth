@@ -295,8 +295,7 @@ var resources = [
 var users = [
     {
         id:'ecb3a193-e53e-4910-8e02-0269931a7093',
-        name:'admin',
-        mobile:'13999999999',
+        name:'13999999999',
         password:'123456',
         desc:'后台管理员权限',
         status:'0'

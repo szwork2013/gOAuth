@@ -12,8 +12,7 @@ var KEY = {
 /*用户中心－开放登录*/
 exports.login = (para, callback) =>
 {
-    var user, userSession;
-
+    var user,userSession;
     async.waterfall([
             //检察请求参数完整性
             function (cb) {
@@ -21,18 +20,10 @@ exports.login = (para, callback) =>
                     return cb($.plug.resultformat(30001, "Username and password is mandatory"));
                 cb();
             },
-            //获取用户信息
-            function (cb) {
-                redis.get(util.format(KEY.USER_USERNAME, para.username), (err, data) =>{
-                    userid = data;
-                    if(!data) return cb($.plug.resultformat(30002, "User is not existed"));
-                    else return cb();
-                });
-            },
             //验证码验证
             function (cb) {
-                var data = {name:para.username,type:"0",code:para.code};
-                forcecodeverify(data, (data)=>{
+                var checkpara = {name:para.username, type:"0", code:para.code};
+                forcecodeverify(checkpara, (data)=>{
                     return cb(data);
                 });
             },
@@ -45,17 +36,25 @@ exports.login = (para, callback) =>
             },
             //获取权限
             function (cb) {
-                redis.hgetall(util.format(KEY.USER, userid),(err, data)=>{
-                    if (err) return cb($.plug.resultformat(40001, err));
-                    else {
-                       if (data.password != para.password) 
-                       {
-                           forceverify({name:para.username, type:"1"});
-                           return cb($.plug.resultformat(30003, "Either username or password is incorrect"));
-                       }
-                       else return cb();
-                    }
+                $.plug.crypto.encrypt(para.password, $.config.cryptsalt, (maskpw)=>{
+                    para.password = maskpw;
                 });
+
+                var sql = "\
+                           select count(1) as count\
+                           from `user`\
+                            WHERE name = '{0}' and password='{1}';\
+                            ".format(para.username, para.password);
+
+                $.db.mysql.gd.query(sql, (err, data) => {
+                    if (err) return cb($.plug.resultformat(40001, err));
+                    if (data[0].count == 0) 
+                    {
+                        forceverify({name:para.username, type:"1"});
+                        return cb($.plug.resultformat(30003, "Either username or password is incorrect"));
+                    }
+                    cb();
+                 });
             }
         ],
         function (err) {
@@ -68,49 +67,118 @@ exports.login = (para, callback) =>
 }
 
 /*用户中心－开放注册*/
-exports.register = (para, callback) =>
+exports.register = (user, callback) =>
 {
-    var user, userSession, userid;
+    var userid,codeid;
 
     async.waterfall([
             //检察请求参数完整性
             function (cb) {
-                if (!para || !para.username||!para.password)
+                if (!user || !user.username||!user.password)
                    return cb($.plug.resultformat(30001, "Username, password, mobile is mandatory"));
                 cb();
             },
             //获取是否已经注册过
             function (cb) {
-                redis.get(util.format(KEY.USER_USERNAME, para.username), (err, data) =>{
-                    userid = data;
-                    if(userid) return cb($.plug.resultformat(30006, "User is already existing"));
-                    else return cb();
+                $.db.mysql.gd.query("select count(1) as count from user where name='{0}'".format(user.username), (err,data) => {
+                    if (data[0].count > 0) return cb($.plug.resultformat(30006, "User is already existing"));
+                    cb();
                 });
             },
             //验证码验证
             function (cb) {
-                //todo check code-generation service, if code is required.
-                var isrequired = false;
-                if (isrequired && (!para.code || para.code!="1234")) return cb($.plug.resultformat(30005, "Code is requiered or incorrect"));
-                cb();
+               codeid = util.format("code:%s:%s", "2", user.username);
+               redis.get(codeid, (err, data) => {
+                   getcode = data;
+                   if(user.code != getcode) {
+                      return cb($.plug.resultformat(30011, "code is incorrect or expired"));
+                   }
+                   cb();
+               });
             },
             //用户添加
             function (cb) {
-                para.type ="0";
-                user = {
-                    id: uuid.v4(),
-                    name: para.username,
-                    password: para.password,
-                    mobile: para.password,
-                    type: para.type,
-                    extentions: "para.profile"
-                };
+                var mobile_regx = /^(?:13\d|15\d|18[123456789])-?\d{5}(\d{3}|\*{3})$/;
+                var email_reg = /^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/gi;
+                user.mobile = mobile_regx.test(user.username)? user.username:"";
+                user.email = email_reg.test(user.username)? user.username:"";
 
-                redis.hmset(util.format(KEY.USER, user.id), user,(err, data)=>{
-                    if (err) return cb($.plug.resultformat(40001, err));
-                    redis.set(util.format(KEY.USER_USERNAME, user.name),user.id);
+                user.id = uuid.v4();
+                $.plug.crypto.encrypt(user.password, $.config.cryptsalt, (maskpw)=>{
+                    user.password = maskpw;
                 });
-                cb();
+
+                sql = "\
+                    INSERT INTO `user`\
+                        (`id`,\
+                         `name`,\
+                         `password`,\
+                         `status`,\
+                         `type`,\
+                         `mobile`,\
+                         `email`,\
+                         `create_dt`,\
+                         `create_user`)\
+                    VALUES \
+                        ('{0}', \
+                        '{1}', \
+                        '{2}', \
+                        {3},\
+                        {4},\
+                        '{5}',\
+                        '{6}',\
+                        UNIX_TIMESTAMP(),\
+                        '{7}'); \
+                    ".format(
+                        user.id,
+                        user.username,
+                        user.password,
+                        1,
+                        user.type,
+                        user.mobile,
+                        user.email,
+                        user.id);
+                $.db.mysql.gd.query(sql, (err,data) => {
+                    if (err) return cb($.plug.resultformat(40001, err));
+                    cb();
+                });
+            },
+            function (cb) {
+                var cust_info_sql = "\
+                    INSERT INTO `cust_info`\
+                        (`id`,\
+                        `name`,\
+                        `compcode`,\
+                        `compname`,\
+                        `contact`,\
+                        `identitytype`,\
+                        `identitycode`,\
+                        `create_dt`,\
+                        `create_user`)\
+                    VALUES \
+                        ('{0}', \
+                        '{1}', \
+                        '{2}', \
+                        {3},\
+                        {4},\
+                        '{5}',\
+                        '{6}',\
+                        UNIX_TIMESTAMP(),\
+                        '{7}'); \
+                    ".format(
+                        user.id,
+                        user.username,
+                        user.compcode,
+                        user.compname,
+                        user.contact,
+                        user.identitytype,
+                        user.identitycode,
+                        user.id);
+
+                $.db.mysql.gd.query(cust_info_sql, (err,data) => {
+                    if (err) return cb($.plug.resultformat(40001, err));
+                    cb();
+                });
             },
             //授权默认权限
             function (cb) {
@@ -127,61 +195,44 @@ exports.register = (para, callback) =>
         });
 }
 
-/*用户中心－用户信息更新*/
-// exports.profileupdate = (para, callback) =>
-// {
-//     callback();
-// }
-
-/*用户中心－忘记密码*/
-// exports.forgetpassword = (para, callback) =>
-// {
-//     callback();
-// }
-
 /*用户中心－密码修改*/
-exports.changepassword = (para, callback) =>
+exports.resetpassword = (para, callback) =>
 {
-    var user, userSession;
-
+    var codeid;
     async.waterfall([
             //检察请求参数完整性
             function (cb) {
-                if (!para || !para.username||!para.password||!para.mobile)
-                    return cb($.plug.resultformat(30001, "Username, password, mobile is mandatory"));
-                cb();
-            },
-            //获取是否已经注册过
-            function (cb) {
-                user = {
-                    id: "userId",
-                    name: "userName",
-                    value: {
-                        resourceValue: 6,
-                        actionsValue: 256
-                    },
-                    password: "1111",
-                    extentions: {}
-                };
-                if (!user || user.name == para.username || user.mobile == para.mobile) return cb($.plug.resultformat(30006, "User is already existing"));
+                if (!para || !para.username||!para.newpassword)
+                    return cb($.plug.resultformat(30001, "Username, password is mandatory"));
+
+                $.plug.crypto.encrypt(para.newpassword, $.config.cryptsalt, (maskpw)=>{
+                    para.newpassword = maskpw;
+                });
+
+                codeid = util.format("code:%s:%s", "2", para.username);
                 cb();
             },
             //验证码验证
             function (cb) {
-                //todo check code-generation service, if code is required.
-                var isrequired = false;
-                if (isrequired&&(!para.code || para.code!="1234")) return cb($.plug.resultformat(30005, "Code is requiered or incorrect"));
-                cb();
-            },
-            //密码匹配，新密码规则匹配
-            function (cb) {
-                if (user.password != para.password)return cb($.plug.resultformat(30008, "Originl password is incorrect"));
-                cb();
+                redis.get(codeid, (err, data) => {
+                   getcode = data;
+                   if(para.code != getcode) {
+                      return cb($.plug.resultformat(30011, "code is incorrect or expired"));
+                   }
+                   cb();
+                });
             },
             //密码重置
             function (cb) {
-                //todo 修改密码，重置session、缓存等信息。
-                cb();
+                var sql ="update user \
+                          set password = '{1}'\
+                          where name = '{0}'\
+                          ".format(para.username, para.newpassword);
+                $.db.mysql.gd.query(sql, (err, data) => {
+                    if (err) return cb($.plug.resultformat(40001, err));
+                    redis.expire(codeid , 0);
+                    cb();
+                });
             }
         ],
         function (err) {
@@ -193,13 +244,57 @@ exports.changepassword = (para, callback) =>
         });
 }
 
-/*用户中心－用户认证*/
-exports.verify = (para, callback) =>
+/*现场认证*/
+exports.offlineverify = (para, callback) =>
 {
-    callback();
+    var codeid;
+    async.waterfall([
+            //检察请求参数完整性
+            function (cb) {
+                if (!para || !para.username||!para.newpassword)
+                    return cb($.plug.resultformat(30001, "Username, password is mandatory"));
+
+                $.plug.crypto.encrypt(para.newpassword, $.config.cryptsalt, (maskpw)=>{
+                    para.newpassword = maskpw;
+                });
+
+                codeid = util.format("code:%s:%s", "2", para.username);
+                cb();
+            },
+            //验证码验证
+            function (cb) {
+                redis.get(codeid, (err, data) => {
+                   getcode = data;
+                   if(para.code != getcode) {
+                      return cb($.plug.resultformat(30011, "code is incorrect or expired"));
+                   }
+                   cb();
+                });
+            },
+            //密码重置
+            function (cb) {
+                var sql ="update user \
+                          set password = '{1}'\
+                          where name = '{0}'\
+                          ".format(para.username, para.newpassword);
+                $.db.mysql.gd.query(sql, (err, data) => {
+                    if (err) return cb($.plug.resultformat(40001, err));
+                    redis.expire(codeid , 0);
+                    cb();
+                });
+            }
+        ],
+        function (err) {
+            if (err) {
+                callback(err);
+            } else {
+                callback($.plug.resultformat(0, ''));
+            }
+        });
 }
 
 
+/*生成随机数*/
 function getRandomInt(min, max) {
    min = Math.ceil(min);
    max = Math.floor(max);
@@ -227,6 +322,7 @@ exports.codegenerate = (para, callback) =>
     });
 }
 
+//强制验证码校验
 function forcecodeverify(para, callback)
 {
     var forceverifyid = util.format("forceverify:%s:%s", "1", para.name);
@@ -263,6 +359,7 @@ function forcecodeverify(para, callback)
     );
 }
 
+//验证码检查
 exports.codeverify = (para, callback) => {
     var codeid = util.format("code:%s:%s", para.type, para.name);
     redis.get(codeid, (err, data) => {

@@ -19,7 +19,7 @@ describe('POST /api/custcenter/register', function() {
     it('正常', function(done) {
       request(hostname)
         .post('/api/custcenter/register')
-        .send({username:users[0].name,password:users[0].password})
+        .send({username:users[0].name,password:users[0].password,type:0})
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .end(function (err, res) {
@@ -83,7 +83,7 @@ describe('POST /api/custcenter/register', function() {
         .end(function (err, res) {
           should.exist(res);
           res.status.should.be.equal(200);
-          res.body.errcode.should.be.equal(30005);
+          res.body.errcode.should.be.equal(30011);
           done();
         });
     });

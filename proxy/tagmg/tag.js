@@ -10,68 +10,73 @@ var KEY = {
 };
 
 /**/
-module.exports.createtag = (tag,callback) => {
+module.exports.createtag = (tag, callback) => {
     //todo:
     //1. 保存数据入MySQL
     //2. 同时保存key='tag:id:%s',入redis.
-    var id;
+    var id,sql;
     async.waterfall([
             //检察请求参数完整性
         function (cb) {
-            // if (!para || !para.username || !para.password)
-            //     return cb($.plug.resultformat(30001, "Username and password is mandatory"));
-            cb();
-        },
-        function (cb) {
+            if (!tag || !tag.name || !tag.status)
+                return cb($.plug.resultformat(30001, "name／status is mandatory"));
+
             if(!tag.id)
             {
                 tag.id = uuid.v4();
-                id = tag.id;
-                $.db.mysql.gd.query("\
-                INSERT INTO `tag`\
-                    (`id`,\
-                     `name`,\
-                     `desc`,\
-                     `status`)\
-                VALUES \
-                    ('{0}', \
-                    '{1}', \
-                    '{2}', \
-                    {3}); \
-                ".format(
-                    tag.id,
-                    tag.name,
-                    tag.desc,
-                    tag.status
-                ), (err) => {
-                   if (err) return callback($.plug.resultformat(40001, err));
-                });
-            }else{
-                id = tag.id;
-                $.db.mysql.gd.query("\
-                UPDATE `tag`\
-                SET\
-                    `name` = '{1}',\
-                    `desc` = '{2}',\
-                    `status` = {3}\
-                WHERE `id` = '{0}';\
-                ".format(
-                    tag.id,
-                    tag.name,
-                    tag.desc,
-                    tag.status
-                ), (err) => {
-                   if (err) return callback($.plug.resultformat(40001, err));
-                });
+                sql = "\
+                    INSERT INTO `tag`\
+                        (`id`,\
+                         `name`,\
+                         `desc`,\
+                         `status`,\
+                         `create_dt`,\
+                         `create_user`)\
+                    VALUES \
+                        ('{0}', \
+                        '{1}', \
+                        '{2}', \
+                        {3},\
+                        UNIX_TIMESTAMP(),\
+                        '{4}'); \
+                    ".format(
+                        tag.id,
+                        tag.name,
+                        tag.desc,
+                        tag.status,
+                        'admin');//todo 修改成当前操作用户
+            } else {
+                sql = "\
+                    UPDATE `tag`\
+                    SET\
+                        `name` = '{1}',\
+                        `desc` = '{2}',\
+                        `status` = {3},\
+                        `modify_dt` = UNIX_TIMESTAMP(),\
+                        `modify_user` = '{4}'\
+                    WHERE `id` = '{0}';\
+                    ".format(
+                        tag.id,
+                        tag.name,
+                        tag.desc,
+                        tag.status,
+                        'admin');//todo 修改成当前操作用户
             }
             cb();
         },
         function (cb) {
-            //保存进入redis,可选
-            redis.hmset(util.format(KEY.TAG, tag.id), tag,(err, data)=>{
-                //if (err) return cb($.plug.resultformat(40001, err));
+             $.db.mysql.gd.query(sql, (err) => {
+                if (err) return cb($.plug.resultformat(40001, err));
+
                 cb();
             });
+        },
+        function (cb) {
+            //保存进入redis,可选
+            //redis.hmset(util.format(KEY.TAG, tag.id), tag,(err, data)=>{
+                //if (err) return cb($.plug.resultformat(40001, err));
+            cb();
+            //});
         }
     ],
     function (err) {
@@ -85,31 +90,50 @@ module.exports.createtag = (tag,callback) => {
 
 /*分页获取所有的标签*/
 module.exports.alltags = (para, callback) =>{
+    var sql;
     async.waterfall([
         //检察请求参数完整性
         function (cb) {
             if (!para.from || !para.size||!Number(para.from)||!Number(para.size))
                 return cb($.plug.resultformat(40001, "from and size is mandatory, and should be number"));
+
+            sql = "\
+                select `id`\
+                from `tag`\
+                where 1=1 ";
+
+            if(para.name){
+                sql += " and name like '{0}%' ".format(para.name);
+            }else if(para.status){
+                sql += " and status = {0} ".format(para.status);
+            }
+
             cb();
         },
         //获取分页后的Key
         function (cb) {
-           // (ifnull('{0}','') = '' or name like '%{0}%')\
-            var sql = "\
+            var papgingsql = "\
                 select \
                     `id`,\
                     `name`,\
                     `desc`,\
-                    `status`\
+                    `status`,\
+                    `create_dt`,\
+                    `modify_user`,\
+                    `modify_dt`,\
+                    `modify_user`\
                 from `tag`\
-                limit {0},{1};\
+                where `id` in ({0})\
+                order by `create_dt` desc\
+                limit {1},{2};\
                 ".format(
-                    para.from-1,
+                    sql,
+                    para.from - 1,
                     para.size
                 );
-            console.log(sql);
-            $.db.mysql.gd.query(sql, (err, data) => {
-                   if (err) return callback($.plug.resultformat(40001, err));
+  
+            $.db.mysql.gd.query(papgingsql, (err, data) => {
+                   if (err) return cb($.plug.resultformat(40001, err));
                    return cb(null,data);
             });
             // var from = para.from - 1;
@@ -132,15 +156,20 @@ module.exports.alltags = (para, callback) =>{
         function (data, cb) {
             // WHERE (ifnull('{0}','') = '' or name like '%{0}%')\
                 //     and (ifnull({1},'') = '' or status = {1});\
-            var sql = "\
+           sql = "\
                 select count(1) as count\
                 from `tag`\
-                ".format(
-                    para.name,
-                    para.status
-                );
+                where 1=1 ";
+
+            if(para.name){
+                sql += " and name like '{0}%' ".format(para.name);
+            }else if(para.status){
+                sql += " and status = {0} ".format(para.status);
+            }
+
             $.db.mysql.gd.query(sql, (err, countdata) => {
-                if (err) return callback($.plug.resultformat(40001, err));
+                if (err) return cb($.plug.resultformat(40001, err));
+                
                 return cb(null,{
                     count: countdata[0].count,
                     result: data
@@ -161,21 +190,27 @@ module.exports.alltags = (para, callback) =>{
                callback(err);
             } else {
                 callback($.plug.resultformat(0,'', data));
-            }
+        }
     });
 };
 
 /*根据标签ID获取标签信息*/
 module.exports.tagbyid = (id, callback) =>{
-    $.db.mysql.gd.query("\
-                select \
+    var sql = "\
+               select \
                     `id`,\
                     `name`,\
                     `desc`,\
-                    `status`\
+                    `status`,\
+                    `create_dt`,\
+                    `modify_user`,\
+                    `modify_dt`,\
+                    `modify_user`\
                 from `tag`\
                 WHERE id = '{0}';\
-                ".format(id), (err, data) => {
+                ".format(id);
+
+    $.db.mysql.gd.query(sql, (err, data) => {
         if (err) return callback($.plug.resultformat(40001, err));
         callback($.plug.resultformat(0, "", data[0] ));
      });
