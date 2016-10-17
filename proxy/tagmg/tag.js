@@ -137,9 +137,7 @@ module.exports.alltags = (para, callback) =>{
                 from `tag`\
                 ".format(
                     para.name,
-                    para.status,
-                    para.from-1,
-                    para.size
+                    para.status
                 );
             $.db.mysql.gd.query(sql, (err, countdata) => {
                 if (err) return callback($.plug.resultformat(40001, err));
@@ -171,7 +169,7 @@ module.exports.alltags = (para, callback) =>{
 module.exports.tagbyid = (id, callback) =>{
     $.db.mysql.gd.query("\
                 select \
-                    `id`\
+                    `id`,\
                     `name`,\
                     `desc`,\
                     `status`\
