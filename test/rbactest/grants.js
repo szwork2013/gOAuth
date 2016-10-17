@@ -226,3 +226,19 @@ describe('获取完整用户角色权限', function() {
     });
 });
 
+describe('后台登入', function() {
+    it('后台登入', function(done) {
+      request(hostname)
+        .post('/api/rbacmg/userlogin')
+        .send({username:"admin",password:"123456"})
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .end(function (err, res) {
+          should.exist(res);
+          res.status.should.be.equal(200);
+          res.body.errcode.should.be.equal(0);
+          done();
+        });
+    });
+});
+
