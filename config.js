@@ -90,7 +90,7 @@ var config = module.exports = {
     },
     backenduser:{
         name:"admin",
-        password:""
+        password:"123456"
     }
 };
 
