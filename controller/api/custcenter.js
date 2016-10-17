@@ -101,7 +101,7 @@ exports.postregister = (req,res) => {
 /**
 @description
 	重置密码			 </br>
-	请求类型: GET             </br>
+	请求类型: POST             </br>
 	请求类型: application/json </br>
 	返回结构: {RESULTMSG}      </br>
 			`{

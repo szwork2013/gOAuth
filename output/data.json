@@ -242,7 +242,7 @@
         {
             "file": "controller/api/custcenter.js",
             "line": 101,
-            "description": "重置密码\t\t\t </br>\n\t请求类型: GET             </br>\n\t请求类型: application/json </br>\n\t返回结构: {RESULTMSG}      </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t\t\t\t\t\t      </br>",
+            "description": "重置密码\t\t\t </br>\n\t请求类型: POST             </br>\n\t请求类型: application/json </br>\n\t返回结构: {RESULTMSG}      </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t\t\t\t\t\t      </br>",
             "itemtype": "method",
             "name": "api/custcenter/resetpassword",
             "params": [
