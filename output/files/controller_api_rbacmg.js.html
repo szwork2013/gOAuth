@@ -667,6 +667,111 @@ exports.postuserlogin = (req,res)  =&gt; {
 	});
 }
 
+/**
+@description
+    后台系统－登出           &lt;/br&gt;
+    请求类型: POST             &lt;/br&gt;
+    请求类型: application/json &lt;/br&gt;
+    返回结构:                 &lt;/br&gt;
+            &#x60;{
+                &quot;errcode&quot;: &quot;0&quot;,
+                &quot;errmsg&quot;: &quot;&quot;,
+                &quot;data&quot;:{},
+                &quot;extention&quot;:{}
+            }&#x60;
+                             &lt;/br&gt;
+    data参数名说明:            &lt;/br&gt;
+        username 用户名 &lt;/br&gt;
+        mobile 手机号 &lt;/br&gt;
+        roles 角色ID数组 &lt;/br&gt;
+        resources 资源ID数组 &lt;/br&gt;
+@method api/rbacmg/userlogout
+@param username {String} 注册用户名，唯一
+@param password {String} 密码
+@param [code] {String} 验证码,根据安全需要时会要求提供
+@return 返回架构中的 &#x60;data&#x60;说明
+@example
+    输入样例
+    {
+       &quot;username&quot;:&quot;admin&quot;,
+       &quot;password&quot;:&quot;xxxxxxx&quot;,
+       &quot;code&quot;: &quot;xxxx&quot;
+    }
+
+    返回样例
+*/
+exports.postuserlogout = (req,res)  =&gt; {
+	$.proxy_rbacmg.grants.userlogout(req.body, (result) =&gt; {
+		res.send(result);
+	});
+}
+
+
+/**
+@description
+	线下后台认证			 &lt;/br&gt;
+	请求类型: POST             &lt;/br&gt;
+	请求类型: application/json &lt;/br&gt;
+	返回结构: {RESULTMSG}      &lt;/br&gt;
+			&#x60;{
+			    &quot;errcode&quot;: &quot;0&quot;,
+			    &quot;errmsg&quot;: &quot;&quot;,
+			    &quot;data&quot;:{},
+			    &quot;extention&quot;:{}
+			}&#x60;
+						      &lt;/br&gt;
+@method api/rbacmg/offlineverify
+@param id {String} 注册用户名，唯一
+@return 参考返回结构
+@example 
+	输入样例
+	{
+	    id:&#x27;xxxx&#x27;,
+	 	//其他所有字段
+	}
+
+	返回码说明
+	0        生成成功
+	40001	 生成失败
+*/
+exports.postofflineverify = (req,res) =&gt; {
+	$.proxy_rbacmg.grants.offlineverify(req.body,(result)=&gt;{
+		res.send(result);
+	});
+}
+
+/**
+@description
+	获取线下认证信息			 &lt;/br&gt;
+	请求类型: Get             &lt;/br&gt;
+	请求类型: application/json &lt;/br&gt;
+	返回结构: {RESULTMSG}      &lt;/br&gt;
+			&#x60;{
+			    &quot;errcode&quot;: &quot;0&quot;,
+			    &quot;errmsg&quot;: &quot;&quot;,
+			    &quot;data&quot;:{},
+			    &quot;extention&quot;:{}
+			}&#x60;
+						      &lt;/br&gt;
+@method api/rbacmg/verifyinfo
+@param id {String} 注册用户名，唯一
+@return 参考返回结构
+@example 
+	输入样例
+	{
+	    id:&#x27;xxxx&#x27;,
+	 	//其他所有字段
+	}
+
+	返回码说明
+	0        生成成功
+	40001	 生成失败
+*/
+exports.getverifyinfo = (req,res) =&gt; {
+	$.proxy_rbacmg.grants.verifyinfo(req.query.id,(result)=&gt;{
+		res.send(result);
+	});
+}
 
     </pre>
 </div>

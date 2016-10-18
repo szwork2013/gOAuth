@@ -306,7 +306,7 @@ module.exports.userbyid = (id, callback) =>{
                     ci.`identitytype`,\
                     ci.`identitycode`\
                 from `user` as u\
-                inner join cust_info as ci on u.id = ci.id\
+                left join cust_info as ci on u.id = ci.id\
                 WHERE id = '{0}';\
                 ".format(id);
 

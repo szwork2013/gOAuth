@@ -242,3 +242,34 @@ describe('后台登入', function() {
     });
 });
 
+describe('用户扩展信息管理', function() {
+    var id = "1111111111";
+    it('保存信息', function(done) {
+      request(hostname)
+        .post('/api/rbacmg/offlineverify')
+        .send({id:id,username:"admin",password:"123456"})
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .end(function (err, res) {
+          should.exist(res);
+          res.status.should.be.equal(200);
+          res.body.errcode.should.be.equal(0);
+          done();
+        });
+    });
+
+    it('获取信息', function(done) {
+      request(hostname)
+        .get('/api/rbacmg/verifyinfo?id='+id)
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .end(function (err, res) {
+          should.exist(res);
+          res.status.should.be.equal(200);
+          res.body.errcode.should.be.equal(0);
+          res.body.data.id.should.be.equal(id);
+          done();
+        });
+    });
+});
+

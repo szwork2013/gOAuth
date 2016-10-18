@@ -788,6 +788,86 @@
             "submodule": "rbacmg"
         },
         {
+            "file": "controller/api/rbacmg.js",
+            "line": 582,
+            "description": "后台系统－登出           </br>\n    请求类型: POST             </br>\n    请求类型: application/json </br>\n    返回结构:                 </br>\n            `{\n                \"errcode\": \"0\",\n                \"errmsg\": \"\",\n                \"data\":{},\n                \"extention\":{}\n            }`\n                             </br>\n    data参数名说明:            </br>\n        username 用户名 </br>\n        mobile 手机号 </br>\n        roles 角色ID数组 </br>\n        resources 资源ID数组 </br>",
+            "itemtype": "method",
+            "name": "api/rbacmg/userlogout",
+            "params": [
+                {
+                    "name": "username",
+                    "description": "注册用户名，唯一",
+                    "type": "String"
+                },
+                {
+                    "name": "password",
+                    "description": "密码",
+                    "type": "String"
+                },
+                {
+                    "name": "code",
+                    "description": "验证码,根据安全需要时会要求提供",
+                    "type": "String",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "返回架构中的 `data`说明"
+            },
+            "example": [
+                "\n    输入样例\n    {\n       \"username\":\"admin\",\n       \"password\":\"xxxxxxx\",\n       \"code\": \"xxxx\"\n    }\n\n    返回样例"
+            ],
+            "class": "rbacmg",
+            "module": "API",
+            "submodule": "rbacmg"
+        },
+        {
+            "file": "controller/api/rbacmg.js",
+            "line": 622,
+            "description": "线下后台认证\t\t\t </br>\n\t请求类型: POST             </br>\n\t请求类型: application/json </br>\n\t返回结构: {RESULTMSG}      </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t\t\t\t\t\t      </br>",
+            "itemtype": "method",
+            "name": "api/rbacmg/offlineverify",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "注册用户名，唯一",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "参考返回结构"
+            },
+            "example": [
+                " \n\t输入样例\n\t{\n\t    id:'xxxx',\n\t \t//其他所有字段\n\t}\n\n\t返回码说明\n\t0        生成成功\n\t40001\t 生成失败"
+            ],
+            "class": "rbacmg",
+            "module": "API",
+            "submodule": "rbacmg"
+        },
+        {
+            "file": "controller/api/rbacmg.js",
+            "line": 655,
+            "description": "获取线下认证信息\t\t\t </br>\n\t请求类型: Get             </br>\n\t请求类型: application/json </br>\n\t返回结构: {RESULTMSG}      </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`\n\t\t\t\t\t\t      </br>",
+            "itemtype": "method",
+            "name": "api/rbacmg/verifyinfo",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "注册用户名，唯一",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "参考返回结构"
+            },
+            "example": [
+                " \n\t输入样例\n\t{\n\t    id:'xxxx',\n\t \t//其他所有字段\n\t}\n\n\t返回码说明\n\t0        生成成功\n\t40001\t 生成失败"
+            ],
+            "class": "rbacmg",
+            "module": "API",
+            "submodule": "rbacmg"
+        },
+        {
             "file": "controller/api/tagmg.js",
             "line": 9,
             "description": "标签创建修改\t\t  </br>\n\t请求类型: POST             </br>\n\t请求类型: application/json </br>\n\t返回结构:      \t\t\t  </br>\n\t\t\t`{\n\t\t\t    \"errcode\": \"0\",\n\t\t\t    \"errmsg\": \"\",\n\t\t\t    \"data\":{},\n\t\t\t    \"extention\":{}\n\t\t\t}`",

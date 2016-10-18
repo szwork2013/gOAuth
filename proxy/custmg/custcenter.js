@@ -159,26 +159,26 @@ exports.register = (user, callback) =>
                         ('{0}', \
                         '{1}', \
                         '{2}', \
-                        {3},\
-                        {4},\
-                        '{5}',\
+                        '{3}',\
+                        '{4}',\
+                        {5},\
                         '{6}',\
                         UNIX_TIMESTAMP(),\
                         '{7}'); \
                     ".format(
                         user.id,
                         user.username,
-                        user.compcode,
-                        user.compname,
-                        user.contact,
-                        user.identitytype,
-                        user.identitycode,
+                        user.compcode?user.compcode:'',
+                        user.compname?user.compname:'',
+                        user.contact?user.contact:'',
+                        user.identitytype?user.identitytype:0,
+                        user.identitycode?user.identitycode:'',
                         user.id);
-
                 $.db.mysql.gd.query(cust_info_sql, (err,data) => {
-                    if (err) return cb($.plug.resultformat(40001, err));
+                    //if (err) return cb($.plug.resultformat(40001, err));
                     cb();
                 });
+
             },
             //授权默认权限
             function (cb) {
@@ -243,56 +243,6 @@ exports.resetpassword = (para, callback) =>
             }
         });
 }
-
-/*现场认证*/
-exports.offlineverify = (para, callback) =>
-{
-    var codeid;
-    async.waterfall([
-            //检察请求参数完整性
-            function (cb) {
-                if (!para || !para.username||!para.newpassword)
-                    return cb($.plug.resultformat(30001, "Username, password is mandatory"));
-
-                $.plug.crypto.encrypt(para.newpassword, $.config.cryptsalt, (maskpw)=>{
-                    para.newpassword = maskpw;
-                });
-
-                codeid = util.format("code:%s:%s", "2", para.username);
-                cb();
-            },
-            //验证码验证
-            function (cb) {
-                redis.get(codeid, (err, data) => {
-                   getcode = data;
-                   if(para.code != getcode) {
-                      return cb($.plug.resultformat(30011, "code is incorrect or expired"));
-                   }
-                   cb();
-                });
-            },
-            //密码重置
-            function (cb) {
-                var sql ="update user \
-                          set password = '{1}'\
-                          where name = '{0}'\
-                          ".format(para.username, para.newpassword);
-                $.db.mysql.gd.query(sql, (err, data) => {
-                    if (err) return cb($.plug.resultformat(40001, err));
-                    redis.expire(codeid , 0);
-                    cb();
-                });
-            }
-        ],
-        function (err) {
-            if (err) {
-                callback(err);
-            } else {
-                callback($.plug.resultformat(0, ''));
-            }
-        });
-}
-
 
 /*生成随机数*/
 function getRandomInt(min, max) {

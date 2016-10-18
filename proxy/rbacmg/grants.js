@@ -9,7 +9,8 @@ var KEY = {
     URER_RESOURCES: 'user_resources:%s',
     ROLE         : 'role:%s',
     USER         : 'user:%s',
-    RESOURCE         : 'resource:%s'
+    RESOURCE         : 'resource:%s',
+    VERIFY_INFO:'verifyinfo:%s'
 };
 
 module.exports.KEY = KEY;
@@ -172,3 +173,40 @@ module.exports.userlogin = (user, callback) => {
 module.exports.userlogout = (user, callback) => {
     callback($.plug.resultformat(0, ""));
 }
+
+/*现场认证*/
+exports.offlineverify = (para, callback) =>
+{
+    async.waterfall([
+            //现场认证数据校验
+            function (cb) {
+                cb();
+            },
+            //
+            function (cb) {
+               redis.hmset(util.format(KEY.VERIFY_INFO, para.id), para,(err, data)=>{
+                    if (err) return cb($.plug.resultformat(40001, err));
+                    cb($.plug.resultformat(0, ""));
+                });
+            }
+        ],
+        function (err) {
+            if (err) {
+                callback(err);
+            } else {
+                callback($.plug.resultformat(0, ''));
+            }
+        });
+}
+
+/*获取认证信息*/
+exports.verifyinfo = (id, callback) =>
+{
+    redis.hgetall(util.format(KEY.VERIFY_INFO, id),(err, data)=>{
+        if (err) return callback($.plug.resultformat(40001, err));
+        callback($.plug.resultformat(0, "", data));
+    });
+}
+
+
+

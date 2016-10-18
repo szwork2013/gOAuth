@@ -617,3 +617,70 @@ exports.postuserlogout = (req,res)  => {
 		res.send(result);
 	});
 }
+
+
+/**
+@description
+	线下后台认证			 </br>
+	请求类型: POST             </br>
+	请求类型: application/json </br>
+	返回结构: {RESULTMSG}      </br>
+			`{
+			    "errcode": "0",
+			    "errmsg": "",
+			    "data":{},
+			    "extention":{}
+			}`
+						      </br>
+@method api/rbacmg/offlineverify
+@param id {String} 注册用户名，唯一
+@return 参考返回结构
+@example 
+	输入样例
+	{
+	    id:'xxxx',
+	 	//其他所有字段
+	}
+
+	返回码说明
+	0        生成成功
+	40001	 生成失败
+*/
+exports.postofflineverify = (req,res) => {
+	$.proxy_rbacmg.grants.offlineverify(req.body,(result)=>{
+		res.send(result);
+	});
+}
+
+/**
+@description
+	获取线下认证信息			 </br>
+	请求类型: Get             </br>
+	请求类型: application/json </br>
+	返回结构: {RESULTMSG}      </br>
+			`{
+			    "errcode": "0",
+			    "errmsg": "",
+			    "data":{},
+			    "extention":{}
+			}`
+						      </br>
+@method api/rbacmg/verifyinfo
+@param id {String} 注册用户名，唯一
+@return 参考返回结构
+@example 
+	输入样例
+	{
+	    id:'xxxx',
+	 	//其他所有字段
+	}
+
+	返回码说明
+	0        生成成功
+	40001	 生成失败
+*/
+exports.getverifyinfo = (req,res) => {
+	$.proxy_rbacmg.grants.verifyinfo(req.query.id,(result)=>{
+		res.send(result);
+	});
+}
