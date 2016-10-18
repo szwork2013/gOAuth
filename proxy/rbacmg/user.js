@@ -307,10 +307,13 @@ module.exports.userbyid = (id, callback) =>{
                     ci.`identitycode`\
                 from `user` as u\
                 left join cust_info as ci on u.id = ci.id\
-                WHERE id = '{0}';\
+                WHERE u.id = '{0}';\
                 ".format(id);
 
     $.db.mysql.gd.query(sql, (err, data) => {
+        console.log(sql);
+        console.log(err);
+        console.log(data);
         if (err) return callback($.plug.resultformat(40001, err));
         callback($.plug.resultformat(0, "", data[0] ));
      });
