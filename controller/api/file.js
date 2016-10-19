@@ -3,7 +3,6 @@ var fs = require('fs-extra');
 var path = require('path');
 var crypto = require('crypto');
 var uuid = require('node-uuid');
-var multer  = require('multer');
 
 var busboy      = require('connect-busboy'),
     streamifier = require('streamifier');

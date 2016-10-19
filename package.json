@@ -32,7 +32,8 @@
     "data-driven": "*",
     "connect-busboy": "*",
     "streamifier": "*",
-    "formidable": "*"
+    "formidable": "*",
+    "fs-extra":"*"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
