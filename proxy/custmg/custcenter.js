@@ -70,7 +70,7 @@ exports.login = (para, callback) =>
 exports.register = (user, callback) =>
 {
     var userid,codeid;
-
+    console.log(user);
     async.waterfall([
             //检察请求参数完整性
             function (cb) {
