@@ -115,24 +115,24 @@ module.exports.createuser = (user,callback) => {
                         ('{0}', \
                         '{1}', \
                         '{2}', \
-                        {3},\
-                        {4},\
-                        '{5}',\
+                        '{3}',\
+                        '{4}',\
+                        {5},\
                         '{6}',\
                         UNIX_TIMESTAMP(),\
                         '{7}'); \
                     ".format(
                         user.id,
-                        user.username,
-                        user.compcode,
-                        user.compname,
-                        user.contact,
-                        user.identitytype,
-                        user.identitycode,
+                        user.name,
+                        user.compcode?user.compcode:'',
+                        user.compname?user.compname:'',
+                        user.contact?user.contact:'',
+                        user.identitytype?user.identitytype:0,
+                        user.identitycode?user.identitycode:'',
                         user.id);
 
                 $.db.mysql.gd.query(cust_info_sql, (err,data) => {
-                    if (err) return cb($.plug.resultformat(40001, err));
+                    //if (err) return cb($.plug.resultformat(40001, err));
                     cb();
                 });
         },
