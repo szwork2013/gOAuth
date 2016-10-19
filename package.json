@@ -29,7 +29,10 @@
     "crypto": "*",
     "bluebird": "*",
     "node-uuid": "*",
-    "data-driven": "*"
+    "data-driven": "*",
+    "connect-busboy": "*",
+    "streamifier": "*",
+    "formidable": "*"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
