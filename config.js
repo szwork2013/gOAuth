@@ -43,7 +43,6 @@ var config = module.exports = {
     time: 50,
     // 后台接口地址
     htUrl: "http://10.46.20.98:84",
-    //testhostname
     //testhostname: "http://172.28.184.75:9091",
     testhostname: "http://localhost:9091",
     // 程序路由结构
@@ -91,7 +90,9 @@ var config = module.exports = {
     backenduser:{
         name:"admin",
         password:"123456"
-    }
+    },
+    //uploadpath :'/Users/tianhuaren/Downloads/'
+    uploadpath :'/var/svn/gOAuth.git/temp/'
 };
 
 
