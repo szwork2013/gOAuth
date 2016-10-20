@@ -162,7 +162,64 @@ module.exports.postuploadforckedit = (req, res) => {
                    };
 
        redis.set(key, JSON.stringify(value), (err, data) => {
-            res.send(script.format(CKEditorFuncNum, "http://172.28.184.75:8081/api/file/show?key="+key, ""));
+            res.send(script.format(CKEditorFuncNum, "http://172.28.184.75:8081/api/file/showforckedit?key="+key, ""));
+        });
+    });       
+}
+
+module.exports.postuploadforckeditpaste = (req, res) => {
+    var CKEditorFuncNum = req.query.CKEditorFuncNum;
+    var CKEditor = req.query.CKEditor;
+    var script = "<script type='text/javascript'>\
+                    window.parent.CKEDITOR.tools.callFunction('{0}','{1}','{2}');\
+                 </script>";
+    
+    var result = {
+         fileName:"",
+         uploaded:1,
+         url:""
+    }
+
+    req.files = null;
+
+    var form = new formidable.IncomingForm();
+    form.keepExtensions = true;
+    form.uploadDir = $.config.uploadpath;
+    
+    form.on('error', function (err) {
+        if (err) {
+            res.send(script.format(CKEditorFuncNum,'', err));
+            return;
+        }
+    });
+
+    form.parse(req, function (err, fields, files) {
+        if (err) {
+          res.send(script.format(CKEditorFuncNum,'', err));
+          return;
+        }
+    });
+
+    form.on('end', function (fields, files) {
+       var arry=[];
+       var openfiles = form.openedFiles;
+       var file = openfiles[0];
+       var namearry = file.path.split('/');
+       var key = namearry[namearry.length-1].split('.')[0];
+       var value = {
+                        key:key,
+                        path: file.path,
+                        minetype: file.type,
+                        date: Date.now(),
+                        name: file.name,
+                        hash:""
+                   };
+
+       result.fileName = value.name;
+       result.url = "http://172.28.184.75:8081/api/file/showforckedit?key="+key;
+
+       redis.set(key, JSON.stringify(value), (err, data) => {
+            res.send(script.format(CKEditorFuncNum, "http://172.28.184.75:8081/api/file/showforckedit?key="+key, ""));
         });
     });       
 }
@@ -302,6 +359,21 @@ module.exports.postUploadChunk = (req, res) =>{
 
 module.exports.getshow = (req,res) =>{
     redis.get(req.query.key ,(err, data) => {
+        if(err) return res.send($.plug.resultformat(40001, err));
+
+        var value = JSON.parse(data);
+
+        fs.readFile(value.path,"binary",function(error,file){
+            res.writeHead(200, {"Content-Type": value.minetype} );
+            res.write(file,"binary");
+            res.end();
+        }); 
+    });
+}
+
+module.exports.getshowforckedit = (req,res) =>{
+    console.log(req.query.key.split('?')[0]);
+    redis.get(req.query.key.split('?')[0],(err, data) => {
         if(err) return res.send($.plug.resultformat(40001, err));
 
         var value = JSON.parse(data);
