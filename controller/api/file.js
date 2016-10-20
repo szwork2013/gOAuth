@@ -319,15 +319,23 @@ module.exports.postallfileinfo = (req , res) => {
     var values = [];
 
     async.each(keys, (id, callback) => {
-          redis.get(id , function (err, data){
-             values.push(JSON.parse(data));
-             return res.send($.plug.resultformat(0, '', values));
-          });
-       },
-       (err)=> {
+        async.waterfall([
+            function (cb) {
+                redis.get(id , function (err, data){
+                    return cb(null, data);
+                });
+            },
+            function (data,cb) {
+               values.push(data);
+               cb();
+            }
+        ],
+        function (err, data) {
+            callback();   
+        });
+     },(err,data)=> {
+        res.send($.plug.resultformat(0, '',values));
     });
-
-    //return res.send($.plug.resultformat(0, '', values));
 }
 
 // Request to merge all of the file chunks into one file
