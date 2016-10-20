@@ -3,6 +3,7 @@ var fs = require('fs-extra');
 var path = require('path');
 var crypto = require('crypto');
 var uuid = require('node-uuid');
+var async = $.async;
 
 var busboy      = require('connect-busboy'),
     streamifier = require('streamifier');
@@ -91,14 +92,79 @@ module.exports.postupload = (req, res) => {
     });
 
     form.on('end', function (fields, files) {
-       var file = form.openedFiles[0];
-       var namearry = file.path.split('/');
-       var filename = namearry[namearry.length-1].split('.')[0];
-       var value = {path:file.path,type: file.type};
-       redis.set(filename, JSON.stringify(value),(err, data) => {
-            res.send($.plug.resultformat(0, '',{hash: "",key:filename}));
-       });       
+       var array = [];
+       var openfiles = form.openedFiles;
+
+       async.each(openfiles, (item, callback) => {
+           var file = item;
+           var namearry = file.path.split('/');
+           var key = namearry[namearry.length-1].split('.')[0];
+           var value = {
+                            key:key,
+                            path: file.path,
+                            minetype: file.type,
+                            date: Date.now(),
+                            name: file.name,
+                            hash:""
+                       };
+           array.push(value);
+
+           redis.set(key, JSON.stringify(value), (err, data) => {
+               console.log(err);
+           });
+        },(err) => {
+           console.log(err);
+        });
+        res.send($.plug.resultformat(0, '', array));
     });
+}
+
+module.exports.postuploadforckedit = (req, res) => {
+    var CKEditorFuncNum = req.query.CKEditorFuncNum;
+    var CKEditor = req.query.CKEditor;
+    var script = "<script type='text/javascript'>\
+                    window.parent.CKEDITOR.tools.callFunction('{0}','{1}','{2}');\
+                 </script>";
+
+    req.files = null;
+
+    var form = new formidable.IncomingForm();
+    form.keepExtensions = true;
+    form.uploadDir = $.config.uploadpath;
+    
+    form.on('error', function (err) {
+        if (err) {
+            res.send(script.format(CKEditorFuncNum,'', err));
+            return;
+        }
+    });
+
+    form.parse(req, function (err, fields, files) {
+        if (err) {
+          res.send(script.format(CKEditorFuncNum,'', err));
+          return;
+        }
+    });
+
+    form.on('end', function (fields, files) {
+       var arry=[];
+       var openfiles = form.openedFiles;
+       var file = openfiles[0];
+       var namearry = file.path.split('/');
+       var key = namearry[namearry.length-1].split('.')[0];
+       var value = {
+                        key:key,
+                        path: file.path,
+                        minetype: file.type,
+                        date: Date.now(),
+                        name: file.name,
+                        hash:""
+                   };
+
+       redis.set(key, JSON.stringify(value), (err, data) => {
+            res.send(script.format(CKEditorFuncNum, "http://172.28.184.75:9091/api/file/show?key="+key, ""));
+        });
+    });       
 }
 
 // Use the post method for express.js to respond to posts to the uploadchunk urls and
@@ -245,6 +311,22 @@ module.exports.getshow = (req,res) =>{
             res.end();
         }); 
     });
+}
+
+module.exports.postallfileinfo = (req , res) => {
+    var keys = req.body;
+    var values = [];
+
+    async.each(keys, (id, callback) => {
+          redis.get(id , function (err, data){
+             values.push(JSON.parse(data));
+             return res.send($.plug.resultformat(0, '', values));
+          });
+       },
+       (err)=> {
+    });
+
+    //return res.send($.plug.resultformat(0, '', values));
 }
 
 // Request to merge all of the file chunks into one file

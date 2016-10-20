@@ -186,7 +186,7 @@ exports.offlineverify = (para, callback) =>
             function (cb) {
                redis.hmset(util.format(KEY.VERIFY_INFO, para.id), para,(err, data)=>{
                     if (err) return cb($.plug.resultformat(40001, err));
-                    cb($.plug.resultformat(0, ""));
+                    cb();
                 });
             }
         ],
