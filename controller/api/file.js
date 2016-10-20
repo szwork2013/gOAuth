@@ -305,8 +305,9 @@ module.exports.getshow = (req,res) =>{
         if(err) return res.send($.plug.resultformat(40001, err));
 
         var value = JSON.parse(data);
+        
         fs.readFile(value.path,"binary",function(error,file){
-            res.writeHead(200, {"Content-Type":value.type} );
+            res.writeHead(200, {"Content-Type": value.minetype} );
             res.write(file,"binary");
             res.end();
         }); 
