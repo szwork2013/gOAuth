@@ -162,7 +162,7 @@ module.exports.postuploadforckedit = (req, res) => {
                    };
 
        redis.set(key, JSON.stringify(value), (err, data) => {
-            res.send(script.format(CKEditorFuncNum, "http://172.28.184.75:9091/api/file/show?key="+key, ""));
+            res.send(script.format(CKEditorFuncNum, "http://172.28.184.75:8081/api/file/show?key="+key, ""));
         });
     });       
 }
@@ -305,7 +305,7 @@ module.exports.getshow = (req,res) =>{
         if(err) return res.send($.plug.resultformat(40001, err));
 
         var value = JSON.parse(data);
-        
+
         fs.readFile(value.path,"binary",function(error,file){
             res.writeHead(200, {"Content-Type": value.minetype} );
             res.write(file,"binary");
