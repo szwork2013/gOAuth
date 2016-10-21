@@ -94,8 +94,8 @@ var config = module.exports = {
         name:"admin",
         password:"123456"
     },
-    uploadpath :'/Users/tianhuaren/Downloads/'
-    //uploadpath :'/var/svn/gOAuth.git/temp/'
+    //uploadpath :'/Users/tianhuaren/Downloads/'
+    uploadpath :'/var/svn/gOAuth.git/temp/'
 };
 
 
