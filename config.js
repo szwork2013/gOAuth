@@ -25,10 +25,16 @@ var config = module.exports = {
         session:{
             host: "172.28.189.101",
             port: 6379,
-            db: 3,
+            db: 10,
             pass: 'P@ssword0'
         },
         userdb:{
+            host: "172.28.189.101",
+            port: 6379,
+            db: 2,
+            pass: 'P@ssword0'
+        },
+        filedb:{
             host: "172.28.189.101",
             port: 6379,
             db: 2,
@@ -62,11 +68,8 @@ var config = module.exports = {
         //白名单
         "white-list" : [
             '/',
-            '/manager/home',
-            '/oauth/token',
-            '/api/manager/user',
-            '/api/manager/UserSession',
-            '/api/manager/userlogin'
+            '/api/custcenter/login',
+            '/api/rbacmg/userlogin'
         ],
         // 缓存过期时间单位秒, 一般为2个小时有效期
         "max-age": 3600 * 2
@@ -91,8 +94,8 @@ var config = module.exports = {
         name:"admin",
         password:"123456"
     },
-    //uploadpath :'/Users/tianhuaren/Downloads/'
-    uploadpath :'/var/svn/gOAuth.git/temp/'
+    uploadpath :'/Users/tianhuaren/Downloads/'
+    //uploadpath :'/var/svn/gOAuth.git/temp/'
 };
 
 

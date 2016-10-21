@@ -141,11 +141,31 @@
 exports.postlogin = (req,res)  =&gt; {
 	$.proxy_custmg.custcenter.login(req.body,(result) =&gt; {
 		//create session
-		// var id = req.session.id;
-		// req.session.userSession = result.data;
-  //       req.session.save(function(err) {
-        	res.send(result);
-        // });
+		//var id = req.session.id;
+		if(result.data){
+			req.session.user_id = result.data.id;
+			req.session.user_name = result.data.name;
+			req.session.userSession = result.data;
+
+			result.data = {
+				session_id:req.session.id,
+				user:result.data
+			};
+
+	        req.session.save(function(err) {
+	        	res.send(result);
+	        });
+		}else {
+			req.session.user_id = &quot;&quot;;
+			req.session.user_name = &quot;&quot;;
+			req.session.userSession = {};
+
+			result.data = {
+				session_id:&quot;&quot;,
+				user:{}
+			};
+			res.send(result);
+		}
 	});
 }
 
@@ -284,19 +304,16 @@ exports.postverify = (req,res) =&gt; {
 @return 参考返回结构
 @example 
 	输入样例
-	{
-	    username:&#x27;admin&#x27;,
-	 	session_id:&quot;xxxxx&quot;
-	}
 
 	返回码说明
 	0        生成成功
 	40001	 生成失败
 */
 exports.postlogout = (req,res) =&gt; {
-	$.proxy_custmg.custcenter.logout(req.body,(result)=&gt;{
-		res.send(result);
-	});
+	res.send($.plug.resultformat(0, &#x27;&#x27;));
+	// $.proxy_custmg.custcenter.logout(req.body,(result)=&gt;{
+	// 	res.send(result);
+	// });
 }
 
 /**		

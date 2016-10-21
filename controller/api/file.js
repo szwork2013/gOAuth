@@ -8,7 +8,7 @@ var async = $.async;
 var busboy      = require('connect-busboy'),
     streamifier = require('streamifier');
 var util = require('util');
-var redis = $.plug.redis.userdbserver;
+var redis = $.plug.redis.filedbserver;
 
 
 module.exports.postupload = (req, res) => {

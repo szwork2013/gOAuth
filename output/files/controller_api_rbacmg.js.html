@@ -663,7 +663,21 @@ exports.getusergrants = (req,res)  =&gt; {
 */
 exports.postuserlogin = (req,res)  =&gt; {
 	$.proxy_rbacmg.grants.userlogin(req.body, (result) =&gt; {
-		res.send(result);
+		if(result.data){
+			result.data = {
+				session_id: req.session.id,
+				user:&quot;&quot;
+			};
+	        req.session.save(function(err) {
+	        	res.send(result);
+	        });
+	    }else{
+			result.data = {
+				session_id: &quot;&quot;,
+				user:{}
+			};
+			res.send(result);
+		}
 	});
 }
 
@@ -692,20 +706,12 @@ exports.postuserlogin = (req,res)  =&gt; {
 @return 返回架构中的 &#x60;data&#x60;说明
 @example
     输入样例
-    {
-       &quot;username&quot;:&quot;admin&quot;,
-       &quot;password&quot;:&quot;xxxxxxx&quot;,
-       &quot;code&quot;: &quot;xxxx&quot;
-    }
 
     返回样例
 */
-exports.postuserlogout = (req,res)  =&gt; {
-	$.proxy_rbacmg.grants.userlogout(req.body, (result) =&gt; {
-		res.send(result);
-	});
+exports.postuserlogout = (req,res) =&gt; {
+	res.send($.plug.resultformat(0, &#x27;&#x27;));
 }
-
 
 /**
 @description
@@ -773,6 +779,39 @@ exports.getverifyinfo = (req,res) =&gt; {
 	});
 }
 
+/**
+@description
+	后台重置密码			 &lt;/br&gt;
+	请求类型: POST             &lt;/br&gt;
+	请求类型: application/json &lt;/br&gt;
+	返回结构: {RESULTMSG}      &lt;/br&gt;
+			&#x60;{
+			    &quot;errcode&quot;: &quot;0&quot;,
+			    &quot;errmsg&quot;: &quot;&quot;,
+			    &quot;data&quot;:{},
+			    &quot;extention&quot;:{}
+			}&#x60;
+						      &lt;/br&gt;
+@method api/rbacmg/resetpassword
+@param id {String} 注册用户名，唯一
+@param newpassword {String} 重置后密码
+@return 参考返回结构
+@example 
+	输入样例
+	{
+	        id:&#x27;xxxxxxxxxx&#x27;,
+	        newpassword:&#x27;xxxxxxx&#x27;
+	}
+
+	返回码说明
+	0        生成成功
+	40001	 生成失败
+*/
+exports.postresetpassword = (req,res)  =&gt; {
+	$.proxy_rbacmg.rbacmg.resetpassword(req.body,(result)=&gt;{
+		res.send(result);
+	});
+}
     </pre>
 </div>
                     </div>

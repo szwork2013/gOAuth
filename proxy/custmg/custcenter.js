@@ -41,27 +41,49 @@ exports.login = (para, callback) =>
                 });
 
                 var sql = "\
-                           select count(1) as count\
-                           from `user`\
-                            WHERE name = '{0}' and password='{1}';\
+                           select \
+                                u.`id`,\
+                                u.`name`,\
+                                u.`status`,\
+                                u.`type`,\
+                                u.`mobile`,\
+                                u.`email`,\
+                                u.`create_dt`,\
+                                u.`create_user`,\
+                                u.`modify_dt`,\
+                                u.`modify_user`,\
+                                ci.`compcode`,\
+                                ci.`compname`,\
+                                ci.`contact`,\
+                                ci.`identitytype`,\
+                                ci.`identitycode`\
+                            from `user` as u\
+                            left join cust_info as ci on u.id = ci.id\
+                            WHERE u.name = '{0}' and u.password='{1}';\
                             ".format(para.username, para.password);
+
+                // var sql = "\
+                //            select count(1) as count\
+                //            from `user`\
+                //             WHERE name = '{0}' and password='{1}';\
+                //             ".format(para.username, para.password);
 
                 $.db.mysql.gd.query(sql, (err, data) => {
                     if (err) return cb($.plug.resultformat(40001, err));
-                    if (data[0].count == 0) 
+                    if (data.length == 0) 
                     {
                         forceverify({name:para.username, type:"1"});
                         return cb($.plug.resultformat(30003, "Either username or password is incorrect"));
                     }
-                    cb();
+                    cb(null, data[0]);
                  });
             }
         ],
-        function (err) {
+        function (err,data) {
             if (err) {
                 callback(err);
             } else {
-                callback($.plug.resultformat(0, ''));
+                callback($.plug.resultformat(0, '', data));
             }
         });
 }

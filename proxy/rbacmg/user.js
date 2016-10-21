@@ -311,9 +311,6 @@ module.exports.userbyid = (id, callback) =>{
                 ".format(id);
 
     $.db.mysql.gd.query(sql, (err, data) => {
-        console.log(sql);
-        console.log(err);
-        console.log(data);
         if (err) return callback($.plug.resultformat(40001, err));
         callback($.plug.resultformat(0, "", data[0] ));
      });
@@ -332,17 +329,13 @@ module.exports.useridbyname = (name, callback) =>{
 };
 
 module.exports.resetpassword = (user, callback) => {
-    $.plug.crypto.encrypt(user.oldpassword, $.config.cryptsalt, (maskpw)=>{
-                    user.password = maskpw;
-                }); 
-
     $.plug.crypto.encrypt(user.newpassword, $.config.cryptsalt, (maskpw)=>{
                     user.password = maskpw;
                 }); 
     var sql ="update user \
               set password = {2}\
-              where name = '{0}'\
-              ".format(user.name, user.newpassword)
+              where id = '{0}'\
+              ".format(user.id, user.newpassword)
     
     $.db.mysql.gd.query(sql, (err, data) => {
         if (err) return cb($.plug.resultformat(40001, err));
