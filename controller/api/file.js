@@ -5,16 +5,16 @@ var crypto = require('crypto');
 var uuid = require('node-uuid');
 var async = $.async;
 
-var busboy      = require('connect-busboy'),
-    streamifier = require('streamifier');
+// var busboy      = require('connect-busboy'),
+//     streamifier = require('streamifier');
 var util = require('util');
 var redis = $.plug.redis.filedbserver;
 
 
 module.exports.postupload = (req, res) => {
     // If no busboy req obj, then no uploads are taking place
-    if (!req.busboy)
-        return res.send($.plug.resultformat(40001, "no uploads are taking place"));
+    // if (!req.busboy)
+    //     return res.send($.plug.resultformat(40001, "no uploads are taking place"));
 
     req.files = null;
 
