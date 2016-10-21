@@ -305,21 +305,19 @@ function forcecodeverify(para, callback)
         function (cb) {
             redis.llen(forceverifyid, (err, data) => {
                 if(data > 5 && !para.code) return cb($.plug.resultformat(30005, "Code is forcing requiered"));
+                if(data > 5) {
+                    redis.get(codeid, (err, data) => {
+                        getcode = data;
+                        if(para.code != getcode) {
+                          return cb($.plug.resultformat(30011, "code is incorrect or expired"));
+                        } else {
+                            redis.expire(codeid , 0);
+                            redis.expire(forceverifyid , 0);
+                        }
+                    });
+                }
                 cb();
             });
-        },
-        function (cb) {
-           redis.get(codeid, (err, data) => {
-               getcode = data;
-               if(para.code != getcode) {
-                  return cb($.plug.resultformat(30011, "code is incorrect or expired"));
-               } else cb();
-           });
-        },
-        function (cb) {
-           redis.expire(codeid , 0);
-           redis.expire(forceverifyid , 0);
-           cb();
         }],
         function (err) {
             if (err) {
