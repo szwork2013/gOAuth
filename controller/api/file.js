@@ -360,14 +360,21 @@ module.exports.postUploadChunk = (req, res) =>{
 module.exports.getshow = (req,res) =>{
     redis.get(req.query.key ,(err, data) => {
         if(err) return res.send($.plug.resultformat(40001, err));
+        if(data)
+        {
+            var value = JSON.parse(data);
 
-        var value = JSON.parse(data);
+            if(!value.path) return res.send($.plug.resultformat(40001, "No data"));
 
-        fs.readFile(value.path,"binary",function(error,file){
-            res.writeHead(200, {"Content-Type": value.minetype} );
-            res.write(file,"binary");
-            res.end();
-        }); 
+            fs.readFile(value.path,"binary",function(error,file){
+                res.writeHead(200, {"Content-Type": value.minetype} );
+                res.write(file,"binary");
+                res.end();
+            }); 
+        }else 
+        {
+            res.send($.plug.resultformat(40001, "No data"));
+        }
     });
 }
 
@@ -375,14 +382,21 @@ module.exports.getshowforckedit = (req,res) =>{
     console.log(req.query.key.split('?')[0]);
     redis.get(req.query.key.split('?')[0],(err, data) => {
         if(err) return res.send($.plug.resultformat(40001, err));
+        if(data)
+        {
+            var value = JSON.parse(data);
 
-        var value = JSON.parse(data);
-
-        fs.readFile(value.path,"binary",function(error,file){
-            res.writeHead(200, {"Content-Type": value.minetype} );
-            res.write(file,"binary");
-            res.end();
-        }); 
+            if(!value.path) return res.send($.plug.resultformat(40001, "No data"));
+            
+            fs.readFile(value.path,"binary",function(error,file){
+                res.writeHead(200, {"Content-Type": value.minetype} );
+                res.write(file,"binary");
+                res.end();
+            }); 
+        }else
+        {
+            res.send($.plug.resultformat(40001, "No data"));
+        }
     });
 }
 
