@@ -10,6 +10,25 @@ var async = $.async;
 var util = require('util');
 var redis = $.plug.redis.filedbserver;
 
+function mkdirsSync(dirpath, mode) { 
+    if (!fs.existsSync(dirpath)) {
+        var pathtmp;
+        dirpath.split(path.sep).forEach(function(dirname) {
+            if (pathtmp) {
+                pathtmp = path.join(pathtmp, dirname);
+            }
+            else {
+                pathtmp = dirname==''?"/":dirname;
+            }
+            if (!fs.existsSync(pathtmp)) {
+                if (!fs.mkdirSync(pathtmp, mode)) {
+                    return false;
+                }
+            }
+        });
+    }
+    return true; 
+}
 
 module.exports.postupload = (req, res) => {
     // If no busboy req obj, then no uploads are taking place
@@ -72,10 +91,15 @@ module.exports.postupload = (req, res) => {
     //     res.send($.plug.resultformat(0, ''));
     // });
     // req.pipe(req.busboy);
+    
+    var currentpath = $.config.uploadpath + new Date().format("yyyyMMdd");
+
+    if(!mkdirsSync(currentpath)) return res.send($.plug.resultformat(40001, 'failed to create folder'));
+
 
     var form = new formidable.IncomingForm();
     form.keepExtensions = true;
-    form.uploadDir = $.config.uploadpath;
+    form.uploadDir = currentpath;
     
     form.on('error', function (err) {
         if (err) {
@@ -120,6 +144,11 @@ module.exports.postupload = (req, res) => {
 }
 
 module.exports.postuploadforckedit = (req, res) => {
+
+    var currentpath = $.config.uploadpath + new Date().format("yyyyMMdd");
+
+    if(!mkdirsSync(currentpath)) return res.send($.plug.resultformat(40001, 'failed to create folder'));
+
     var CKEditorFuncNum = req.query.CKEditorFuncNum;
     var CKEditor = req.query.CKEditor;
     var script = "<script type='text/javascript'>\
@@ -130,7 +159,7 @@ module.exports.postuploadforckedit = (req, res) => {
 
     var form = new formidable.IncomingForm();
     form.keepExtensions = true;
-    form.uploadDir = $.config.uploadpath;
+    form.uploadDir = currentpath;
     
     form.on('error', function (err) {
         if (err) {
@@ -168,6 +197,10 @@ module.exports.postuploadforckedit = (req, res) => {
 }
 
 module.exports.postuploadforckeditpaste = (req, res) => {
+
+    var currentpath = $.config.uploadpath + new Date().format("yyyyMMdd");
+    if(!mkdirsSync(currentpath)) return res.send($.plug.resultformat(40001, 'failed to create folder'));
+
     var CKEditorFuncNum = req.query.CKEditorFuncNum;
     var CKEditor = req.query.CKEditor;
     var script = "<script type='text/javascript'>\
@@ -184,7 +217,7 @@ module.exports.postuploadforckeditpaste = (req, res) => {
 
     var form = new formidable.IncomingForm();
     form.keepExtensions = true;
-    form.uploadDir = $.config.uploadpath;
+    form.uploadDir = currentpath;
     
     form.on('error', function (err) {
         if (err) {
