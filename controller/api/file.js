@@ -378,6 +378,22 @@ module.exports.getshow = (req,res) =>{
     });
 }
 
+module.exports.getdownload = (req,res) =>{
+    redis.get(req.query.key ,(err, data) => {
+        if(err) return res.send($.plug.resultformat(40001, err));
+        if(data)
+        {
+            var value = JSON.parse(data);
+            if(!value.path) return res.send($.plug.resultformat(40001, "No data"));
+
+            res.download(value.path);
+        }else 
+        {
+            res.send($.plug.resultformat(40001, "No data"));
+        }
+    });
+}
+
 module.exports.getshowforckedit = (req,res) =>{
     console.log(req.query.key.split('?')[0]);
     redis.get(req.query.key.split('?')[0],(err, data) => {

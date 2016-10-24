@@ -12,7 +12,7 @@ module.exports.KEY = KEY;
 
 /**/
 module.exports.createuser = (user,callback) => {
-    var id,sql;
+    var id,sql,isnew;
     async.waterfall([
             //检察请求参数完整性
         function (cb) {
@@ -26,11 +26,12 @@ module.exports.createuser = (user,callback) => {
                     if (data[0].count > 0) return cb($.plug.resultformat(30006, "User is already existing"));
                     cb();
                 });
-            }
+            }else cb();
         },
         function (cb) {
             if(!user.id)
             {
+                isnew = true;
                 var mobile_regx = /^(?:13\d|15\d|18[123456789])-?\d{5}(\d{3}|\*{3})$/;
                 var email_reg = /^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/gi;
                 user.mobile = mobile_regx.test(user.name)? user.name:"";
@@ -93,16 +94,16 @@ module.exports.createuser = (user,callback) => {
             cb();
         },
         function (cb) {
-            console.log(sql);
             $.db.mysql.gd.query(sql, (err,data) => {
-                console.log(err);
                 if (err) return cb($.plug.resultformat(40001, err));
                 cb();
             });
         },
         //保存附加信息
         function (cb) {
-                var cust_info_sql = "\
+             var cust_info_sql;
+             if(isnew){
+                    cust_info_sql = "\
                     INSERT INTO `cust_info`\
                         (`id`,\
                         `name`,\
@@ -132,9 +133,29 @@ module.exports.createuser = (user,callback) => {
                         user.identitytype?user.identitytype:0,
                         user.identitycode?user.identitycode:'',
                         user.id);
-                console.log(cust_info_sql);
+                }else{
+                    cust_info_sql = "\
+                      update `cust_info`\
+                      set `name` = '{1}',\
+                        `compcode`= '{2}',\
+                        `compname`= '{3}',\
+                        `contact`= '{4}',\
+                        `identitytype`= {5},\
+                        `identitycode`= '{6}',\
+                        `modify_dt`= UNIX_TIMESTAMP(),\
+                        `modify_user`= '{7}'\
+                    where id='{0}';\
+                    ".format(
+                        user.id,
+                        user.name,
+                        user.compcode?user.compcode:'',
+                        user.compname?user.compname:'',
+                        user.contact?user.contact:'',
+                        user.identitytype?user.identitytype:0,
+                        user.identitycode?user.identitycode:'',
+                        user.id);
+                }
                 $.db.mysql.gd.query(cust_info_sql, (err,data) => {
-                    console.log(err);
                     //if (err) return cb($.plug.resultformat(40001, err));
                     cb();
                 });
@@ -150,8 +171,6 @@ module.exports.createuser = (user,callback) => {
         }
     ],
     function (err) {
-        console.log(user.id);
-        
         if (err) {
             callback(err);
         } else {
