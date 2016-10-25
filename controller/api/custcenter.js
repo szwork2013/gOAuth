@@ -259,3 +259,14 @@ exports.getcodeverify = (req,res)  => {
 		res.send(result);
 	});
 }
+
+exports.getcustsummary = (req,res)  => {
+	var date = new Date().format("yyyy-MM-dd");
+	if(req.query.date){
+		date = req.query.date;
+	}
+	
+	$.proxy_custmg.custcenter.custsummary(date, (result)=>{
+		res.send(result);
+	});
+}

@@ -30,6 +30,7 @@ module.exports.createtag = (tag, callback) => {
                          `name`,\
                          `desc`,\
                          `status`,\
+                         `type`,\
                          `create_dt`,\
                          `create_user`)\
                     VALUES \
@@ -37,13 +38,15 @@ module.exports.createtag = (tag, callback) => {
                         '{1}', \
                         '{2}', \
                         {3},\
+                        {4},\
                         UNIX_TIMESTAMP(),\
-                        '{4}'); \
+                        '{5}'); \
                     ".format(
                         tag.id,
                         tag.name,
                         tag.desc,
                         tag.status,
+                        tag.type,
                         'admin');//todo 修改成当前操作用户
             } else {
                 sql = "\
@@ -52,14 +55,16 @@ module.exports.createtag = (tag, callback) => {
                         `name` = '{1}',\
                         `desc` = '{2}',\
                         `status` = {3},\
+                        `type` = {4},\
                         `modify_dt` = UNIX_TIMESTAMP(),\
-                        `modify_user` = '{4}'\
+                        `modify_user` = '{5}'\
                     WHERE `id` = '{0}';\
                     ".format(
                         tag.id,
                         tag.name,
                         tag.desc,
                         tag.status,
+                        tag.type,
                         'admin');//todo 修改成当前操作用户
             }
             cb();
@@ -106,6 +111,8 @@ module.exports.alltags = (para, callback) =>{
                 sql += " and name like '{0}%' ".format(para.name);
             }else if(para.status){
                 sql += " and status = {0} ".format(para.status);
+            }else if(para.type){
+                sql += " and type = {0} ".format(para.type);
             }
 
             cb();
@@ -118,6 +125,7 @@ module.exports.alltags = (para, callback) =>{
                     `name`,\
                     `desc`,\
                     `status`,\
+                    `type`,\
                     `create_dt`,\
                     `modify_user`,\
                     `modify_dt`,\
@@ -165,6 +173,8 @@ module.exports.alltags = (para, callback) =>{
                 sql += " and name like '{0}%' ".format(para.name);
             }else if(para.status){
                 sql += " and status = {0} ".format(para.status);
+            }else if(para.type){
+                sql += " and type = {0} ".format(para.type);
             }
 
             $.db.mysql.gd.query(sql, (err, countdata) => {
@@ -202,6 +212,7 @@ module.exports.tagbyid = (id, callback) =>{
                     `name`,\
                     `desc`,\
                     `status`,\
+                    `type`,\
                     `create_dt`,\
                     `modify_user`,\
                     `modify_dt`,\
@@ -214,4 +225,13 @@ module.exports.tagbyid = (id, callback) =>{
         if (err) return callback($.plug.resultformat(40001, err));
         callback($.plug.resultformat(0, "", data[0] ));
      });
+};
+
+/*根据类型打标签信息*/
+module.exports.maketags = (para, callback) =>{
+    callback($.plug.resultformat(0, ""));
+};
+
+module.exports.tagsbyids = (ids, callback) =>{
+    callback($.plug.resultformat(0, ""));
 };

@@ -341,6 +341,41 @@ exports.codeverify = (para, callback) => {
     });
 }
 
+exports.custsummary = (para, callback) => {
+    var sql= "select \
+              count(1) as count\
+              from user";
+    var result={
+        totalcount:0,
+        newcount:0,
+    }
+    async.waterfall([
+        //检察是否必须强制验证码
+        function (cb) {
+            $.db.mysql.gd.query(sql, (err,data) => {
+                result.totalcount = data[0].count;
+                cb();
+            });
+        },
+        function (cb) {
+            var newcount_sql=" where create_dt > unix_timestamp(date_sub('{0}',INTERVAL WEEKDAY('{0}') day)) \
+            and  create_dt < unix_timestamp(date_sub('{0}',INTERVAL WEEKDAY('{0}') - 7 DAY))".format(para);
+         
+            $.db.mysql.gd.query(sql + newcount_sql, (err,data) => {
+                result.newcount = data[0].count    
+                cb();
+            });
+        }],
+        function (err) {
+            if (err) {
+                callback(err);
+            } else {
+                callback($.plug.resultformat(0, '', result));
+            }
+        }
+    );
+
+}
 
 
 
