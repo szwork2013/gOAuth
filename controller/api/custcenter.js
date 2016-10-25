@@ -260,13 +260,4 @@ exports.getcodeverify = (req,res)  => {
 	});
 }
 
-exports.getcustsummary = (req,res)  => {
-	var date = new Date().format("yyyy-MM-dd");
-	if(req.query.date){
-		date = req.query.date;
-	}
-	
-	$.proxy_custmg.custcenter.custsummary(date, (result)=>{
-		res.send(result);
-	});
-}
+
