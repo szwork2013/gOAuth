@@ -137,3 +137,15 @@ exports.gettagcount = (req,res)  => {
 	});
 }
 
+exports.postmaketags = (req,res)  => {
+	$.proxy_tagmg.tag.maketags(req.body, (result) => {
+		res.send(result);
+	});
+}
+
+exports.posttagsbyids = (req,res)  => {
+	$.proxy_tagmg.tag.tagsbyids(req.body, (result) => {
+		res.send(result);
+	});
+}
+

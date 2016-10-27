@@ -353,17 +353,37 @@ module.exports.useridbyname = (name, callback) =>{
 };
 
 module.exports.resetpassword = (user, callback) => {
-    $.plug.crypto.encrypt(user.newpassword, $.config.cryptsalt, (maskpw)=>{
-                    user.password = maskpw;
-                }); 
-    var sql ="update user \
-              set password = {2}\
+    var code = $.plug.sms.getRandomInt(100000,999999);
+    user.newpassword = code;
+
+    var mobilesql ="select mobile from user \
               where id = '{0}'\
-              ".format(user.id, user.newpassword)
+              ".format(user.id);
     
-    $.db.mysql.gd.query(sql, (err, data) => {
-        if (err) return cb($.plug.resultformat(40001, err));
-        cb();
+    $.db.mysql.gd.query(mobilesql, (err, data) => {
+        if (err) return callback($.plug.resultformat(40001, err));
+        var value = {
+            number : data[0].mobile,
+            content: "系统为您生成的登录密码为:{0}。请注意保护个人密码安全。".format(code)
+        };
+
+        if(data[0].mobile)
+          $.plug.sms.send(value,(result)=> {console.log("短信发送结果:"+ result)});
+     });
+    
+    //加密密码
+    $.plug.crypto.encrypt("{0}".format(user.newpassword), $.config.cryptsalt, (maskpw)=>{
+         user.newpassword = maskpw;
+
+         var sql ="update user \
+              set password = '{1}'\
+              where id = '{0}'\
+              ".format(user.id, user.newpassword);
+
+        $.db.mysql.gd.query(sql, (err, data) => {
+            if (err) return callback($.plug.resultformat(40001, err));
+            callback($.plug.resultformat(0, ""));
+         });
      });
 };
 

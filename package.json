@@ -33,7 +33,8 @@
     "connect-busboy": "*",
     "streamifier": "*",
     "formidable": "*",
-    "fs-extra":"*"
+    "fs-extra":"*",
+    "soap":"*"
   },
   "devDependencies": {
     "grunt": "^1.0.1",

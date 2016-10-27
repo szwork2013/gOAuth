@@ -179,7 +179,7 @@ exports.postresetpassword = (req,res)  => {
 	40001	 生成失败
 */
 exports.getcodegenerate = (req,res)  => {
-	var data={
+	var data = {
 		name:req.query.username,
 		type:req.query.type
 	};

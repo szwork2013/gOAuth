@@ -266,13 +266,6 @@ exports.resetpassword = (para, callback) =>
         });
 }
 
-/*生成随机数*/
-function getRandomInt(min, max) {
-   min = Math.ceil(min);
-   max = Math.floor(max);
-   return Math.floor(Math.random() * (max - min)) + min;
-}
-
 //生成验证码
 //type: 1 登录验证
 function forceverify(para) {
@@ -286,11 +279,16 @@ function forceverify(para) {
 //type: 0注册，1登录验证，2忘记密码
 exports.codegenerate = (para, callback) =>
 {
-    var code = getRandomInt(1000,9999);
+    var code = $.plug.sms.getRandomInt(1000,9999);
     var codeid = util.format("code:%s:%s", para.type, para.name);
     redis.set(codeid, code, (err, data) => {
         redis.expire(codeid, 300);
-        return callback($.plug.resultformat(0, '', {code:code}));
+        var value = {
+            number : para.name,
+            content:"验证码为:{0},有效时间为5分钟。".format(code)
+        };
+        $.plug.sms.send(value,(result)=>{console.log("短信发送结果:"+ result)});
+        return callback($.plug.resultformat(0, '', value));
     });
 }
 

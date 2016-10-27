@@ -720,7 +720,7 @@ exports.getverifyinfo = (req,res) => {
 	40001	 生成失败
 */
 exports.postresetpassword = (req,res)  => {
-	$.proxy_rbacmg.rbacmg.resetpassword(req.body,(result)=>{
+	$.proxy_rbacmg.user.resetpassword(req.body,(result)=>{
 		res.send(result);
 	});
 }
