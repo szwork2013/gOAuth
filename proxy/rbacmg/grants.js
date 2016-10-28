@@ -164,7 +164,7 @@ module.exports.user_roles_resources = (id,callback) => {
 module.exports.userlogin = (user, callback) => {
     if(user.username == $.config.backenduser.name && 
        user.password ==$.config.backenduser.password)
-       return callback($.plug.resultformat(0, ""))
+       return callback($.plug.resultformat(0, ""，$.config.backenduser))
     else
        return callback($.plug.resultformat(30099, "账户不存在或密码不正确"));
 }
