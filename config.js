@@ -69,7 +69,17 @@ var config = module.exports = {
         "white-list" : [
             '/',
             '/api/custcenter/login',
-            '/api/rbacmg/userlogin'
+            '/api/rbacmg/userlogin',
+            '/api/common/decrypt',
+            '/api/custcenter/codegenerate',
+            '/api/custcenter/register',
+            '/api/custcenter/resetpassword',
+            '/api/custcenter/logout',
+            '/api/summary/pageviewsummary',
+            '/api/file/show',
+            '/api/file/showforckedit',
+            '/api/file/download',
+            '/api/summary/custsummary'
         ],
         // 缓存过期时间单位秒, 一般为2个小时有效期
         "max-age": 3600 * 2
