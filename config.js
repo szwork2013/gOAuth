@@ -78,6 +78,10 @@ var config = module.exports = {
             '/api/summary/pageviewsummary',
             '/api/file/show',
             '/api/file/showforckedit',
+            '/api/file/upload',
+            '/api/file/uploadforckedit',
+            '/api/file/uploadforckeditpaste',
+            '/api/file/allfileinfo',
             '/api/file/download',
             '/api/summary/custsummary'
         ],
