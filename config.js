@@ -101,7 +101,7 @@ var config = module.exports = {
         }
     },
     backenduser:{
-        id: "cb96ab39-9ce5-11e6-aef2-000c29dd04de"
+        id: "cb96ab39-9ce5-11e6-aef2-000c29dd04de",
         name:"admin",
         password:"123456"
     },
