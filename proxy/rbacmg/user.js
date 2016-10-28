@@ -195,11 +195,14 @@ module.exports.allusers = (para, callback) =>{
 
             if(para.name){
                 sql += " and name like '{0}%' ".format(para.name);
-            }else if(para.mobile){
+            }
+            if(para.mobile){
                 sql += " and mobile like '{0}%' ".format(para.mobile);
-            }else if(para.email){
+            } 
+            if(para.email){
                 sql += " and email like '{0}%' ".format(para.email);
-            }else if(para.type){
+            } 
+            if(para.type){
                 sql += " and type = {0} ".format(para.type);
             }
 
@@ -257,13 +260,17 @@ module.exports.allusers = (para, callback) =>{
 
             if(para.name){
                 sql += " and name like '{0}%' ".format(para.name);
-            }else if(para.mobile){
+            }
+            if(para.mobile){
                 sql += " and mobile like '{0}%' ".format(para.mobile);
-            }else if(para.email){
+            } 
+            if(para.email){
                 sql += " and email like '{0}%' ".format(para.email);
-            }else if(para.type){
+            } 
+            if(para.type){
                 sql += " and type = {0} ".format(para.type);
             }
+            console.log(sql);
 
             $.db.mysql.gd.query(sql, (err, countdata) => {
                 if (err) return cb($.plug.resultformat(40001, err));
