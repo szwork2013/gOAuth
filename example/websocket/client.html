@@ -27,7 +27,7 @@
     <script type="text/javascript" src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript">
        var wsCtor = window['MozWebSocket'] ? MozWebSocket : WebSocket;
-      var socket = new wsCtor("ws://localhost:8080", 'echo-protocol');
+      var socket = new wsCtor("ws://localhost:9091/1", 'echo-protocol');
 
       $(function() {
           //初始化加载listen方法
