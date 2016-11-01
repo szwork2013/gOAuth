@@ -86,7 +86,7 @@ var config = module.exports = {
             '/api/summary/custsummary'
         ],
         // 缓存过期时间单位秒, 一般为2个小时有效期
-        "max-age": 3600 * 2
+        "max-age": 3600 * 48
     },
     //oauth store Type: redis , memory 
     oauth_store_type:"redis", 
