@@ -112,6 +112,7 @@ module.exports.createuser = (user,callback) => {
                         `contact`,\
                         `identitytype`,\
                         `identitycode`,\
+                        `recommander`,\
                         `create_dt`,\
                         `create_user`)\
                     VALUES \
@@ -122,8 +123,9 @@ module.exports.createuser = (user,callback) => {
                         '{4}',\
                         {5},\
                         '{6}',\
+                        '{7}',\
                         UNIX_TIMESTAMP(),\
-                        '{7}'); \
+                        '{8}'); \
                     ".format(
                         user.id,
                         user.name,
@@ -132,6 +134,7 @@ module.exports.createuser = (user,callback) => {
                         user.contact?user.contact:'',
                         user.identitytype?user.identitytype:0,
                         user.identitycode?user.identitycode:'',
+                        user.recommander?user.recommander:'',
                         user.id);
                 }else{
                     cust_info_sql = "\
@@ -142,8 +145,9 @@ module.exports.createuser = (user,callback) => {
                         `contact`= '{4}',\
                         `identitytype`= {5},\
                         `identitycode`= '{6}',\
+                        `identitycode`= '{7}',\
                         `modify_dt`= UNIX_TIMESTAMP(),\
-                        `modify_user`= '{7}'\
+                        `modify_user`= '{8}'\
                     where id='{0}';\
                     ".format(
                         user.id,
@@ -153,6 +157,7 @@ module.exports.createuser = (user,callback) => {
                         user.contact?user.contact:'',
                         user.identitytype?user.identitytype:0,
                         user.identitycode?user.identitycode:'',
+                        user.recommander?user.recommander:'',
                         user.id);
                 }
                 $.db.mysql.gd.query(cust_info_sql, (err,data) => {

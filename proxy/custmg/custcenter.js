@@ -175,6 +175,7 @@ exports.register = (user, callback) =>
                         `contact`,\
                         `identitytype`,\
                         `identitycode`,\
+                        `recommander`,\
                         `create_dt`,\
                         `create_user`)\
                     VALUES \
@@ -185,8 +186,9 @@ exports.register = (user, callback) =>
                         '{4}',\
                         {5},\
                         '{6}',\
+                        '{7}',\
                         UNIX_TIMESTAMP(),\
-                        '{7}'); \
+                        '{8}'); \
                     ".format(
                         user.id,
                         user.username,
@@ -195,6 +197,7 @@ exports.register = (user, callback) =>
                         user.contact?user.contact:'',
                         user.identitytype?user.identitytype:0,
                         user.identitycode?user.identitycode:'',
+                        user.recommander?user.recommander:'',
                         user.id);
                 console.log(cust_info_sql);
                 $.db.mysql.gd.query(cust_info_sql, (err,data) => {
