@@ -340,7 +340,8 @@ module.exports.userbyid = (id, callback) =>{
                     ci.`compname`,\
                     ci.`contact`,\
                     ci.`identitytype`,\
-                    ci.`identitycode`\
+                    ci.`identitycode`,\
+                    ci.`recommander`\
                 from `user` as u\
                 left join cust_info as ci on u.id = ci.id\
                 WHERE u.id = '{0}';\
