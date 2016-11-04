@@ -196,8 +196,10 @@ exports.register = (user, callback) =>
                         user.identitytype?user.identitytype:0,
                         user.identitycode?user.identitycode:'',
                         user.id);
+                console.log(cust_info_sql);
                 $.db.mysql.gd.query(cust_info_sql, (err,data) => {
                     //if (err) return cb($.plug.resultformat(40001, err));
+                    console.log(err);
                     cb();
                 });
 

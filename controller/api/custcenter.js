@@ -113,6 +113,7 @@ exports.postlogin = (req,res)  => {
 	   }
 */
 exports.postregister = (req,res) => {
+	console.log(req.body);
     $.proxy_custmg.custcenter.register(req.body,(result)=>{
 		res.send(result);
 	});
