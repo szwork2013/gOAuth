@@ -47,8 +47,8 @@ var config = module.exports = {
     debug: true,
     // 执行超过此值记日志
     time: 50,
-    // 后台接口地址
-    htUrl: "http://10.46.20.98:84",
+    // 入口服务器地址
+    nginxUrl: "http://192.168.51.4",
     //testhostname: "http://172.28.184.75:9091",
     testhostname: "http://localhost:9091",
     // 程序路由结构

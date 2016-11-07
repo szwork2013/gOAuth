@@ -191,7 +191,7 @@ module.exports.postuploadforckedit = (req, res) => {
                    };
 
        redis.set(key, JSON.stringify(value), (err, data) => {
-            res.send(script.format(CKEditorFuncNum, "http://172.28.184.75:8081/api/file/showforckedit?key="+key, ""));
+            res.send(script.format(CKEditorFuncNum, $.config.nginxUrl+"/api/file/showforckedit?key="+key, ""));
         });
     });       
 }
@@ -249,7 +249,7 @@ module.exports.postuploadforckeditpaste = (req, res) => {
                    };
 
        result.fileName = value.name;
-       result.url = "http://172.28.184.75:8081/api/file/showforckedit?key="+key;
+       result.url = $.config.nginxUrl+"/api/file/showforckedit?key="+key;
 
        redis.set(key, JSON.stringify(value), (err, data) => {
             res.send(result);
