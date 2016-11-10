@@ -13,6 +13,8 @@ module.exports.KEY = KEY;
 /**/
 module.exports.createuser = (user,callback) => {
     var id,sql,isnew;
+
+    console.log(user);
     async.waterfall([
             //检察请求参数完整性
         function (cb) {
@@ -101,6 +103,7 @@ module.exports.createuser = (user,callback) => {
         },
         //保存附加信息
         function (cb) {
+                 console.log(cb);
              var cust_info_sql;
              if(isnew){
                     cust_info_sql = "\
@@ -125,7 +128,8 @@ module.exports.createuser = (user,callback) => {
                         '{6}',\
                         '{7}',\
                         UNIX_TIMESTAMP(),\
-                        '{8}'); \
+                        '{8}',\
+						'{9}'); \
                     ".format(
                         user.id,
                         user.name,
@@ -135,7 +139,8 @@ module.exports.createuser = (user,callback) => {
                         user.identitytype?user.identitytype:0,
                         user.identitycode?user.identitycode:'',
                         user.recommander?user.recommander:'',
-                        user.id);
+                        user.id,
+						user.extension?user.extension:'');
                 }else{
                     cust_info_sql = "\
                       update `cust_info`\
@@ -145,9 +150,10 @@ module.exports.createuser = (user,callback) => {
                         `contact`= '{4}',\
                         `identitytype`= {5},\
                         `identitycode`= '{6}',\
-                        `identitycode`= '{7}',\
+						`recommander`='{7}',\
                         `modify_dt`= UNIX_TIMESTAMP(),\
-                        `modify_user`= '{8}'\
+                        `modify_user`= '{8}',\
+						`extension`='{9}'\
                     where id='{0}';\
                     ".format(
                         user.id,
@@ -158,7 +164,8 @@ module.exports.createuser = (user,callback) => {
                         user.identitytype?user.identitytype:0,
                         user.identitycode?user.identitycode:'',
                         user.recommander?user.recommander:'',
-                        user.id);
+                        user.id,
+						user.extension?user.extension:'');
                 }
                 $.db.mysql.gd.query(cust_info_sql, (err,data) => {
                     //if (err) return cb($.plug.resultformat(40001, err));
@@ -341,7 +348,8 @@ module.exports.userbyid = (id, callback) =>{
                     ci.`contact`,\
                     ci.`identitytype`,\
                     ci.`identitycode`,\
-                    ci.`recommander`\
+                    ci.`recommander`,\
+					ci.`extension`\
                 from `user` as u\
                 left join cust_info as ci on u.id = ci.id\
                 WHERE u.id = '{0}';\
