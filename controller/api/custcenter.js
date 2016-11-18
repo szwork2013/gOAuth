@@ -81,6 +81,35 @@ exports.postlogin = (req,res)  => {
 	});
 }
 
+exports.postlogincode = (req,res) =>
+{
+	$.proxy_custmg.custcenter.logincode(req.body,(result) => {
+		if(result.data){
+			req.session.user_id = result.data.id;
+			req.session.user_name = result.data.name;
+			req.session.userSession = result.data;
+			result.data = {
+				session_id:req.session.id,
+				user:result.data
+			};
+			console.log(result.data);
+			 req.session.save(function(err) {
+	        	res.send(result);
+	        });
+		}else {
+			req.session.user_id = "";
+			req.session.user_name = "";
+			req.session.userSession = {};
+
+			result.data = {
+				session_id:"",
+				user:{}
+			};
+			res.send(result);
+		}
+	});
+}
+
 /**
 @description
 	用户中心－注册			 </br>
@@ -261,3 +290,12 @@ exports.getcodeverify = (req,res)  => {
 }
 
 
+exports.postcoderecord = (req,res) => {
+	var data = {
+		name:req.query.name
+	};
+	console.log(data);
+	$.proxy_custmg.custcenter.coderecord(data,(result)=>{
+		res.send(result);
+	});
+}

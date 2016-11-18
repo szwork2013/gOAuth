@@ -87,6 +87,81 @@ exports.login = (para, callback) =>
             }
         });
 }
+/*用户中心一手机号验证码登录*/
+exports.logincode =(para,callback) =>
+{   
+    console.log(para);
+    var user,userSession;
+     async.waterfall([
+         //检察请求参数完整性
+            function (cb) {
+                if (!para || !para.username || !para.code)
+                    return cb($.plug.resultformat(30001, "Username and code is mandatory"));
+                cb();
+            },
+            //验证码验证
+            function (cb) {
+                var codeid = util.format("code:%s:%s", 3, para.username);
+                redis.get(codeid, (err, data) => {
+                           console.log(data);
+                        getcode = data;
+                        if(para.code != getcode) {
+                          return cb($.plug.resultformat(30011, "code is incorrect or expired"));
+                        } else {
+                            redis.expire(codeid , 0);
+                            return cb();
+                        }
+                    });
+            },
+            //账户异常
+            function (cb) {
+                //账户异常
+                var isrequired = false;
+                if (isrequired) return cb($.plug.resultformat(30007, "The account is innormal"));
+                cb();
+            },
+            //获取权限
+            function (cb) {
+                var sql = "\
+                           select \
+                                u.`id`,\
+                                u.`name`,\
+                                u.`status`,\
+                                u.`type`,\
+                                u.`mobile`,\
+                                u.`email`,\
+                                u.`create_dt`,\
+                                u.`create_user`,\
+                                u.`modify_dt`,\
+                                u.`modify_user`,\
+                                ci.`compcode`,\
+                                ci.`compname`,\
+                                ci.`contact`,\
+                                ci.`identitytype`,\
+                                ci.`identitycode`\
+                            from `user` as u\
+                            left join cust_info as ci on u.id = ci.id\
+                            WHERE u.name = '{0}';\
+                            ".format(para.username);
+                $.db.mysql.gd.query(sql, (err, data) => {
+                    if (err) return cb($.plug.resultformat(40001, err));
+                    if (data.length == 0) 
+                    {
+                        // forceverify({username:para.username, type:"3"});
+                        return cb($.plug.resultformat(30003, "Either username or code is incorrect"));
+                    }
+                    cb(null, data[0]);
+                 });
+            }
+        ],
+         function (err,data) {
+            if (err) {
+                callback(err);
+            } else {
+                callback($.plug.resultformat(0, '', data));
+            }
+        });
+}
 
 /*用户中心－开放注册*/
 exports.register = (user, callback) =>
@@ -109,7 +184,7 @@ exports.register = (user, callback) =>
             },
             //验证码验证
             function (cb) {
-               codeid = util.format("code:%s:%s", "0", user.username);
+               var codeid = util.format("code:%s:%s", "3", para.name);
                redis.get(codeid, (err, data) => {
                    getcode = data;
                    if(user.code != getcode) {
@@ -281,9 +356,9 @@ function forceverify(para) {
 }
 
 //生成验证码
-//type: 0注册，1登录验证，2忘记密码
+//type: 0注册，1强制登录验证，2忘记密码，3验证码登录验证
 exports.codegenerate = (para, callback) =>
-{
+{   
     var code = $.plug.sms.getRandomInt(1000,9999);
     var codeid = util.format("code:%s:%s", para.type, para.name);
     redis.set(codeid, code, (err, data) => {
@@ -292,6 +367,7 @@ exports.codegenerate = (para, callback) =>
             number : para.name,
             content:"验证码为:{0},有效时间为5分钟。".format(code)
         };
+        console.log(value);
         $.plug.sms.send(value,(result)=>{console.log("短信发送结果:"+ result)});
         return callback($.plug.resultformat(0, '', value));
     });
@@ -380,7 +456,35 @@ exports.custsummary = (para, callback) => {
 
 }
 
+//发送验证码信息的存储
+exports.coderecord = (para, callback) => 
+{   
+    mobile = para.name,
+    console.log(mobile);
+ 
+    var sql = "\
+                insert into `user_record`\
+                    (`mobile`,\
+                     `create_dt`)\
+                VALUES \
+                    ('mobile',\
+                    UNIX_TIMESTAMP());\
+                ".format(
+                    mobile?para.mobile:'');
 
+        $.db.mysql.gd.query(sql, (err,data) => {
+                  
+                });
+
+    // function (err){
+    //     if(err){
+    //         callback(err);
+    //     }else{
+    //         callback($.plug.resultformat(0,'',{id:user.id}));
+    //     }
+    // }
+
+}
 
 
 
