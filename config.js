@@ -69,6 +69,7 @@ var config = module.exports = {
         "white-list" : [
             '/',
             '/api/custcenter/login',
+            '/api/custcenter/logincode',
             '/api/rbacmg/userlogin',
             '/api/common/decrypt',
             '/api/custcenter/codegenerate',
@@ -121,5 +122,5 @@ if (config.debug) {
 } else {
     // 程序端口
     config.port = 9091;
-	config.static = 'minify';
+    config.static = 'minify';
 }
