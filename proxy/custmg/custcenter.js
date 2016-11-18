@@ -88,9 +88,8 @@ exports.login = (para, callback) =>
         });
 }
 /*用户中心一手机号验证码登录*/
-exports.logincode =(para,callback) =>
+exports.logincode = (para,callback) =>
 {   
-    console.log(para);
     var user,userSession;
      async.waterfall([
          //检察请求参数完整性
@@ -184,7 +183,7 @@ exports.register = (user, callback) =>
             },
             //验证码验证
             function (cb) {
-               var codeid = util.format("code:%s:%s", "3", para.name);
+               var codeid = util.format("code:%s:%s", "0", para.name);
                redis.get(codeid, (err, data) => {
                    getcode = data;
                    if(user.code != getcode) {
