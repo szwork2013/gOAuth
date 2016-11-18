@@ -183,7 +183,7 @@ exports.register = (user, callback) =>
             },
             //验证码验证
             function (cb) {
-               var codeid = util.format("code:%s:%s", "0", para.name);
+               codeid = util.format("code:%s:%s", "0", para.name);
                redis.get(codeid, (err, data) => {
                    getcode = data;
                    if(user.code != getcode) {
