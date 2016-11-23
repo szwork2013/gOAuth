@@ -82,7 +82,7 @@ exports.postlogin = (req,res)  => {
 }
 
 exports.postlogincode = (req,res) =>
-{
+{	
 	$.proxy_custmg.custcenter.logincode(req.body,(result) => {
 		if(result.data){
 			req.session.user_id = result.data.id;
@@ -92,7 +92,6 @@ exports.postlogincode = (req,res) =>
 				session_id:req.session.id,
 				user:result.data
 			};
-			console.log(result.data);
 			 req.session.save(function(err) {
 	        	res.send(result);
 	        });
@@ -296,6 +295,13 @@ exports.postcoderecord = (req,res) => {
 	};
 	console.log(data);
 	$.proxy_custmg.custcenter.coderecord(data,(result)=>{
+		res.send(result);
+	});
+}
+
+exports.postsendmessage = (req,res) =>{
+
+	$.proxy_custmg.custcenter.sendmessage(req.body,(result)=>{
 		res.send(result);
 	});
 }
