@@ -70,6 +70,7 @@ var config = module.exports = {
             '/',
             '/api/custcenter/login',
             '/api/custcenter/logincode',
+            '/api/custcenter/sendmessage',
             '/api/rbacmg/userlogin',
             '/api/common/decrypt',
             '/api/custcenter/codegenerate',
