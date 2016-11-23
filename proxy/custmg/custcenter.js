@@ -371,6 +371,18 @@ exports.codegenerate = (para, callback) =>
         return callback($.plug.resultformat(0, '', value));
     });
 }
+//活动发送短信
+exports.sendmessage = (para,callback) =>
+{       
+        var value = {
+            content:"尊敬的{0}先生/女士。{1}".format(para.name,para.message)
+        };
+        console.log(value);
+        $.plug.sms.send(value,(result)=>{console.log("短信发送结果:"+ result)});
+        return callback($.plug.resultformat(0, '', value));
+  
+   
+}
 
 //强制验证码校验
 function forcecodeverify(para, callback)
