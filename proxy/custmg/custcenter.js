@@ -166,7 +166,7 @@ exports.logincode = (para,callback) =>
 exports.register = (user, callback) =>
 {
     var userid,codeid;
-
+    console.log(user);
     async.waterfall([
             //检察请求参数完整性
             function (cb) {
@@ -180,6 +180,13 @@ exports.register = (user, callback) =>
                     if (data[0].count > 0) return cb($.plug.resultformat(30006, "User is already existing"));
                     cb();
                 });
+            },
+            //获取身份证是否已经存在
+            function (cb){
+                 $.db.mysql.gd.query("select count(1) as count from cust_info where identitycode='{0}'".format(user.identitycode), (err,data) => {
+                    if (data[0].count > 0) return cb($.plug.resultformat(30007, "identitycode is already existing"));
+                    cb();
+                });   
             },
             //验证码验证
             function (cb) {
