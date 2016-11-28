@@ -166,8 +166,7 @@ exports.logincode = (para,callback) =>
 exports.register = (user, callback) =>
 {
     var userid,codeid;
-    console.log(user);
-    async.waterfall([
+    sync.waterfall([
             //检察请求参数完整性
             function (cb) {
                 if (!user || !user.username||!user.password)
@@ -181,12 +180,17 @@ exports.register = (user, callback) =>
                     cb();
                 });
             },
-            //获取身份证是否已经存在
+           //获取身份证是否已经存在
             function (cb){
-                 $.db.mysql.gd.query("select count(1) as count from cust_info where identitycode='{0}'".format(user.identitycode), (err,data) => {
+                if(user.identitycode){
+                    $.db.mysql.gd.query("select count(1) as count from cust_info where identitycode='{0}'".format(user.identitycode), (err,data) => {
                     if (data[0].count > 0) return cb($.plug.resultformat(30007, "identitycode is already existing"));
                     cb();
-                });   
+                }); 
+                }else{
+                    cb();
+                }
+                   
             },
             //验证码验证
             function (cb) {
@@ -280,10 +284,8 @@ exports.register = (user, callback) =>
                         user.identitycode?user.identitycode:'',
                         user.recommander?user.recommander:'',
                         user.id);
-                console.log(cust_info_sql);
                 $.db.mysql.gd.query(cust_info_sql, (err,data) => {
                     //if (err) return cb($.plug.resultformat(40001, err));
-                    console.log(err);
                     cb();
                 });
 
