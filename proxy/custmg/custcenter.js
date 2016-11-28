@@ -166,7 +166,7 @@ exports.logincode = (para,callback) =>
 exports.register = (user, callback) =>
 {
     var userid,codeid;
-    sync.waterfall([
+    async.waterfall([
             //检察请求参数完整性
             function (cb) {
                 if (!user || !user.username||!user.password)
