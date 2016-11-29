@@ -515,15 +515,16 @@ exports.autoregist = (user,callback) =>{
             function (cb) {
                 var mobile_regx = /^(?:13\d|15\d|18[123456789])-?\d{5}(\d{3}|\*{3})$/;
                 var email_reg = /^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/gi;
-                user.mobile = mobile_regx.test(user.username)? user.username:"";
                 user.email = email_reg.test(user.username)? user.username:"";
-
+                user.username = mobile_regx.test(user.mobile)?user.mobile:"";
                 user.id = uuid.v4();
                 $.plug.crypto.encrypt(user.password, $.config.cryptsalt, (maskpw)=>{
                     user.password = maskpw;
                 });
-
-                sql = "\
+                if(user.username==null || user.username==""){
+                        callback($.plug.resultformat(40008, '', {compname:user.compname,compcode:user.compcode}));
+                    }else{
+                          sql = "\
                     INSERT INTO `user`\
                         (`id`,\
                          `name`,\
@@ -556,8 +557,9 @@ exports.autoregist = (user,callback) =>{
                 $.db.mysql.gd.query(sql, (err,data) => {
                     if (err) return cb($.plug.resultformat(40001, err));
                     cb();
-                });
-            },
+                });       
+            }     
+        },
             function (cb) {
                 var cust_info_sql = "\
                     INSERT INTO `cust_info`\
