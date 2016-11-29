@@ -305,3 +305,9 @@ exports.postsendmessage = (req,res) =>{
 		res.send(result);
 	});
 }
+//导入excel表格后自动注册会员
+exports.postautoregist = (req,res) =>{
+	$.proxy_custmg.custcenter.autoregist(req.body,(result)=>{
+		res.send(result);
+	});
+}

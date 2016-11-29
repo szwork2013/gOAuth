@@ -6,7 +6,8 @@ redis = $.plug.redis.userdbserver;
 
 var KEY = {
     USER         : 'user:%s',
-    USER_USERNAME: 'username:%s'
+    USER_USERNAME: 'username:%s',
+    VERIFY_INFO:'verifyinfo:%s'
 };
 
 /*用户中心－开放登录*/
@@ -506,5 +507,116 @@ exports.coderecord = (para, callback) =>
 
 }
 
+exports.autoregist = (user,callback) =>{
 
+    var userid;
+    async.waterfall([
+            //用户添加
+            function (cb) {
+                var mobile_regx = /^(?:13\d|15\d|18[123456789])-?\d{5}(\d{3}|\*{3})$/;
+                var email_reg = /^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/gi;
+                user.mobile = mobile_regx.test(user.username)? user.username:"";
+                user.email = email_reg.test(user.username)? user.username:"";
+
+                user.id = uuid.v4();
+                $.plug.crypto.encrypt(user.password, $.config.cryptsalt, (maskpw)=>{
+                    user.password = maskpw;
+                });
+
+                sql = "\
+                    INSERT INTO `user`\
+                        (`id`,\
+                         `name`,\
+                         `password`,\
+                         `status`,\
+                         `type`,\
+                         `mobile`,\
+                         `email`,\
+                         `create_dt`,\
+                         `create_user`)\
+                    VALUES \
+                        ('{0}', \
+                        '{1}', \
+                        '{2}', \
+                        {3},\
+                        {4},\
+                        '{5}',\
+                        '{6}',\
+                        UNIX_TIMESTAMP(),\
+                        '{7}'); \
+                    ".format(
+                        user.id,
+                        user.username,
+                        user.password,
+                        1,
+                        user.type,
+                        user.mobile,
+                        user.email,
+                        user.id);
+                $.db.mysql.gd.query(sql, (err,data) => {
+                    if (err) return cb($.plug.resultformat(40001, err));
+                    cb();
+                });
+            },
+            function (cb) {
+                var cust_info_sql = "\
+                    INSERT INTO `cust_info`\
+                        (`id`,\
+                        `name`,\
+                        `compcode`,\
+                        `compname`,\
+                        `contact`,\
+                        `identitytype`,\
+                        `identitycode`,\
+                        `recommander`,\
+                        `create_dt`,\
+                        `create_user`)\
+                    VALUES \
+                        ('{0}', \
+                        '{1}', \
+                        '{2}', \
+                        '{3}',\
+                        '{4}',\
+                        {5},\
+                        '{6}',\
+                        '{7}',\
+                        UNIX_TIMESTAMP(),\
+                        '{8}'); \
+                    ".format(
+                        user.id,
+                        user.username,
+                        user.compcode?user.compcode:'',
+                        user.compname?user.compname:'',
+                        user.contact?user.contact:'',
+                        user.identitytype?user.identitytype:0,
+                        user.identitycode?user.identitycode:'',
+                        user.recommander?user.recommander:'',
+                        user.id);
+                $.db.mysql.gd.query(cust_info_sql, (err,data) => {
+                    //if (err) return cb($.plug.resultformat(40001, err));
+                    cb();
+                });
+
+            },
+            //授权默认权限
+            function (cb) {
+                //todo add default roles and resources
+                cb();
+            },
+            function (cb) {
+
+               redis.hmset(util.format(KEY.VERIFY_INFO, user.id), user,(err, data)=>{
+                    if (err) return cb($.plug.resultformat(40001, err));
+                    cb();
+                });
+            }
+        ],
+            function (err) {
+                if (err) {
+                    callback(err);
+                } else {
+                    callback($.plug.resultformat(0, '', {id:user.id}));
+                }
+            });
+}
 
