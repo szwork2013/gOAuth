@@ -511,6 +511,13 @@ exports.autoregist = (user,callback) =>{
 
     var userid;
     async.waterfall([
+        //获取是否已经注册过
+            function (cb) {
+                $.db.mysql.gd.query("select count(1) as count from user where name='{0}'".format(user.username), (err,data) => {
+                    if (data[0].count > 0) return cb($.plug.resultformat(30006, "User is already existing"));
+                    cb();
+                });
+            },
             //用户添加
             function (cb) {
                 var mobile_regx = /^(?:13\d|15\d|18[123456789])-?\d{5}(\d{3}|\*{3})$/;
@@ -549,7 +556,7 @@ exports.autoregist = (user,callback) =>{
                         user.id,
                         user.username,
                         user.password,
-                        1,
+                        0,
                         user.type,
                         user.mobile,
                         user.email,
