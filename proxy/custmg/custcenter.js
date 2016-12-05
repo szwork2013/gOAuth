@@ -256,6 +256,7 @@ exports.register = (user, callback) =>
                     INSERT INTO `cust_info`\
                         (`id`,\
                         `name`,\
+                        `nickname`,\
                         `compcode`,\
                         `compname`,\
                         `contact`,\
@@ -273,11 +274,13 @@ exports.register = (user, callback) =>
                         {5},\
                         '{6}',\
                         '{7}',\
+                        '{8}', \
                         UNIX_TIMESTAMP(),\
-                        '{8}'); \
+                        '{9}');
                     ".format(
                         user.id,
                         user.username,
+                        user.nickname,
                         user.compcode?user.compcode:'',
                         user.compname?user.compname:'',
                         user.contact?user.contact:'',
@@ -572,6 +575,7 @@ exports.autoregist = (user,callback) =>{
                     INSERT INTO `cust_info`\
                         (`id`,\
                         `name`,\
+                        `nickname`,\
                         `compcode`,\
                         `compname`,\
                         `contact`,\
@@ -589,11 +593,13 @@ exports.autoregist = (user,callback) =>{
                         {5},\
                         '{6}',\
                         '{7}',\
+                        '{8}', \
                         UNIX_TIMESTAMP(),\
-                        '{8}'); \
+                        '{9}');
                     ".format(
                         user.id,
                         user.username,
+                        user.nickname,
                         user.compcode?user.compcode:'',
                         user.compname?user.compname:'',
                         user.contact?user.contact:'',
