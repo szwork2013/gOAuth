@@ -53,6 +53,7 @@ exports.login = (para, callback) =>
                                 u.`create_user`,\
                                 u.`modify_dt`,\
                                 u.`modify_user`,\
+                                ci.`nickname`,\
                                 ci.`compcode`,\
                                 ci.`compname`,\
                                 ci.`contact`,\
