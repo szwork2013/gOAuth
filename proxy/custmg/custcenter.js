@@ -271,8 +271,8 @@ exports.register = (user, callback) =>
                         '{2}', \
                         '{3}',\
                         '{4}',\
-                        {5},\
-                        '{6}',\
+                        '{5}',\
+                        {6},\
                         '{7}',\
                         '{8}',\
                         UNIX_TIMESTAMP(),\
@@ -590,8 +590,8 @@ exports.autoregist = (user,callback) =>{
                         '{2}', \
                         '{3}',\
                         '{4}',\
-                        {5},\
-                        '{6}',\
+                        '{5}',\
+                        {6},\
                         '{7}',\
                         '{8}',\
                         UNIX_TIMESTAMP(),\
