@@ -243,7 +243,7 @@ exports.register = (user, callback) =>
                         user.id,
                         user.username,
                         user.password,
-                        1,
+                        0,
                         user.type,
                         user.mobile,
                         user.email,
